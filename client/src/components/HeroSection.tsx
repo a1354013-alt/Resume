@@ -48,15 +48,17 @@ export default function HeroSection() {
           </p>
 
           <div className="mt-10 flex flex-wrap justify-center gap-3">
-            <Link href="/projects">
-              <a className="px-5 py-3 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-200 hover:bg-cyan-500/30 transition-colors font-medium">
-                看專案
-              </a>
+            <Link
+              href="/projects"
+              className="px-5 py-3 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-200 hover:bg-cyan-500/30 transition-colors font-medium"
+            >
+              看專案
             </Link>
-            <Link href="/resume">
-              <a className="px-5 py-3 rounded-lg bg-slate-900/40 border border-slate-700/40 text-slate-200 hover:bg-slate-900/60 transition-colors font-medium">
-                看履歷
-              </a>
+            <Link
+              href="/resume"
+              className="px-5 py-3 rounded-lg bg-slate-900/40 border border-slate-700/40 text-slate-200 hover:bg-slate-900/60 transition-colors font-medium"
+            >
+              看履歷
             </Link>
             <a
               href="#contact"

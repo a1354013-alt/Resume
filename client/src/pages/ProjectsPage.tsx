@@ -218,6 +218,7 @@ export default function ProjectsPage() {
                   <input
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
+                    aria-label="Search projects"
                     placeholder="搜尋專案名稱或描述…"
                     className="w-full pl-10 pr-3 py-3 bg-slate-950/40 border border-slate-700/40 rounded-lg text-slate-200 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
                   />
@@ -228,6 +229,7 @@ export default function ProjectsPage() {
                   onChange={e =>
                     setSelectedCategory(e.target.value as Category)
                   }
+                  aria-label="Category"
                   className="w-full px-3 py-3 bg-slate-950/40 border border-slate-700/40 rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
                 >
                   <option value="all">全部分類</option>
@@ -239,6 +241,7 @@ export default function ProjectsPage() {
                 <select
                   value={sortBy}
                   onChange={e => setSortBy(e.target.value as SortBy)}
+                  aria-label="Sort"
                   className="w-full px-3 py-3 bg-slate-950/40 border border-slate-700/40 rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
                 >
                   <option value="tier">排序：層級</option>
@@ -252,6 +255,7 @@ export default function ProjectsPage() {
                   onClick={() => setShowTechFilter(v => !v)}
                   aria-expanded={showTechFilter}
                   aria-controls={techFilterPanelId}
+                  aria-label="Technologies filter"
                   className="inline-flex items-center gap-2 text-sm text-cyan-300 hover:text-cyan-200 transition-colors"
                 >
                   技術篩選{" "}
@@ -304,7 +308,7 @@ export default function ProjectsPage() {
             </section>
 
             {/* List */}
-            <section>
+            <section aria-label="All projects">
               <h3 className="text-xl font-semibold mb-4">全部專案</h3>
               {filteredProjects.length === 0 ? (
                 <div className="rounded-lg border border-slate-700/40 bg-slate-900/20 p-8 text-center text-slate-300">

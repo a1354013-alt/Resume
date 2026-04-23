@@ -11,6 +11,8 @@ export default defineConfig({
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),
     },
+    dedupe: ["react", "react-dom"],
+    preserveSymlinks: false,
   },
   envDir: path.resolve(import.meta.dirname),
   root: path.resolve(import.meta.dirname, "client"),

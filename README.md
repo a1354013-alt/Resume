@@ -1,139 +1,136 @@
-# 羅揚文｜作品集（Portfolio）
+# Portfolio (Vite + React + TypeScript + Tailwind CSS)
 
-本專案是可直接上線展示的作品集站：首頁敘事 + 專案頁 + 履歷頁 + 自傳頁，並具備基本工程化配置（build/typecheck/lint/test + CI）。
+個人作品集網站（SPA）：首頁敘事 / 專案列表 / 履歷 / 自傳 / 404。  
+目標是「可直接部署」且工程配置一致：style check / typecheck / test / build + CI。
 
-## 技術棧
+## Demo
+
+- Live demo: _TBD_（建議填入實際部署連結）
+
+## Screenshots
+
+（目前 repo 未包含實際截圖，先保留清楚結構；建議放在 `docs/screenshots/`）
+
+- Home: _TBD_ (`docs/screenshots/home.png`)
+- Projects: _TBD_ (`docs/screenshots/projects.png`)
+- Project dialog: _TBD_ (`docs/screenshots/project-dialog.png`)
+- Resume: _TBD_ (`docs/screenshots/resume.png`)
+- 404: _TBD_ (`docs/screenshots/404.png`)
+
+## Tech Stack
 
 - React 19 + TypeScript
-- Vite（SPA）
-- Tailwind CSS v4（透過 `client/src/index.css` 進行樣式配置）
-- Express + Helmet（production 靜態檔案服務）
-- Vitest（smoke tests）
-- Prettier（格式檢查與 CI lint）
+- Vite (SPA)
+- Tailwind CSS v4
+- Express + Helmet（production 靜態檔服務 + security headers）
+- Vitest + Testing Library（單元/互動測試）
+- Prettier（程式風格檢查）
 
-## 安裝
+## Requirements
+
+- Node.js: `^20.19.0`（或 `>=22.12.0`）
+- pnpm: `10.4.1`（見 `package.json#packageManager` / `package.json#engines`）
+
+> CI 使用 Node `20.19.0` 與 pnpm `10.4.1`，本機請盡量對齊避免行為差異。
+>
+> 本專案在 `.npmrc` 固定使用 `node-linker=hoisted`：避免 React 19 在 pnpm 的 symlink layout 下出現 Node 測試的「Invalid hook call」。
+>
+> pnpm v10 會預設阻擋 dependency install scripts；本 repo 透過 `package.json#pnpm.onlyBuiltDependencies` 允許 `esbuild` / `@tailwindcss/oxide`。若你仍看到 "Ignored build scripts" 警告，執行一次 `pnpm rebuild` 即可。
+
+## Getting Started
 
 ```bash
 pnpm install
-```
-
-建議環境：Node.js 20+（CI 使用 Node 20），並使用 `package.json` 內宣告的 `pnpm` 版本。
-
-## 本機啟動
-
-```bash
 pnpm dev
 ```
 
-啟動後預設在 `http://localhost:3000`（Vite dev server）。
+- Dev server: `http://localhost:3000`
 
-## 建置 / 預覽 / 上線
+## Scripts (Local = CI)
 
-### Build
+CI 僅跑單一入口：`pnpm ci`，本機請用同一條命令確保一致。
 
-```bash
-pnpm build
-```
+- `pnpm style:check`: Prettier check（不改檔）
+- `pnpm style:fix`: Prettier write（會改檔）
+- `pnpm typecheck`: `tsc --noEmit`
+- `pnpm test`: Vitest（jsdom）
+- `pnpm build`: Vite build + server bundle
+- `pnpm ci`: `style:check` + `typecheck` + `test` + `build`
+- `pnpm check`: alias to `pnpm ci`
 
-輸出：
-
-- 前端：`dist/public/`
-- 伺服器：`dist/index.js`
-
-### Preview（僅前端）
-
-```bash
-pnpm preview
-```
-
-### Start（production：Express 服務靜態檔案）
-
-```bash
-pnpm start
-```
-
-## 專案結構
+## Project Structure
 
 ```
 .
 ├─ client/
 │  ├─ index.html
 │  └─ src/
-│     ├─ components/        # 站內區塊元件（Hero/Structure/SEOHead...）
-│     ├─ hooks/             # 可重用 hook（focus trap / scroll lock 等）
-│     ├─ contexts/          # ThemeContext（dark mode class）
-│     ├─ data/              # 個資、專案資料（profile/projects）
-│     ├─ pages/             # Home / Projects / Resume / Biography / 404
-│     ├─ index.css          # Tailwind v4 入口與主題變數
+│     ├─ components/        # UI components
+│     ├─ contexts/          # ThemeProvider（只負責套用 dark class）
+│     ├─ data/              # profile/projects 靜態資料
+│     ├─ hooks/             # focus trap / scroll lock / escape key 等
+│     ├─ pages/             # Home / Projects / Resume / Biography / NotFound
+│     ├─ __tests__/         # Vitest tests（jsdom + Testing Library）
+│     ├─ index.css
 │     └─ main.tsx
 ├─ server/
-│  └─ index.ts              # Express + Helmet，production 靜態檔案服務
-├─ .github/workflows/ci.yml # GitHub Actions：lint/typecheck/test/build
-├─ .env.example             # 環境變數範例
+│  └─ index.ts              # Express production server（static + SPA fallback + caching headers）
+├─ .github/workflows/ci.yml
+├─ .env.example
 ├─ vite.config.ts
+├─ vitest.config.ts
 └─ package.json
 ```
 
-## 頁面介紹
+## Routes
 
-- `/`：首頁敘事（方法論與能力層次，含 CTA 到專案/履歷/聯絡）
-- `/projects`：專案列表 + 詳細對話框（只有真的有 URL 才會顯示 Demo/Repo 按鈕）
-- `/resume`：履歷摘要（含聯絡方式與技能重點）
-- `/biography`：自傳（工作取向與下一步）
-- `/404`：找不到頁面
+- `/`: Home
+- `/projects`: Projects list + filters + dialog
+- `/resume`: Resume page
+- `/biography`: Biography page
+- `/404`: NotFound page
+- (fallback): unknown paths render NotFound
 
-## 如何替換/調整個人資料
+## Configuration Notes
 
-### 個資與聯絡方式
+### SPA fallback + caching（production server）
 
-集中在：
+`server/index.ts` 的策略：
 
-- `client/src/data/profile.ts`
+- `/assets/*`：長快取 + `immutable`（Vite hashed assets）
+- 其他靜態檔：短快取（1 小時）
+- `index.html`：`no-cache`（避免部署後 SPA shell 被快取）
+- client-side routes：無副檔名的路徑會回傳 `index.html`
 
 ### SEO canonical / og:url
 
-`SEOHead` 會依序使用：
+`SEOHead` 會優先使用 `VITE_SITE_URL` 產生 canonical / og:url；未提供時 fallback 到瀏覽器的 `window.location.origin`。
 
-1. `VITE_SITE_URL`（建議在部署環境設定）
-2. `window.location.origin`（瀏覽器端 fallback）
+### Optional Umami analytics
 
-可在部署平台設定 `VITE_SITE_URL`，例如：
+當且僅當以下兩個 env 都存在時才會載入 Umami：
 
-- `https://<你的網域>`
+- `VITE_ANALYTICS_ENDPOINT`
+- `VITE_ANALYTICS_WEBSITE_ID`
 
-範例可參考：
+實作在 `client/src/main.tsx`，並包含「避免重複插入 script」的保護（例如 HMR / 重複 import）。
 
-- `.env.example`
+## Environment Variables
 
-## 環境變數
+見 `.env.example`：
 
-- `VITE_SITE_URL`：用於 `SEOHead` 產生 canonical / og:url（建議部署時設定）
-- `VITE_ANALYTICS_ENDPOINT` / `VITE_ANALYTICS_WEBSITE_ID`：Umami analytics（兩個都有值才會載入）
-- `PORT`：production server 監聽埠（預設 `3000`）
+- `VITE_SITE_URL`（可選）
+- `VITE_ANALYTICS_ENDPOINT` / `VITE_ANALYTICS_WEBSITE_ID`（可選）
+- `PORT`（production server port；預設 3000）
 
-## Screenshots / Demo
+## Known Limitations
 
-- Demo：部署後可直接貼上網址（建議同時設定 `VITE_SITE_URL`）
-- Screenshots：建議截取首頁、專案頁、履歷頁，自行放到 `README.md` 中（可直接用外部圖床連結；若要走 Vite public，可自行建立 `client/public/` 並放檔案）
+- 目前僅提供單元/互動測試，未包含 E2E（Playwright/Cypress）。
+- `Projects` 頁的「精選專案」區塊目前不會跟著搜尋/篩選一起變動（功能上可接受，但可能與直覺不同）。
+- 無 SSR / SSG（純 SPA）。
 
-## 部署注意事項（快取/靜態檔案）
+## Roadmap (Optional)
 
-production 的 Express 靜態檔案快取策略：
-
-- `dist/public/assets/*`：長快取（1 年）+ `immutable`（適合 Vite hashed assets）
-- `dist/public/*`（非 assets）：短快取（1 小時）
-- `index.html`：`no-cache` + `must-revalidate`（避免 SPA shell 部署後被卡住）
-
-## Scripts
-
-- `pnpm dev`：開發模式
-- `pnpm build`：建置前端 + server bundle
-- `pnpm preview`：僅預覽前端靜態輸出
-- `pnpm start`：production 啟動 Express 靜態服務
-- `pnpm format`：Prettier 自動格式化
-- `pnpm format:check`：Prettier 格式檢查（CI 使用）
-- `pnpm lint`：同 `format:check`（保留 alias）
-- `pnpm typecheck`：TypeScript typecheck
-- `pnpm test`：Vitest smoke tests
-- `pnpm check`：format:check + typecheck + test + build
-- `pnpm ci`：同 `check`（CI 方便使用）
+- 加入 E2E 測試（覆蓋關鍵路由與 Project dialog 開關流程）
+- 補齊實際 Demo link + screenshots
+- 視需求加入最小 ESLint（若未來團隊協作增多）

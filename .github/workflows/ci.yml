@@ -20,20 +20,11 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 20.19.0
           cache: pnpm
 
       - name: Install
         run: pnpm install --frozen-lockfile
 
-      - name: Format Check (Prettier)
-        run: pnpm -s run format:check
-
-      - name: Typecheck
-        run: pnpm -s run typecheck
-
-      - name: Test
-        run: pnpm -s run test
-
-      - name: Build
-        run: pnpm -s run build
+      - name: CI (style/typecheck/test/build)
+        run: pnpm -s run ci

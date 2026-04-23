@@ -8,9 +8,20 @@ const loadUmamiAnalytics = () => {
   const websiteId = import.meta.env.VITE_ANALYTICS_WEBSITE_ID;
 
   if (endpoint && websiteId) {
+    const normalizedEndpoint = endpoint.replace(/\/+$/, "");
+    const scriptId = "umami-analytics";
+
+    // Avoid injecting the same script multiple times (HMR, repeated imports, etc.)
+    if (document.getElementById(scriptId)) return;
+    const existing = document.querySelector(
+      `script[src="${normalizedEndpoint}/umami"][data-website-id="${websiteId}"]`
+    );
+    if (existing) return;
+
     const script = document.createElement("script");
+    script.id = scriptId;
     script.defer = true;
-    script.src = `${endpoint}/umami`;
+    script.src = `${normalizedEndpoint}/umami`;
     script.dataset.websiteId = websiteId;
     document.body.appendChild(script);
   }
