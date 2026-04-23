@@ -1,9 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* Import Google Fonts for Deep Space Techno design */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -58,7 +55,7 @@
   --chart-4: #0a1f3f;
   --chart-5: #1a0033;
   --radius: 0.65rem;
-  
+
   /* Dark space background with high contrast */
   --background: #000000;
   --foreground: #e0e7ff;
@@ -85,9 +82,9 @@
   --sidebar-ring: #00d9ff;
 
   /* Font families */
-  --font-display: 'Orbitron', monospace;
-  --font-mono: 'IBM Plex Mono', monospace;
-  --font-sans: 'Inter', sans-serif;
+  --font-display: "Orbitron", monospace;
+  --font-mono: "IBM Plex Mono", monospace;
+  --font-sans: "Inter", sans-serif;
 }
 
 @layer base {
@@ -111,7 +108,12 @@
   }
 
   /* Deep Space Techno Typography */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-bold tracking-tight;
     font-family: var(--font-display);
   }
@@ -182,23 +184,33 @@
   /* Glowing text effect for headings */
   .glow-text {
     @apply text-accent;
-    text-shadow: 0 0 10px rgba(0, 217, 255, 0.5), 0 0 20px rgba(179, 0, 255, 0.3);
+    text-shadow:
+      0 0 10px rgba(0, 217, 255, 0.5),
+      0 0 20px rgba(179, 0, 255, 0.3);
   }
 
   /* Neon glow for interactive elements */
   .neon-glow {
     @apply transition-all duration-300;
-    box-shadow: 0 0 10px rgba(0, 217, 255, 0.3), inset 0 0 10px rgba(0, 217, 255, 0.1);
+    box-shadow:
+      0 0 10px rgba(0, 217, 255, 0.3),
+      inset 0 0 10px rgba(0, 217, 255, 0.1);
   }
 
   .neon-glow:hover {
-    box-shadow: 0 0 20px rgba(0, 217, 255, 0.6), inset 0 0 20px rgba(0, 217, 255, 0.2);
+    box-shadow:
+      0 0 20px rgba(0, 217, 255, 0.6),
+      inset 0 0 20px rgba(0, 217, 255, 0.2);
   }
 
   /* Particle animation base */
   .particle {
     @apply absolute rounded-full;
-    background: radial-gradient(circle, rgba(0, 217, 255, 0.8), rgba(0, 217, 255, 0));
+    background: radial-gradient(
+      circle,
+      rgba(0, 217, 255, 0.8),
+      rgba(0, 217, 255, 0)
+    );
   }
 
   /* Scroll-driven animation support */
@@ -223,7 +235,8 @@
 
   /* Pulsing animation for core */
   @keyframes pulse-core {
-    0%, 100% {
+    0%,
+    100% {
       transform: scale(1);
       opacity: 1;
     }

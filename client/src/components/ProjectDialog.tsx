@@ -1,5 +1,11 @@
-import { X, ExternalLink, Github, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Project, projects } from '@/data/projects';
+import {
+  ChevronLeft,
+  ChevronRight,
+  ExternalLink,
+  Github,
+  X,
+} from "lucide-react";
+import { Project, projects } from "@/data/projects";
 
 interface ProjectDialogProps {
   project: Project | null;
@@ -9,36 +15,46 @@ interface ProjectDialogProps {
   onProjectChange?: (project: Project) => void;
 }
 
+function getCategoryLabel(category: Project["category"]) {
+  switch (category) {
+    case "enterprise":
+      return "Enterprise / ERP";
+    case "ai":
+      return "AI / ML";
+    case "learning":
+      return "Learning";
+  }
+}
+
 export default function ProjectDialog({
   project,
   isOpen,
   onClose,
   getTierBadge,
-  onProjectChange
+  onProjectChange,
 }: ProjectDialogProps) {
   if (!isOpen || !project) return null;
 
   const currentIndex = projects.findIndex(p => p.id === project.id);
-  const nextProject = currentIndex < projects.length - 1 ? projects[currentIndex + 1] : projects[0];
-  const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : projects[projects.length - 1];
+  const nextProject =
+    currentIndex < projects.length - 1
+      ? projects[currentIndex + 1]
+      : projects[0];
+  const prevProject =
+    currentIndex > 0
+      ? projects[currentIndex - 1]
+      : projects[projects.length - 1];
 
-  const handleNextProject = () => {
-    onProjectChange?.(nextProject);
-  };
-
-  const handlePrevProject = () => {
-    onProjectChange?.(prevProject);
-  };
+  const handleNextProject = () => onProjectChange?.(nextProject);
+  const handlePrevProject = () => onProjectChange?.(prevProject);
 
   return (
     <>
-      {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300"
         onClick={onClose}
       />
 
-      {/* Dialog */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div className="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-700/50 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl animate-in fade-in zoom-in-95 duration-300">
           {/* Header */}
@@ -49,15 +65,18 @@ export default function ProjectDialog({
                   {getTierBadge(project.tier)}
                 </span>
                 <span className="text-xs text-slate-500">
-                  {project.category === 'enterprise' ? '企業系統' : project.category === 'ai' ? 'AI/ML' : '學習探索'}
+                  {getCategoryLabel(project.category)}
                 </span>
               </div>
-              <h2 className="text-2xl font-bold text-slate-100">{project.name}</h2>
+              <h2 className="text-2xl font-bold text-slate-100">
+                {project.name}
+              </h2>
               <p className="text-sm text-slate-400 mt-1">{project.tagline}</p>
             </div>
             <button
               onClick={onClose}
               className="flex-shrink-0 p-2 hover:bg-slate-800/50 rounded-lg transition-colors text-slate-400 hover:text-slate-200"
+              aria-label="Close dialog"
             >
               <X className="w-5 h-5" />
             </button>
@@ -65,9 +84,10 @@ export default function ProjectDialog({
 
           {/* Content */}
           <div className="px-6 py-6 space-y-8">
-            {/* Technologies */}
             <div>
-              <h3 className="text-sm font-semibold text-cyan-400 mb-3">技術棧</h3>
+              <h3 className="text-sm font-semibold text-cyan-400 mb-3">
+                Technologies
+              </h3>
               <div className="flex flex-wrap gap-2">
                 {project.technologies.map(tech => (
                   <span
@@ -80,81 +100,103 @@ export default function ProjectDialog({
               </div>
             </div>
 
-            {/* Role & Metrics */}
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
-                <h3 className="text-sm font-semibold text-cyan-400 mb-2">我的角色</h3>
+                <h3 className="text-sm font-semibold text-cyan-400 mb-2">
+                  Role
+                </h3>
                 <p className="text-sm text-slate-300">{project.role}</p>
               </div>
               <div>
-                <h3 className="text-sm font-semibold text-cyan-400 mb-2">核心成果</h3>
-                <p className="text-sm text-cyan-400 font-semibold">{project.metrics}</p>
+                <h3 className="text-sm font-semibold text-cyan-400 mb-2">
+                  Outcome
+                </h3>
+                <p className="text-sm text-slate-200 font-medium">
+                  {project.metrics}
+                </p>
               </div>
             </div>
 
-            {/* Problem */}
             <div>
-              <h3 className="text-sm font-semibold text-cyan-400 mb-3">背景與問題</h3>
-              <p className="text-sm text-slate-300 leading-relaxed">{project.details.problem}</p>
+              <h3 className="text-sm font-semibold text-cyan-400 mb-3">
+                Problem
+              </h3>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                {project.details.problem}
+              </p>
             </div>
 
-            {/* Solution */}
             <div>
-              <h3 className="text-sm font-semibold text-cyan-400 mb-3">解決方案</h3>
-              <p className="text-sm text-slate-300 leading-relaxed">{project.details.solution}</p>
+              <h3 className="text-sm font-semibold text-cyan-400 mb-3">
+                Solution
+              </h3>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                {project.details.solution}
+              </p>
             </div>
 
-            {/* Contribution */}
             <div>
-              <h3 className="text-sm font-semibold text-cyan-400 mb-3">我的貢獻</h3>
-              <p className="text-sm text-slate-300 leading-relaxed">{project.details.contribution}</p>
+              <h3 className="text-sm font-semibold text-cyan-400 mb-3">
+                My Contribution
+              </h3>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                {project.details.contribution}
+              </p>
             </div>
 
-            {/* Technical Highlights */}
             <div>
-              <h3 className="text-sm font-semibold text-cyan-400 mb-3">技術亮點</h3>
+              <h3 className="text-sm font-semibold text-cyan-400 mb-3">
+                Highlights
+              </h3>
               <ul className="space-y-2">
                 {project.details.highlights.map((highlight, idx) => (
                   <li key={idx} className="text-sm text-slate-300 flex gap-3">
-                    <span className="text-cyan-400 flex-shrink-0">✓</span>
+                    <span className="text-cyan-400 flex-shrink-0">•</span>
                     <span>{highlight}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* Result */}
             <div>
-              <h3 className="text-sm font-semibold text-cyan-400 mb-3">成果與影響</h3>
-              <p className="text-sm text-slate-300 leading-relaxed">{project.details.result}</p>
+              <h3 className="text-sm font-semibold text-cyan-400 mb-3">
+                Result
+              </h3>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                {project.details.result}
+              </p>
             </div>
 
-            {/* Challenges */}
             <div>
-              <h3 className="text-sm font-semibold text-cyan-400 mb-3">挑戰與學習</h3>
-              <p className="text-sm text-slate-300 leading-relaxed">{project.details.challenges}</p>
+              <h3 className="text-sm font-semibold text-cyan-400 mb-3">
+                Challenges
+              </h3>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                {project.details.challenges}
+              </p>
             </div>
 
-            {/* Next Steps */}
             <div>
-              <h3 className="text-sm font-semibold text-cyan-400 mb-3">後續規劃</h3>
-              <p className="text-sm text-slate-300 leading-relaxed">{project.details.nextSteps}</p>
+              <h3 className="text-sm font-semibold text-cyan-400 mb-3">
+                Next Steps
+              </h3>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                {project.details.nextSteps}
+              </p>
             </div>
 
-            {/* Links and Navigation */}
             <div className="pt-4 border-t border-slate-700/30 space-y-4">
-              {/* External Links */}
               {(project.details.demoUrl || project.details.githubUrl) && (
-                <div className="flex gap-3">
+                <div className="flex flex-wrap gap-3">
                   {project.details.demoUrl && (
                     <a
                       href={project.details.demoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 bg-cyan-500/20 border border-cyan-500/50 rounded-lg text-sm text-cyan-300 hover:bg-cyan-500/30 transition-colors"
+                      className="flex items-center gap-2 px-4 py-2 bg-cyan-500/20 border border-cyan-500/50 rounded-lg text-sm text-cyan-200 hover:bg-cyan-500/30 transition-colors"
                     >
                       <ExternalLink className="w-4 h-4" />
-                      查看演示
+                      Demo
                     </a>
                   )}
                   {project.details.githubUrl && (
@@ -162,31 +204,30 @@ export default function ProjectDialog({
                       href={project.details.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 bg-slate-800/50 border border-slate-700/50 rounded-lg text-sm text-slate-300 hover:bg-slate-800 transition-colors"
+                      className="flex items-center gap-2 px-4 py-2 bg-slate-800/50 border border-slate-700/50 rounded-lg text-sm text-slate-200 hover:bg-slate-800 transition-colors"
                     >
                       <Github className="w-4 h-4" />
-                      查看代碼
+                      Repo
                     </a>
                   )}
                 </div>
               )}
 
-              {/* Project Navigation */}
               <div className="flex gap-3 justify-between">
                 <button
                   onClick={handlePrevProject}
-                  className="flex items-center gap-2 px-4 py-2 bg-slate-800/50 border border-slate-700/50 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:border-slate-600/50 transition-colors"
-                  title={`上一個專案: ${prevProject.name}`}
+                  className="flex items-center gap-2 px-4 py-2 bg-slate-800/50 border border-slate-700/50 rounded-lg text-sm text-slate-200 hover:bg-slate-800 hover:border-slate-600/50 transition-colors"
+                  title={`Previous: ${prevProject.name}`}
                 >
                   <ChevronLeft className="w-4 h-4" />
-                  上一個專案
+                  Previous
                 </button>
                 <button
                   onClick={handleNextProject}
-                  className="flex items-center gap-2 px-4 py-2 bg-cyan-500/20 border border-cyan-500/50 rounded-lg text-sm text-cyan-300 hover:bg-cyan-500/30 transition-colors"
-                  title={`下一個專案: ${nextProject.name}`}
+                  className="flex items-center gap-2 px-4 py-2 bg-cyan-500/20 border border-cyan-500/50 rounded-lg text-sm text-cyan-200 hover:bg-cyan-500/30 transition-colors"
+                  title={`Next: ${nextProject.name}`}
                 >
-                  下一個專案
+                  Next
                   <ChevronRight className="w-4 h-4" />
                 </button>
               </div>

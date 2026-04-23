@@ -1,14 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-
-/**
- * Atmosphere Section - Entry | Transition
- * 
- * Design Philosophy: Deep Space Techno
- * - Visual transition from space to atmosphere
- * - Gradient layers representing atmospheric entry
- * - Subtle animation as user scrolls through
- * - Sets stage for project showcase
- */
+import { useEffect, useRef, useState } from "react";
+import { Link } from "wouter";
 
 export default function AtmosphereSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -23,17 +14,19 @@ export default function AtmosphereSection() {
       const elementHeight = rect.height;
       const windowHeight = window.innerHeight;
 
-      // Calculate progress: 0 when element enters, 1 when it leaves
       const progress = Math.max(
         0,
-        Math.min(1, (windowHeight - elementTop) / (windowHeight + elementHeight))
+        Math.min(
+          1,
+          (windowHeight - elementTop) / (windowHeight + elementHeight)
+        )
       );
-
       setScrollProgress(progress);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -42,69 +35,63 @@ export default function AtmosphereSection() {
       ref={sectionRef}
       className="relative w-full h-screen overflow-hidden bg-black"
     >
-      {/* Atmosphere transition background */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: 'url(https://files.manuscdn.com/user_upload_by_module/session_file/310519663272154445/GXVzxcvZvByocWFl.png)',
-          backgroundAttachment: 'fixed',
-          transform: `translateY(${scrollProgress * 50}px)`,
-          transition: 'transform 0.1s ease-out',
-        }}
-      >
-        {/* Layered gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-cyan-900/30 to-purple-900/40" />
+      {/* Dynamic gradient background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_40%,rgba(0,217,255,0.12),transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(99,102,241,0.10),transparent_55%)]" />
         <div
-          className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"
-          style={{
-            opacity: scrollProgress * 0.8,
-          }}
+          className="absolute inset-0 bg-gradient-to-b from-black/20 via-slate-950/60 to-black/90"
+          style={{ opacity: 0.6 + scrollProgress * 0.4 }}
         />
       </div>
 
-      {/* Content */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center px-4">
         <div
           className="text-center max-w-3xl transition-all duration-500"
           style={{
-            opacity: 1 - scrollProgress * 0.5,
-            transform: `translateY(${scrollProgress * 30}px)`,
+            opacity: 1 - scrollProgress * 0.4,
+            transform: `translateY(${scrollProgress * 24}px)`,
           }}
         >
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 glow-text" style={{ fontFamily: "'Orbitron', monospace" }}>
-            大氣層 | 進入
+          <h2
+            className="text-4xl md:text-5xl font-bold mb-6 glow-text"
+            style={{ fontFamily: "'Orbitron', monospace" }}
+          >
+            從流程到交付
           </h2>
-          <p className="font-mono text-lg md:text-xl text-cyan-300 mb-4">
-            真正的挑戰，發生在落地之後
+          <p className="font-mono text-lg md:text-xl text-cyan-200 mb-4">
+            把需求、資料與權限拆清楚，再用可維護的工程實作落地。
           </p>
-          <p className="font-mono text-base md:text-lg text-cyan-200 font-semibold tracking-wide">
-            從理論到實踋 · 從設計到實現 · 從概念到產品
+          <p className="text-slate-300 leading-relaxed">
+            專案頁會清楚標示 Demo/Repo
+            是否可公開；沒有連結就不會出現可點擊按鈕，避免「看得到卻點不到」。
           </p>
+
+          <div className="mt-8 flex justify-center gap-3">
+            <Link href="/projects">
+              <a className="px-5 py-3 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-200 hover:bg-cyan-500/30 transition-colors font-medium">
+                前往專案
+              </a>
+            </Link>
+            <Link href="/resume">
+              <a className="px-5 py-3 rounded-lg bg-slate-900/40 border border-slate-700/40 text-slate-200 hover:bg-slate-900/60 transition-colors font-medium">
+                前往履歷
+              </a>
+            </Link>
+          </div>
         </div>
 
-        {/* Animated descent indicator */}
+        {/* Descent indicator */}
         <div
           className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
-          style={{
-            opacity: Math.max(0, 1 - scrollProgress * 2),
-          }}
+          style={{ opacity: Math.max(0, 1 - scrollProgress * 2) }}
         >
           <div className="flex flex-col items-center gap-3">
             <div className="w-1 h-8 bg-gradient-to-b from-cyan-400 to-transparent rounded-full animate-pulse" />
-            <span className="font-mono text-xs text-cyan-400">繼續下滾</span>
+            <span className="font-mono text-xs text-cyan-300">繼續往下</span>
           </div>
         </div>
       </div>
-
-      {/* Particle effect overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `radial-gradient(circle at 50% 50%, rgba(0, 217, 255, ${
-            scrollProgress * 0.1
-          }) 0%, transparent 70%)`,
-        }}
-      />
     </section>
   );
 }

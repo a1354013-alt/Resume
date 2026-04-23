@@ -1,34 +1,45 @@
-/**
- * Profile Data - 個人檔案數據
- * 
- * 集中管理所有個人信息，便於維護和更新
- */
-
-export const profile = {
-  name: '羅揚文',
-  nameEn: 'Luo Yang-Wen',
-  title: '系統工程師',
-  tagline: '專注於企業級 Legacy 系統重構與現代化架構設計，擅長在不中斷營運的前提下，提升系統穩定性與可維護性',
-  background: '自動化工程背景｜企業系統開發實務經驗',
-  
-  // 聯絡信息
+export type Profile = {
+  name: string;
+  nameEn?: string;
+  title: string;
+  tagline: string;
+  background: string;
   contact: {
-    email: 'luoyangwen@example.com',
-    github: 'https://github.com',
-    linkedin: 'https://linkedin.com',
-    ithome: 'https://ithelp.ithome.com.tw/users/20178818',
-  },
-  
-  // 聯絡區塊信息
+    email: string;
+    github: string;
+    linkedin: string;
+  };
   contactMessage: {
-    line1: '如果您正在尋找能夠將複雜系統轉化為穩定、可維護架構的工程師，',
-    line2: '讓我們一起探索系統的秩序。',
-  },
-  
-  // 頁腳信息
+    line1: string;
+    line2: string;
+  };
   footer: {
-    copyright: '© 2024',
-    tagline: '從混亂到秩序 · 從表象到核心',
+    tagline: string;
+  };
+};
+
+export const profile: Profile = {
+  name: "羅揚文",
+  nameEn: "Yang-Wen Luo",
+  title: "全端工程師｜企業系統現代化與整合",
+  tagline:
+    "聚焦企業內部系統現代化：Delphi/Legacy → Web（Vue/React）+ API（Go/Node），把需求、流程與可維護性一起做對。",
+  background:
+    "具備企業 ERP 與內部系統整合經驗，熟悉從既有系統盤點、需求拆解、資料與流程梳理，到前後端落地與部署。重視可讀性、可觀測性與長期維護成本，偏好用工程化方法把問題一次解到位。",
+  contact: {
+    email: "whois512139@gmail.com",
+    github: "https://github.com/a1354013-alt",
+    linkedin:
+      "https://www.linkedin.com/in/%E6%8F%9A%E6%96%87-%E7%BE%85-a9b9849a/",
+  },
+  contactMessage: {
+    line1:
+      "若你正在找能把需求落地、把舊系統帶進現代化架構的工程師，我很樂意聊聊。",
+    line2:
+      "歡迎透過 Email 或 LinkedIn 聯絡我，也可以直接到 GitHub 看我的公開作品。",
+  },
+  footer: {
+    tagline: "React + Vite + TypeScript + Tailwind CSS",
   },
 };
 

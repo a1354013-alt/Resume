@@ -3,7 +3,7 @@ import { createServer } from "http";
 import path from "path";
 import { fileURLToPath } from "url";
 // Security middleware
-// import helmet from "helmet";
+import helmet from "helmet";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -12,8 +12,13 @@ async function startServer() {
   const app = express();
   const server = createServer(app);
 
-  // Security headers (when helmet is available)
-  // app.use(helmet());
+  // Security headers
+  // Disable CSP here because this is a static SPA and CSP configuration is deployment-specific.
+  app.use(
+    helmet({
+      contentSecurityPolicy: false,
+    })
+  );
 
   // Serve static files from dist/public in production
   const staticPath =
@@ -53,7 +58,7 @@ process.on("SIGTERM", () => {
   process.exit(0);
 });
 
-startServer().catch((err) => {
+startServer().catch(err => {
   console.error("Failed to start server:", err);
   process.exit(1);
 });

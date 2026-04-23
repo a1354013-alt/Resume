@@ -1,5 +1,3 @@
-import { Toaster } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -8,7 +6,6 @@ import Home from "./pages/Home";
 import Resume from "./pages/Resume";
 import ProjectsPage from "./pages/ProjectsPage";
 import Biography from "./pages/Biography";
-
 
 function Router() {
   return (
@@ -38,10 +35,7 @@ function App() {
         defaultTheme="dark"
         // switchable
       >
-        <TooltipProvider>
-          <Toaster />
-          <Router />
-        </TooltipProvider>
+        <Router />
       </ThemeProvider>
     </ErrorBoundary>
   );

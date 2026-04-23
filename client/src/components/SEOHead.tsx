@@ -1,4 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
+import { profile } from "@/data/profile";
+
+type JsonLd = Record<string, unknown> | Array<Record<string, unknown>>;
 
 interface SEOHeadProps {
   title: string;
@@ -6,81 +9,114 @@ interface SEOHeadProps {
   ogTitle?: string;
   ogDescription?: string;
   ogImage?: string;
-  ogUrl?: string;
-  canonical?: string;
+  canonicalPath?: string;
+  jsonLd?: JsonLd;
 }
 
-/**
- * SEO Head Component
- * 
- * 動態設置頁面 meta 標籤以改善 SEO 和社交分享
- */
+function getSiteOrigin(): string {
+  const envOrigin = import.meta.env.VITE_SITE_URL as string | undefined;
+  if (envOrigin && envOrigin.trim()) return envOrigin.replace(/\/+$/, "");
+  if (typeof window !== "undefined" && window.location?.origin)
+    return window.location.origin;
+  return "";
+}
+
+function buildUrl(pathname: string): string {
+  const origin = getSiteOrigin();
+  if (!origin) return pathname;
+  const url = new URL(pathname, origin);
+  url.hash = "";
+  url.search = "";
+  return url.toString();
+}
+
 export default function SEOHead({
   title,
   description,
   ogTitle,
   ogDescription,
   ogImage,
-  ogUrl,
-  canonical,
+  canonicalPath,
+  jsonLd,
 }: SEOHeadProps) {
   useEffect(() => {
-    // 設置頁面標題
     document.title = title;
 
-    // 設置或更新 meta 標籤
     const setMetaTag = (name: string, content: string, isProperty = false) => {
-      let element = document.querySelector(
-        isProperty ? `meta[property="${name}"]` : `meta[name="${name}"]`
-      );
-      
+      const selector = isProperty
+        ? `meta[property="${name}"]`
+        : `meta[name="${name}"]`;
+      let element = document.querySelector(selector);
       if (!element) {
-        element = document.createElement('meta');
-        if (isProperty) {
-          element.setAttribute('property', name);
-        } else {
-          element.setAttribute('name', name);
-        }
+        element = document.createElement("meta");
+        element.setAttribute(isProperty ? "property" : "name", name);
         document.head.appendChild(element);
       }
-      
-      element.setAttribute('content', content);
+      element.setAttribute("content", content);
     };
 
-    // 基本 meta 標籤
-    setMetaTag('description', description);
-    setMetaTag('viewport', 'width=device-width, initial-scale=1.0');
+    setMetaTag("description", description);
+    setMetaTag(
+      "viewport",
+      "width=device-width, initial-scale=1.0, maximum-scale=1"
+    );
 
-    // Open Graph 標籤
-    setMetaTag('og:title', ogTitle || title, true);
-    setMetaTag('og:description', ogDescription || description, true);
-    if (ogImage) {
-      setMetaTag('og:image', ogImage, true);
-    }
-    if (ogUrl) {
-      setMetaTag('og:url', ogUrl, true);
-    }
-    setMetaTag('og:type', 'website', true);
+    const resolvedPath =
+      canonicalPath ??
+      (typeof window !== "undefined" ? window.location.pathname : "/");
+    const canonicalUrl = buildUrl(resolvedPath);
 
-    // Twitter Card 標籤
-    setMetaTag('twitter:card', 'summary_large_image');
-    setMetaTag('twitter:title', ogTitle || title);
-    setMetaTag('twitter:description', ogDescription || description);
-    if (ogImage) {
-      setMetaTag('twitter:image', ogImage);
-    }
+    // Open Graph
+    setMetaTag("og:title", ogTitle || title, true);
+    setMetaTag("og:description", ogDescription || description, true);
+    setMetaTag("og:type", "website", true);
+    setMetaTag("og:url", canonicalUrl, true);
+    if (ogImage) setMetaTag("og:image", ogImage, true);
 
-    // Canonical URL
-    if (canonical) {
-      let canonicalElement = document.querySelector('link[rel="canonical"]');
-      if (!canonicalElement) {
-        canonicalElement = document.createElement('link');
-        canonicalElement.setAttribute('rel', 'canonical');
-        document.head.appendChild(canonicalElement);
-      }
-      canonicalElement.setAttribute('href', canonical);
+    // Twitter Card
+    setMetaTag("twitter:card", "summary_large_image");
+    setMetaTag("twitter:title", ogTitle || title);
+    setMetaTag("twitter:description", ogDescription || description);
+    if (ogImage) setMetaTag("twitter:image", ogImage);
+
+    // Canonical
+    let canonicalElement = document.querySelector('link[rel="canonical"]');
+    if (!canonicalElement) {
+      canonicalElement = document.createElement("link");
+      canonicalElement.setAttribute("rel", "canonical");
+      document.head.appendChild(canonicalElement);
     }
-  }, [title, description, ogTitle, ogDescription, ogImage, ogUrl, canonical]);
+    canonicalElement.setAttribute("href", canonicalUrl);
+
+    // JSON-LD (structured data)
+    const ld =
+      jsonLd ??
+      ({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: profile.name,
+        email: profile.contact.email,
+        url: getSiteOrigin() || undefined,
+        sameAs: [profile.contact.github, profile.contact.linkedin],
+      } satisfies Record<string, unknown>);
+
+    let jsonLdEl = document.querySelector('script[data-seo="jsonld"]');
+    if (!jsonLdEl) {
+      jsonLdEl = document.createElement("script");
+      jsonLdEl.setAttribute("type", "application/ld+json");
+      jsonLdEl.setAttribute("data-seo", "jsonld");
+      document.head.appendChild(jsonLdEl);
+    }
+    jsonLdEl.textContent = JSON.stringify(ld);
+  }, [
+    title,
+    description,
+    ogTitle,
+    ogDescription,
+    ogImage,
+    canonicalPath,
+    jsonLd,
+  ]);
 
   return null;
 }

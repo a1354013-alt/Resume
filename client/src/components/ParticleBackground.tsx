@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 interface ParticleBackgroundProps {
   particleCount?: number;
@@ -10,7 +10,7 @@ interface ParticleBackgroundProps {
 export default function ParticleBackground({
   particleCount = 50,
   speed = 0.5,
-  color = '#00d9ff',
+  color = "#00d9ff",
   opacity = 0.6,
 }: ParticleBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -19,7 +19,7 @@ export default function ParticleBackground({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     // Set canvas size
@@ -28,7 +28,7 @@ export default function ParticleBackground({
       canvas.height = window.innerHeight;
     };
     resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener("resize", resizeCanvas);
 
     // Particle class
     class Particle {
@@ -77,10 +77,10 @@ export default function ParticleBackground({
     // Animation loop
     const animate = () => {
       if (!ctx) return;
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      particles.forEach((particle) => {
+      particles.forEach(particle => {
         particle.update();
         particle.draw();
       });
@@ -92,7 +92,7 @@ export default function ParticleBackground({
     animate();
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener("resize", resizeCanvas);
     };
   }, [particleCount, speed, color, opacity]);
 
@@ -100,7 +100,7 @@ export default function ParticleBackground({
     <canvas
       ref={canvasRef}
       className="absolute inset-0 pointer-events-none"
-      style={{ background: 'transparent' }}
+      style={{ background: "transparent" }}
     />
   );
 }

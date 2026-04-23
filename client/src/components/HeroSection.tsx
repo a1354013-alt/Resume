@@ -1,15 +1,7 @@
-import { useEffect, useState } from 'react';
-import ParticleBackground from './ParticleBackground';
-
-/**
- * Hero Section - Universe | Chaos
- * 
- * Design Philosophy: Deep Space Techno
- * - Deep purple/blue background representing chaotic universe
- * - Floating particles creating sense of vastness
- * - Title fades in with subtle scale animation
- * - Scroll indicator guides user downward
- */
+import { useEffect, useState } from "react";
+import { Link } from "wouter";
+import ParticleBackground from "./ParticleBackground";
+import { profile } from "@/data/profile";
 
 export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -19,64 +11,69 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative w-full h-screen overflow-hidden bg-black">
-      {/* Background image with overlay */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: 'url(https://files.manuscdn.com/user_upload_by_module/session_file/310519663272154445/BhrxJbgZcqLBiqOI.png)',
-          backgroundAttachment: 'fixed',
-        }}
-      >
-        {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60" />
-      </div>
+    <section
+      id="hero"
+      className="relative w-full h-screen overflow-hidden bg-black"
+    >
+      {/* Background */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(0,217,255,0.10),transparent_55%),radial-gradient(circle_at_70%_70%,rgba(179,0,255,0.10),transparent_55%)]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/70 to-black" />
 
       {/* Particle animation */}
       <ParticleBackground
-        particleCount={30}
-        speed={0.3}
+        particleCount={35}
+        speed={0.35}
         color="#00d9ff"
-        opacity={0.4}
+        opacity={0.35}
       />
 
       {/* Content */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center px-4">
-        {/* Main heading */}
         <div
           className={`text-center transition-all duration-1000 ${
-            isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
           }`}
         >
-          <h1 className="text-6xl md:text-8xl font-bold mb-6 glow-text" style={{ fontFamily: "'Orbitron', monospace" }}>
-            複雜的系統
+          <h1
+            className="text-5xl md:text-7xl font-bold mb-4 glow-text text-cyan-300"
+            style={{ fontFamily: "'Orbitron', monospace" }}
+          >
+            {profile.name}
           </h1>
-          <p className="text-2xl md:text-4xl font-light text-blue-200 mb-8" style={{ fontFamily: "'Orbitron', monospace" }}>
-            看起來像一個宇宙
+          <p className="text-lg md:text-2xl text-slate-200 mb-6">
+            {profile.title}
           </p>
-        </div>
+          <p className="max-w-2xl mx-auto text-slate-300 leading-relaxed">
+            {profile.tagline}
+          </p>
 
-        {/* Subtitle */}
-        <div
-          className={`text-center max-w-2xl transition-all duration-1000 delay-300 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}
-        >
-          <p className="font-mono text-lg md:text-xl text-indigo-300">
-            我的工作，是找到它的秩序
-          </p>
-          <p className="font-mono text-sm md:text-base text-cyan-400 mt-4 opacity-70">
-            從混亂的表象 → 穿越層層結構 → 抵達穩定的核心
-          </p>
+          <div className="mt-10 flex flex-wrap justify-center gap-3">
+            <Link href="/projects">
+              <a className="px-5 py-3 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-200 hover:bg-cyan-500/30 transition-colors font-medium">
+                看專案
+              </a>
+            </Link>
+            <Link href="/resume">
+              <a className="px-5 py-3 rounded-lg bg-slate-900/40 border border-slate-700/40 text-slate-200 hover:bg-slate-900/60 transition-colors font-medium">
+                看履歷
+              </a>
+            </Link>
+            <a
+              href="#contact"
+              className="px-5 py-3 rounded-lg bg-slate-900/20 border border-slate-700/30 text-slate-300 hover:bg-slate-900/40 transition-colors font-medium"
+            >
+              聯絡我
+            </a>
+          </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll hint */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
         <div className="flex flex-col items-center gap-2 animate-bounce">
-          <span className="text-cyan-400 text-sm font-mono">向下滾動</span>
+          <span className="text-cyan-300 text-sm font-mono">往下滑</span>
           <svg
-            className="w-6 h-6 text-cyan-400"
+            className="w-6 h-6 text-cyan-300"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
