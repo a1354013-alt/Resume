@@ -7,15 +7,29 @@ export default function FloatingNavbar() {
   const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
+    let rafId: number | null = null;
+
+    const update = () => {
       if (!heroRef.current) return;
       const heroBottom = heroRef.current.getBoundingClientRect().bottom;
-      setIsVisible(heroBottom < 100);
+      const next = heroBottom < 100;
+      setIsVisible(prev => (prev === next ? prev : next));
     };
 
-    handleScroll();
+    const handleScroll = () => {
+      if (rafId != null) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        update();
+      });
+    };
+
+    update();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafId != null) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });

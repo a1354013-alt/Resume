@@ -19,71 +19,73 @@ export default function OrbitalLines({
     const svg = svgRef.current;
     if (!svg) return;
 
-    // Clear existing elements
-    svg.innerHTML = "";
+    const ns = "http://www.w3.org/2000/svg";
+    let rafId: number | null = null;
 
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    const render = () => {
+      // Clear existing elements
+      svg.innerHTML = "";
 
-    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
-    svg.setAttribute("width", String(width));
-    svg.setAttribute("height", String(height));
+      const width = window.innerWidth;
+      const height = window.innerHeight;
 
-    // Create orbital circles
-    const centerX = width / 2;
-    const centerY = height / 2;
-    const maxRadius = Math.max(width, height) / 2;
+      svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+      svg.setAttribute("width", String(width));
+      svg.setAttribute("height", String(height));
 
-    for (let i = 0; i < count; i++) {
-      const radius = (maxRadius / count) * (i + 1);
-      const circle = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "circle"
-      );
-      circle.setAttribute("cx", String(centerX));
-      circle.setAttribute("cy", String(centerY));
-      circle.setAttribute("r", String(radius));
-      circle.setAttribute("fill", "none");
-      circle.setAttribute("stroke", i % 2 === 0 ? color1 : color2);
-      circle.setAttribute("stroke-width", "1");
-      circle.setAttribute("opacity", String(0.5 - i * 0.08));
-      svg.appendChild(circle);
-    }
+      // Create orbital circles
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const maxRadius = Math.max(width, height) / 2;
 
-    // Create connecting lines
-    const lineCount = 8;
-    for (let i = 0; i < lineCount; i++) {
-      const angle = (Math.PI * 2 * i) / lineCount;
-      const x1 = centerX + Math.cos(angle) * (maxRadius * 0.3);
-      const y1 = centerY + Math.sin(angle) * (maxRadius * 0.3);
-      const x2 = centerX + Math.cos(angle) * maxRadius;
-      const y2 = centerY + Math.sin(angle) * maxRadius;
+      for (let i = 0; i < count; i++) {
+        const radius = (maxRadius / count) * (i + 1);
+        const circle = document.createElementNS(ns, "circle");
+        circle.setAttribute("cx", String(centerX));
+        circle.setAttribute("cy", String(centerY));
+        circle.setAttribute("r", String(radius));
+        circle.setAttribute("fill", "none");
+        circle.setAttribute("stroke", i % 2 === 0 ? color1 : color2);
+        circle.setAttribute("stroke-width", "1");
+        circle.setAttribute("opacity", String(0.5 - i * 0.08));
+        svg.appendChild(circle);
+      }
 
-      const line = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "line"
-      );
-      line.setAttribute("x1", String(x1));
-      line.setAttribute("y1", String(y1));
-      line.setAttribute("x2", String(x2));
-      line.setAttribute("y2", String(y2));
-      line.setAttribute("stroke", i % 2 === 0 ? color1 : color2);
-      line.setAttribute("stroke-width", "1");
-      line.setAttribute("opacity", "0.3");
-      svg.appendChild(line);
-    }
+      // Create connecting lines
+      const lineCount = 8;
+      for (let i = 0; i < lineCount; i++) {
+        const angle = (Math.PI * 2 * i) / lineCount;
+        const x1 = centerX + Math.cos(angle) * (maxRadius * 0.3);
+        const y1 = centerY + Math.sin(angle) * (maxRadius * 0.3);
+        const x2 = centerX + Math.cos(angle) * maxRadius;
+        const y2 = centerY + Math.sin(angle) * maxRadius;
 
-    // Handle resize
-    const handleResize = () => {
-      const newWidth = window.innerWidth;
-      const newHeight = window.innerHeight;
-      svg.setAttribute("viewBox", `0 0 ${newWidth} ${newHeight}`);
-      svg.setAttribute("width", String(newWidth));
-      svg.setAttribute("height", String(newHeight));
+        const line = document.createElementNS(ns, "line");
+        line.setAttribute("x1", String(x1));
+        line.setAttribute("y1", String(y1));
+        line.setAttribute("x2", String(x2));
+        line.setAttribute("y2", String(y2));
+        line.setAttribute("stroke", i % 2 === 0 ? color1 : color2);
+        line.setAttribute("stroke-width", "1");
+        line.setAttribute("opacity", "0.3");
+        svg.appendChild(line);
+      }
     };
 
+    const handleResize = () => {
+      if (rafId != null) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        render();
+      });
+    };
+
+    render();
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (rafId != null) cancelAnimationFrame(rafId);
+    };
   }, [count, color1, color2]);
 
   return (

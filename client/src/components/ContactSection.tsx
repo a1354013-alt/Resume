@@ -35,15 +35,19 @@ export default function ContactSection() {
     Array<{ id: number; x: number; y: number }>
   >([]);
   const rippleIdRef = useRef(0);
+  const rafIdRef = useRef<number | null>(null);
+  const lastMouseEventRef = useRef<MouseEvent | null>(null);
+  const timeoutIdsRef = useRef<Set<number>>(new Set());
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    const createRipple = (e: MouseEvent) => {
       if (!sectionRef.current) return;
 
       const rect = sectionRef.current.getBoundingClientRect();
       const isInSection = e.clientY >= rect.top && e.clientY <= rect.bottom;
       if (!isInSection) return;
 
+      // Keep this effect visually subtle; avoid high-frequency React state churn.
       if (Math.random() > 0.95) {
         const id = rippleIdRef.current++;
         const x = e.clientX - rect.left;
@@ -51,14 +55,32 @@ export default function ContactSection() {
 
         setRipples(prev => [...prev, { id, x, y }]);
 
-        window.setTimeout(() => {
+        const timeoutId = window.setTimeout(() => {
+          timeoutIdsRef.current.delete(timeoutId);
           setRipples(prev => prev.filter(r => r.id !== id));
         }, 1000);
+        timeoutIdsRef.current.add(timeoutId);
       }
     };
 
+    const handleMouseMove = (e: MouseEvent) => {
+      lastMouseEventRef.current = e;
+      if (rafIdRef.current != null) return;
+
+      rafIdRef.current = requestAnimationFrame(() => {
+        rafIdRef.current = null;
+        const last = lastMouseEventRef.current;
+        if (last) createRipple(last);
+      });
+    };
+
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      if (rafIdRef.current != null) cancelAnimationFrame(rafIdRef.current);
+      timeoutIdsRef.current.forEach(id => window.clearTimeout(id));
+      timeoutIdsRef.current.clear();
+    };
   }, []);
 
   return (
@@ -124,24 +146,32 @@ export default function ContactSection() {
 
         {/* Links */}
         <div className="flex flex-wrap justify-center gap-8 mb-16">
-          {contactLinks.map(link => (
-            <a
-              key={link.label}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`group relative transition-all duration-300 ${link.color}`}
-            >
-              <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-cyan-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-lg -z-10" />
+          {contactLinks.map(link => {
+            const isExternal = /^https?:\/\//i.test(link.url);
+            const target = isExternal ? "_blank" : undefined;
+            const rel = isExternal ? "noopener noreferrer" : undefined;
+            const referrerPolicy = isExternal ? "no-referrer" : undefined;
 
-              <div className="flex flex-col items-center gap-2 px-6 py-4 border border-cyan-500/30 group-hover:border-cyan-400/60 rounded-lg transition-all duration-300 backdrop-blur-sm">
-                <span className="text-3xl">{link.icon}</span>
-                <span className="font-mono text-sm font-medium">
-                  {link.label}
-                </span>
-              </div>
-            </a>
-          ))}
+            return (
+              <a
+                key={link.label}
+                href={link.url}
+                target={target}
+                rel={rel}
+                referrerPolicy={referrerPolicy}
+                className={`group relative transition-all duration-300 ${link.color}`}
+              >
+                <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-cyan-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-lg -z-10" />
+
+                <div className="flex flex-col items-center gap-2 px-6 py-4 border border-cyan-500/30 group-hover:border-cyan-400/60 rounded-lg transition-all duration-300 backdrop-blur-sm">
+                  <span className="text-3xl">{link.icon}</span>
+                  <span className="font-mono text-sm font-medium">
+                    {link.label}
+                  </span>
+                </div>
+              </a>
+            );
+          })}
         </div>
 
         {/* Footer */}

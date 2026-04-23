@@ -5,7 +5,12 @@ import {
   Github,
   X,
 } from "lucide-react";
+import { useEffect, useId, useRef } from "react";
 import { Project, projects } from "@/data/projects";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
+import { useEscapeKey } from "@/hooks/useEscapeKey";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
+import { useRestoreFocus } from "@/hooks/useRestoreFocus";
 
 interface ProjectDialogProps {
   project: Project | null;
@@ -33,7 +38,23 @@ export default function ProjectDialog({
   getTierBadge,
   onProjectChange,
 }: ProjectDialogProps) {
-  if (!isOpen || !project) return null;
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const titleId = useId();
+
+  const isVisible = isOpen && project != null;
+
+  useBodyScrollLock(isVisible);
+  useRestoreFocus(isVisible);
+  useFocusTrap(dialogRef, isVisible);
+  useEscapeKey(onClose, isVisible);
+
+  useEffect(() => {
+    if (!isVisible) return;
+    closeButtonRef.current?.focus({ preventScroll: true });
+  }, [isVisible]);
+
+  if (!isVisible || !project) return null;
 
   const currentIndex = projects.findIndex(p => p.id === project.id);
   const nextProject =
@@ -53,10 +74,18 @@ export default function ProjectDialog({
       <div
         className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300"
         onClick={onClose}
+        aria-hidden="true"
       />
 
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div className="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-700/50 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl animate-in fade-in zoom-in-95 duration-300">
+        <div
+          ref={dialogRef}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={titleId}
+          tabIndex={-1}
+          className="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-700/50 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl animate-in fade-in zoom-in-95 duration-300"
+        >
           {/* Header */}
           <div className="sticky top-0 bg-gradient-to-b from-slate-900 to-slate-900/80 border-b border-slate-700/30 px-6 py-4 flex items-start justify-between gap-4 backdrop-blur-sm">
             <div className="flex-1">
@@ -68,12 +97,13 @@ export default function ProjectDialog({
                   {getCategoryLabel(project.category)}
                 </span>
               </div>
-              <h2 className="text-2xl font-bold text-slate-100">
+              <h2 id={titleId} className="text-2xl font-bold text-slate-100">
                 {project.name}
               </h2>
               <p className="text-sm text-slate-400 mt-1">{project.tagline}</p>
             </div>
             <button
+              ref={closeButtonRef}
               onClick={onClose}
               className="flex-shrink-0 p-2 hover:bg-slate-800/50 rounded-lg transition-colors text-slate-400 hover:text-slate-200"
               aria-label="Close dialog"
@@ -151,7 +181,12 @@ export default function ProjectDialog({
               <ul className="space-y-2">
                 {project.details.highlights.map((highlight, idx) => (
                   <li key={idx} className="text-sm text-slate-300 flex gap-3">
-                    <span className="text-cyan-400 flex-shrink-0">•</span>
+                    <span
+                      className="text-cyan-400 flex-shrink-0"
+                      aria-hidden="true"
+                    >
+                      •
+                    </span>
                     <span>{highlight}</span>
                   </li>
                 ))}
@@ -193,6 +228,7 @@ export default function ProjectDialog({
                       href={project.details.demoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      referrerPolicy="no-referrer"
                       className="flex items-center gap-2 px-4 py-2 bg-cyan-500/20 border border-cyan-500/50 rounded-lg text-sm text-cyan-200 hover:bg-cyan-500/30 transition-colors"
                     >
                       <ExternalLink className="w-4 h-4" />
@@ -204,6 +240,7 @@ export default function ProjectDialog({
                       href={project.details.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      referrerPolicy="no-referrer"
                       className="flex items-center gap-2 px-4 py-2 bg-slate-800/50 border border-slate-700/50 rounded-lg text-sm text-slate-200 hover:bg-slate-800 transition-colors"
                     >
                       <Github className="w-4 h-4" />

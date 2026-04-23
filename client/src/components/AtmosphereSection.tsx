@@ -6,7 +6,9 @@ export default function AtmosphereSection() {
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
+    let rafId: number | null = null;
+
+    const update = () => {
       if (!sectionRef.current) return;
 
       const rect = sectionRef.current.getBoundingClientRect();
@@ -21,12 +23,23 @@ export default function AtmosphereSection() {
           (windowHeight - elementTop) / (windowHeight + elementHeight)
         )
       );
-      setScrollProgress(progress);
+      setScrollProgress(prev => (prev === progress ? prev : progress));
     };
 
-    handleScroll();
+    const handleScroll = () => {
+      if (rafId != null) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        update();
+      });
+    };
+
+    update();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafId != null) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   return (

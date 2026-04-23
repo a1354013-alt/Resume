@@ -26,8 +26,8 @@ jobs:
       - name: Install
         run: pnpm install --frozen-lockfile
 
-      - name: Lint (Prettier)
-        run: pnpm -s run lint
+      - name: Format Check (Prettier)
+        run: pnpm -s run format:check
 
       - name: Typecheck
         run: pnpm -s run typecheck

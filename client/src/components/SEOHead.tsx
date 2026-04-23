@@ -55,11 +55,14 @@ export default function SEOHead({
       element.setAttribute("content", content);
     };
 
+    const removeMetaTag = (name: string, isProperty = false) => {
+      const selector = isProperty
+        ? `meta[property="${name}"]`
+        : `meta[name="${name}"]`;
+      document.querySelector(selector)?.remove();
+    };
+
     setMetaTag("description", description);
-    setMetaTag(
-      "viewport",
-      "width=device-width, initial-scale=1.0, maximum-scale=1"
-    );
 
     const resolvedPath =
       canonicalPath ??
@@ -72,12 +75,14 @@ export default function SEOHead({
     setMetaTag("og:type", "website", true);
     setMetaTag("og:url", canonicalUrl, true);
     if (ogImage) setMetaTag("og:image", ogImage, true);
+    else removeMetaTag("og:image", true);
 
     // Twitter Card
     setMetaTag("twitter:card", "summary_large_image");
     setMetaTag("twitter:title", ogTitle || title);
     setMetaTag("twitter:description", ogDescription || description);
     if (ogImage) setMetaTag("twitter:image", ogImage);
+    else removeMetaTag("twitter:image");
 
     // Canonical
     let canonicalElement = document.querySelector('link[rel="canonical"]');

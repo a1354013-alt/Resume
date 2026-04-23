@@ -17,6 +17,8 @@
 pnpm install
 ```
 
+建議環境：Node.js 20+（CI 使用 Node 20），並使用 `package.json` 內宣告的 `pnpm` 版本。
+
 ## 本機啟動
 
 ```bash
@@ -58,6 +60,7 @@ pnpm start
 │  ├─ index.html
 │  └─ src/
 │     ├─ components/        # 站內區塊元件（Hero/Structure/SEOHead...）
+│     ├─ hooks/             # 可重用 hook（focus trap / scroll lock 等）
 │     ├─ contexts/          # ThemeContext（dark mode class）
 │     ├─ data/              # 個資、專案資料（profile/projects）
 │     ├─ pages/             # Home / Projects / Resume / Biography / 404
@@ -102,10 +105,24 @@ pnpm start
 
 - `.env.example`
 
+## 環境變數
+
+- `VITE_SITE_URL`：用於 `SEOHead` 產生 canonical / og:url（建議部署時設定）
+- `VITE_ANALYTICS_ENDPOINT` / `VITE_ANALYTICS_WEBSITE_ID`：Umami analytics（兩個都有值才會載入）
+- `PORT`：production server 監聽埠（預設 `3000`）
+
 ## Screenshots / Demo
 
 - Demo：部署後可直接貼上網址（建議同時設定 `VITE_SITE_URL`）
-- Screenshots：建議截取首頁、專案頁、履歷頁，自行放到 `README.md` 中（或新增到 `client/public/` 後引用）
+- Screenshots：建議截取首頁、專案頁、履歷頁，自行放到 `README.md` 中（可直接用外部圖床連結；若要走 Vite public，可自行建立 `client/public/` 並放檔案）
+
+## 部署注意事項（快取/靜態檔案）
+
+production 的 Express 靜態檔案快取策略：
+
+- `dist/public/assets/*`：長快取（1 年）+ `immutable`（適合 Vite hashed assets）
+- `dist/public/*`（非 assets）：短快取（1 小時）
+- `index.html`：`no-cache` + `must-revalidate`（避免 SPA shell 部署後被卡住）
 
 ## Scripts
 
@@ -113,6 +130,10 @@ pnpm start
 - `pnpm build`：建置前端 + server bundle
 - `pnpm preview`：僅預覽前端靜態輸出
 - `pnpm start`：production 啟動 Express 靜態服務
-- `pnpm lint`：Prettier 格式檢查
+- `pnpm format`：Prettier 自動格式化
+- `pnpm format:check`：Prettier 格式檢查（CI 使用）
+- `pnpm lint`：同 `format:check`（保留 alias）
 - `pnpm typecheck`：TypeScript typecheck
 - `pnpm test`：Vitest smoke tests
+- `pnpm check`：format:check + typecheck + test + build
+- `pnpm ci`：同 `check`（CI 方便使用）

@@ -4,16 +4,23 @@
   "type": "module",
   "license": "MIT",
   "description": "羅揚文（Yang-Wen Luo）作品集網站（Vite + React + TypeScript + Tailwind CSS）",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=10.4.1"
+  },
   "scripts": {
     "dev": "vite --host",
     "build": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
     "start": "cross-env NODE_ENV=production node dist/index.js",
     "preview": "vite preview --host",
-    "lint": "prettier --check .",
     "typecheck": "tsc --noEmit",
-    "check": "pnpm -s run typecheck",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "pnpm -s run format:check",
+    "check": "pnpm -s run format:check && pnpm -s run typecheck && pnpm -s run test && pnpm -s run build",
     "test": "vitest run",
-    "format": "prettier --write ."
+    "test:watch": "vitest",
+    "ci": "pnpm -s run check"
   },
   "dependencies": {
     "express": "^4.21.2",

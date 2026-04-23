@@ -1,16 +1,10 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { Link } from "wouter";
-import { ChevronUp, ExternalLink, Github, Linkedin, Mail } from "lucide-react";
+import { ExternalLink, Github, Linkedin, Mail } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import { profile } from "@/data/profile";
-
-type Star = {
-  widthPx: number;
-  heightPx: number;
-  leftPct: number;
-  topPct: number;
-  opacity: number;
-};
+import StarFieldBackground from "@/components/StarFieldBackground";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 function ResumeLink({
   href,
@@ -38,18 +32,6 @@ function ResumeLink({
 }
 
 export default function Resume() {
-  const stars = useMemo<Star[]>(
-    () =>
-      Array.from({ length: 50 }, () => ({
-        widthPx: Math.random() * 2 + 1,
-        heightPx: Math.random() * 2 + 1,
-        leftPct: Math.random() * 100,
-        topPct: Math.random() * 100,
-        opacity: Math.random() * 0.5 + 0.3,
-      })),
-    []
-  );
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -66,23 +48,7 @@ export default function Resume() {
 
       <div className="min-h-screen bg-gradient-to-b from-slate-950 via-black to-slate-950 page-fade-in">
         {/* Star field background */}
-        <div className="fixed inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute inset-0 opacity-20">
-            {stars.map((s, i) => (
-              <div
-                key={i}
-                className="absolute rounded-full bg-cyan-400"
-                style={{
-                  width: `${s.widthPx}px`,
-                  height: `${s.heightPx}px`,
-                  left: `${s.leftPct}%`,
-                  top: `${s.topPct}%`,
-                  opacity: s.opacity,
-                }}
-              />
-            ))}
-          </div>
-        </div>
+        <StarFieldBackground />
 
         <div className="relative z-10">
           {/* Navigation */}
@@ -215,13 +181,7 @@ export default function Resume() {
             <div className="h-12" />
           </div>
 
-          <button
-            onClick={scrollToTop}
-            className="fixed bottom-8 right-8 p-3 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 rounded-full transition-all duration-300 z-40"
-            aria-label="Scroll to top"
-          >
-            <ChevronUp className="w-5 h-5 text-cyan-400" />
-          </button>
+          <ScrollToTopButton onClick={scrollToTop} />
         </div>
       </div>
     </>

@@ -53,20 +53,35 @@ export default function CoreLayersSection() {
   ]);
 
   useEffect(() => {
+    let hasAnimated = false;
+    const timeoutIds: number[] = [];
+
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
           if (!entry.isIntersecting) return;
-          window.setTimeout(() => setVisibleCards([true, false, false]), 100);
-          window.setTimeout(() => setVisibleCards([true, true, false]), 350);
-          window.setTimeout(() => setVisibleCards([true, true, true]), 600);
+          if (hasAnimated) return;
+          hasAnimated = true;
+
+          timeoutIds.push(
+            window.setTimeout(() => setVisibleCards([true, false, false]), 100)
+          );
+          timeoutIds.push(
+            window.setTimeout(() => setVisibleCards([true, true, false]), 350)
+          );
+          timeoutIds.push(
+            window.setTimeout(() => setVisibleCards([true, true, true]), 600)
+          );
         });
       },
       { threshold: 0.2 }
     );
 
     if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      for (const id of timeoutIds) window.clearTimeout(id);
+    };
   }, []);
 
   return (

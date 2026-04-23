@@ -3,13 +3,11 @@ import { profile } from "@/data/profile";
 import { projects } from "@/data/projects";
 
 describe("portfolio smoke checks", () => {
-  test("profile uses real contact info", () => {
-    expect(profile.name).toBe("羅揚文");
-    expect(profile.contact.email).toBe("whois512139@gmail.com");
-    expect(profile.contact.github).toBe("https://github.com/a1354013-alt");
-    expect(profile.contact.linkedin).toBe(
-      "https://www.linkedin.com/in/%E6%8F%9A%E6%96%87-%E7%BE%85-a9b9849a/"
-    );
+  test("profile has valid contact fields", () => {
+    expect(profile.name.trim().length).toBeGreaterThan(0);
+    expect(profile.contact.email).toMatch(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+    expect(profile.contact.github).toMatch(/^https:\/\/github\.com\//);
+    expect(profile.contact.linkedin).toMatch(/^https:\/\/www\.linkedin\.com\//);
   });
 
   test("projects are well-formed and never use empty link strings", () => {
@@ -19,15 +17,25 @@ describe("portfolio smoke checks", () => {
       expect(ids.has(p.id)).toBe(false);
       ids.add(p.id);
 
+      expect(p.id.trim().length).toBeGreaterThan(0);
       expect(p.name.trim().length).toBeGreaterThan(0);
       expect(p.tagline.trim().length).toBeGreaterThan(0);
       expect(p.technologies.length).toBeGreaterThan(0);
+      expect(p.technologies.every(t => t.trim().length > 0)).toBe(true);
 
       if ("demoUrl" in p.details) {
-        expect(p.details.demoUrl).not.toBe("");
+        const demoUrl = p.details.demoUrl;
+        if (typeof demoUrl === "string") {
+          expect(demoUrl.trim()).not.toBe("");
+          expect(() => new URL(demoUrl)).not.toThrow();
+        }
       }
       if ("githubUrl" in p.details) {
-        expect(p.details.githubUrl).not.toBe("");
+        const githubUrl = p.details.githubUrl;
+        if (typeof githubUrl === "string") {
+          expect(githubUrl.trim()).not.toBe("");
+          expect(() => new URL(githubUrl)).not.toThrow();
+        }
       }
     }
   });

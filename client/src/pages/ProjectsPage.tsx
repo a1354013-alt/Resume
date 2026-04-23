@@ -1,10 +1,11 @@
-import { useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { ChevronDown, Search, X } from "lucide-react";
 import { Link } from "wouter";
 import { projects, type Project } from "@/data/projects";
 import ProjectDialog from "@/components/ProjectDialog";
 import SEOHead from "@/components/SEOHead";
 import { profile } from "@/data/profile";
+import { useEscapeKey } from "@/hooks/useEscapeKey";
 
 type Category = "all" | "enterprise" | "ai" | "learning";
 type SortBy = "tier" | "name";
@@ -17,6 +18,34 @@ export default function ProjectsPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedTechs, setSelectedTechs] = useState<Set<string>>(new Set());
   const [showTechFilter, setShowTechFilter] = useState(false);
+  const closeTimerRef = useRef<number | null>(null);
+  const techFilterRef = useRef<HTMLDivElement>(null);
+  const techFilterPanelId = useId();
+
+  useEscapeKey(() => setShowTechFilter(false), showTechFilter);
+
+  useEffect(() => {
+    return () => {
+      if (closeTimerRef.current != null) {
+        window.clearTimeout(closeTimerRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!showTechFilter) return;
+
+    const onMouseDown = (event: MouseEvent) => {
+      if (!techFilterRef.current) return;
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (techFilterRef.current.contains(target)) return;
+      setShowTechFilter(false);
+    };
+
+    document.addEventListener("mousedown", onMouseDown);
+    return () => document.removeEventListener("mousedown", onMouseDown);
+  }, [showTechFilter]);
 
   const featuredProjects = useMemo(() => projects.filter(p => p.featured), []);
 
@@ -27,10 +56,13 @@ export default function ProjectsPage() {
   }, []);
 
   const filteredProjects = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+
     let filtered = projects.filter(p => {
-      const matchesSearch =
-        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.tagline.toLowerCase().includes(searchQuery.toLowerCase());
+      const searchable = [p.name, p.tagline, p.role, ...p.technologies]
+        .join(" ")
+        .toLowerCase();
+      const matchesSearch = query.length === 0 || searchable.includes(query);
       const matchesCategory =
         selectedCategory === "all" || p.category === selectedCategory;
       const matchesTechs =
@@ -78,13 +110,23 @@ export default function ProjectsPage() {
   };
 
   const handleProjectClick = (project: Project) => {
+    if (closeTimerRef.current != null) {
+      window.clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
     setSelectedProject(project);
     setIsDialogOpen(true);
   };
 
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
-    window.setTimeout(() => setSelectedProject(null), 300);
+    if (closeTimerRef.current != null) {
+      window.clearTimeout(closeTimerRef.current);
+    }
+    closeTimerRef.current = window.setTimeout(() => {
+      closeTimerRef.current = null;
+      setSelectedProject(null);
+    }, 300);
   };
 
   const toggleTech = (tech: string) => {
@@ -204,9 +246,12 @@ export default function ProjectsPage() {
                 </select>
               </div>
 
-              <div className="mt-4">
+              <div className="mt-4" ref={techFilterRef}>
                 <button
+                  type="button"
                   onClick={() => setShowTechFilter(v => !v)}
+                  aria-expanded={showTechFilter}
+                  aria-controls={techFilterPanelId}
                   className="inline-flex items-center gap-2 text-sm text-cyan-300 hover:text-cyan-200 transition-colors"
                 >
                   技術篩選{" "}
@@ -216,14 +261,19 @@ export default function ProjectsPage() {
                 </button>
 
                 {showTechFilter && (
-                  <div className="mt-3 p-4 bg-slate-950/30 border border-slate-700/40 rounded-lg">
+                  <div
+                    id={techFilterPanelId}
+                    className="mt-3 p-4 bg-slate-950/30 border border-slate-700/40 rounded-lg"
+                  >
                     <div className="flex flex-wrap gap-2">
                       {allTechnologies.map(tech => {
                         const active = selectedTechs.has(tech);
                         return (
                           <button
                             key={tech}
+                            type="button"
                             onClick={() => toggleTech(tech)}
+                            aria-pressed={active}
                             className={`px-3 py-1 rounded-full text-sm border transition-colors ${
                               active
                                 ? "bg-cyan-500/20 border-cyan-500/40 text-cyan-200"
@@ -236,6 +286,7 @@ export default function ProjectsPage() {
                       })}
                       {selectedTechs.size > 0 && (
                         <button
+                          type="button"
                           onClick={clearTechFilters}
                           className="px-3 py-1 rounded-full text-sm bg-red-500/15 border border-red-500/30 text-red-200 hover:bg-red-500/25 transition-colors inline-flex items-center gap-1"
                         >
@@ -255,18 +306,24 @@ export default function ProjectsPage() {
             {/* List */}
             <section>
               <h3 className="text-xl font-semibold mb-4">全部專案</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {filteredProjects.map(project => (
-                  <ProjectCard
-                    key={project.id}
-                    project={project}
-                    getTierColor={getTierColor}
-                    getTierBadge={getTierBadge}
-                    onProjectClick={handleProjectClick}
-                    compact={false}
-                  />
-                ))}
-              </div>
+              {filteredProjects.length === 0 ? (
+                <div className="rounded-lg border border-slate-700/40 bg-slate-900/20 p-8 text-center text-slate-300">
+                  沒有符合目前搜尋/篩選條件的結果。
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {filteredProjects.map(project => (
+                    <ProjectCard
+                      key={project.id}
+                      project={project}
+                      getTierColor={getTierColor}
+                      getTierBadge={getTierBadge}
+                      onProjectClick={handleProjectClick}
+                      compact={false}
+                    />
+                  ))}
+                </div>
+              )}
             </section>
           </div>
 
@@ -300,6 +357,7 @@ function ProjectCard({
 }: ProjectCardProps) {
   return (
     <button
+      type="button"
       onClick={() => onProjectClick(project)}
       className={`bg-gradient-to-br ${getTierColor(project.tier)} border rounded-lg overflow-hidden transition-all duration-300 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/10 w-full text-left group`}
     >

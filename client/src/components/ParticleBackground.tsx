@@ -24,8 +24,12 @@ export default function ParticleBackground({
 
     // Set canvas size
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const dpr = Math.max(1, Math.floor(window.devicePixelRatio || 1));
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      canvas.width = Math.floor(window.innerWidth * dpr);
+      canvas.height = Math.floor(window.innerHeight * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
@@ -40,8 +44,8 @@ export default function ParticleBackground({
       opacity: number;
 
       constructor() {
-        this.x = Math.random() * (canvas?.width || 0);
-        this.y = Math.random() * (canvas?.height || 0);
+        this.x = Math.random() * window.innerWidth;
+        this.y = Math.random() * window.innerHeight;
         this.vx = (Math.random() - 0.5) * speed;
         this.vy = (Math.random() - 0.5) * speed;
         this.size = Math.random() * 2 + 0.5;
@@ -53,10 +57,10 @@ export default function ParticleBackground({
         this.y += this.vy;
 
         // Wrap around edges
-        if (this.x < 0) this.x = canvas?.width || 0;
-        if (this.x > (canvas?.width || 0)) this.x = 0;
-        if (this.y < 0) this.y = canvas?.height || 0;
-        if (this.y > (canvas?.height || 0)) this.y = 0;
+        if (this.x < 0) this.x = window.innerWidth;
+        if (this.x > window.innerWidth) this.x = 0;
+        if (this.y < 0) this.y = window.innerHeight;
+        if (this.y > window.innerHeight) this.y = 0;
       }
 
       draw() {
@@ -75,10 +79,11 @@ export default function ParticleBackground({
     }
 
     // Animation loop
+    let rafId: number | null = null;
     const animate = () => {
       if (!ctx) return;
       ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
       particles.forEach(particle => {
         particle.update();
@@ -86,13 +91,14 @@ export default function ParticleBackground({
       });
 
       ctx.globalAlpha = 1;
-      requestAnimationFrame(animate);
+      rafId = requestAnimationFrame(animate);
     };
 
     animate();
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);
+      if (rafId != null) cancelAnimationFrame(rafId);
     };
   }, [particleCount, speed, color, opacity]);
 
