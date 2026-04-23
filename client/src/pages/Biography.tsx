@@ -15,7 +15,7 @@ type BiographySection = {
 
 export default function Biography() {
   const [displayedText, setDisplayedText] = useState("");
-  const fullText = `${profile.name}${profile.nameEn ? ` 繚 ${profile.nameEn}` : ""}`;
+  const fullText = `${profile.name}${profile.nameEn ? `  ${profile.nameEn}` : ""}`;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -197,31 +197,7 @@ export default function Biography() {
                 我是一名以「穩定、可維護、可落地」為優先的 ERP 系統開發工程師，擅長從第一線使用情境出發，將遺留系統的業務邏輯清楚翻譯為可維護、可擴充的解法。
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-                <div className="bg-slate-900/40 border border-slate-700/40 rounded-lg p-4">
-                  <p className="text-xs text-slate-500 mb-2">技術</p>
-                  <p className="text-slate-200 font-medium">舊系統除錯與重構</p>
-                  <p className="text-slate-400 text-sm mt-2 leading-relaxed">
-                    Memory Leak 修正、Delphi 防重複點擊、EB_SPECI / CRLF 追查。
-                  </p>
-                </div>
-
-                <div className="bg-slate-900/40 border border-slate-700/40 rounded-lg p-4">
-                  <p className="text-xs text-slate-500 mb-2">效能</p>
-                  <p className="text-slate-200 font-medium">資料存取優化</p>
-                  <p className="text-slate-400 text-sm mt-2 leading-relaxed">
-                    N+1 Query 26 秒 → 1 秒內，降低 DB 負載並提升體驗。
-                  </p>
-                </div>
-
-                <div className="bg-slate-900/40 border border-slate-700/40 rounded-lg p-4">
-                  <p className="text-xs text-slate-500 mb-2">落地</p>
-                  <p className="text-slate-200 font-medium">導入與教育訓練</p>
-                  <p className="text-slate-400 text-sm mt-2 leading-relaxed">
-                    ERP 導入與教育訓練、資料轉換驗證、跨部門溝通協作。
-                  </p>
-                </div>
-              </div>
+             
             </header>
 
             <div className="space-y-10 sm:space-y-12">
