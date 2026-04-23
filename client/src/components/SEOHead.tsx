@@ -30,6 +30,16 @@ function buildUrl(pathname: string): string {
   return url.toString();
 }
 
+function withBasePath(pathname: string): string {
+  // For GitHub Pages project sites, the app is served under BASE_URL (e.g. "/Resume/").
+  // Canonical/meta URLs should include that base, otherwise they point to the wrong path.
+  const baseUrl = import.meta.env.BASE_URL || "/";
+  const base = baseUrl.replace(/\/+$/, "");
+  if (!pathname.startsWith("/")) return pathname;
+  if (!base || base === "/") return pathname;
+  return `${base}${pathname}`;
+}
+
 export default function SEOHead({
   title,
   description,
@@ -65,7 +75,7 @@ export default function SEOHead({
     setMetaTag("description", description);
 
     const resolvedPath =
-      canonicalPath ??
+      (canonicalPath ? withBasePath(canonicalPath) : undefined) ??
       (typeof window !== "undefined" ? window.location.pathname : "/");
     const canonicalUrl = buildUrl(resolvedPath);
 

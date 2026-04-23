@@ -46,6 +46,39 @@ pnpm dev
 
 - Dev server: `http://localhost:3000`
 
+## GitHub Pages Deployment (Static Only)
+
+GitHub Pages cannot run `server/index.ts` (Express). For Pages, this repo builds a pure static SPA output.
+The Node/Express build is still kept for normal deployments.
+
+### Build outputs (two targets)
+
+- Node/Express (default): `pnpm build`
+  - Client build output: `dist/public/`
+  - Server bundle output: `dist/index.js`
+- GitHub Pages (static): `pnpm build:pages`
+  - Client build output: `dist/`
+  - No server bundle is built/required
+
+### Base path (project site vs user site/custom domain)
+
+This project uses `VITE_BASE` to set Vite's `base` path.
+
+- Project site: base should be `/<repo-name>/` (default in `deploy-pages.yml`)
+- User site / custom domain: base should be `/` (set repo variable `PAGES_BASE_PATH` to `/`)
+
+### SPA deep link / refresh 404 fix (Pages)
+
+GitHub Pages does not support SPA fallback routing. This repo includes a complete 404 redirect solution:
+
+- `client/public/404.html` redirects unknown paths to `/?p=/original/path`
+- `client/index.html` restores the original path on first load (before React renders)
+
+### One-time GitHub Pages settings
+
+GitHub repo → Settings → Pages → Build and deployment → Source: select **GitHub Actions**.
+Then push to `main` to trigger deployment.
+
 ## Scripts (Local = CI)
 
 CI 僅跑單一入口：`pnpm ci`，本機請用同一條命令確保一致。

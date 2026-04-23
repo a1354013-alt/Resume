@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting…</title>
+    <script>
+      (function () {
+        // GitHub Pages serves `404.html` for unknown paths without running our server.
+        // This redirects deep links back to `index.html` while preserving the route.
+        //
+        // We support:
+        // - Project sites:   https://host/<repo>/*  (base = "/<repo>/")
+        // - User sites / custom domains: https://host/* (base = "/")
+        //
+        // App routes are known, so we can infer whether the first path segment is the repo name.
+        var l = window.location;
+        var rawParts = l.pathname.split("/").filter(Boolean);
+        var knownRoutes = { resume: true, projects: true, biography: true, "404": true };
+
+        var base = "/";
+        var appParts = rawParts;
+
+        if (rawParts.length > 0 && !knownRoutes[rawParts[0]]) {
+          base = "/" + rawParts[0] + "/";
+          appParts = rawParts.slice(1);
+        }
+
+        var appPath = "/" + appParts.join("/");
+        var search = l.search ? l.search.slice(1) : "";
+
+        var target =
+          base +
+          "?p=" +
+          encodeURIComponent(appPath) +
+          (search ? "&q=" + encodeURIComponent(search) : "") +
+          l.hash;
+
+        l.replace(target);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
+
