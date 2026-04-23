@@ -192,11 +192,9 @@ export default function Biography() {
               >
                 {displayedText}
               </h2>
-
               <p className="text-slate-300 leading-relaxed">
                 我是一名以「穩定、可維護、可落地」為優先的 ERP 系統開發工程師，擅長從第一線使用情境出發，將遺留系統的業務邏輯清楚翻譯為可維護、可擴充的解法。
               </p>
-
              
             </header>
 
@@ -251,10 +249,7 @@ export default function Biography() {
 
             <section className="space-y-4">
               <h3 className="text-2xl font-bold text-cyan-300">Contact</h3>
-              <p className="text-slate-300 leading-relaxed">
-                如果你正在處理遺留系統、需要高風險需求評估，或想討論 Web 化與效能優化、AI
-                導入方向，歡迎聯絡我。
-              </p>
+             
 
               <div className="flex flex-wrap gap-3">
                 <a
