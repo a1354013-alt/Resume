@@ -54,55 +54,61 @@ export default function FloatingNavbar() {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/">
-            <a
-              onClick={scrollToTop}
-              className="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors duration-200 font-mono text-sm font-semibold"
-              style={{ fontFamily: "'Orbitron', monospace" }}
-            >
-              <ChevronUp size={18} />
-              <span>回到頂端</span>
-            </a>
+          <Link
+            href="/"
+            onClick={scrollToTop}
+            className="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors duration-200 font-mono text-sm font-semibold"
+            style={{ fontFamily: "'Orbitron', monospace" }}
+          >
+            <ChevronUp size={18} />
+            <span>回到頂端</span>
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
-            <Link href="/">
-              <a className="font-mono text-xs text-slate-300/80 hover:text-cyan-300 transition-colors duration-200 uppercase tracking-wide">
-                Home
-              </a>
+            <Link
+              href="/"
+              className="font-mono text-xs text-slate-300/80 hover:text-cyan-300 transition-colors duration-200 uppercase tracking-wide"
+            >
+              Home
             </Link>
-            <Link href="/resume">
-              <a className="font-mono text-xs text-slate-300/80 hover:text-cyan-300 transition-colors duration-200 uppercase tracking-wide">
-                Resume
-              </a>
+            <Link
+              href="/resume"
+              className="font-mono text-xs text-slate-300/80 hover:text-cyan-300 transition-colors duration-200 uppercase tracking-wide"
+            >
+              Resume
             </Link>
-            <Link href="/biography">
-              <a className="font-mono text-xs text-slate-300/80 hover:text-cyan-300 transition-colors duration-200 uppercase tracking-wide">
-                Bio
-              </a>
+            <Link
+              href="/biography"
+              className="font-mono text-xs text-slate-300/80 hover:text-cyan-300 transition-colors duration-200 uppercase tracking-wide"
+            >
+              Bio
             </Link>
-            <Link href="/projects">
-              <a className="font-mono text-xs text-slate-300/80 hover:text-cyan-300 transition-colors duration-200 uppercase tracking-wide">
-                Projects
-              </a>
+            <Link
+              href="/projects"
+              className="font-mono text-xs text-slate-300/80 hover:text-cyan-300 transition-colors duration-200 uppercase tracking-wide"
+            >
+              Projects
             </Link>
           </div>
 
           <div className="md:hidden flex items-center gap-4">
-            <Link href="/resume">
-              <a className="font-mono text-xs text-slate-300/80 hover:text-cyan-300 transition-colors duration-200">
-                履歷
-              </a>
+            <Link
+              href="/resume"
+              className="font-mono text-xs text-slate-300/80 hover:text-cyan-300 transition-colors duration-200"
+            >
+              履歷
             </Link>
-            <Link href="/biography">
-              <a className="font-mono text-xs text-slate-300/80 hover:text-cyan-300 transition-colors duration-200">
-                自傳
-              </a>
+            <Link
+              href="/biography"
+              className="font-mono text-xs text-slate-300/80 hover:text-cyan-300 transition-colors duration-200"
+            >
+              自傳
             </Link>
-            <Link href="/projects">
-              <a className="font-mono text-xs text-slate-300/80 hover:text-cyan-300 transition-colors duration-200">
-                專案
-              </a>
+            <Link
+              href="/projects"
+              className="font-mono text-xs text-slate-300/80 hover:text-cyan-300 transition-colors duration-200"
+            >
+              專案
             </Link>
           </div>
         </div>

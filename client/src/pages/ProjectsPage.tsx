@@ -159,23 +159,26 @@ export default function ProjectsPage() {
           {/* Navigation */}
           <nav className="sticky top-0 z-50 bg-slate-950/60 backdrop-blur-md border-b border-cyan-500/10">
             <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-              <Link href="/">
-                <a className="font-mono text-cyan-400 hover:text-cyan-300 transition-colors">
-                  首頁
-                </a>
+              <Link
+                href="/"
+                className="font-mono text-cyan-400 hover:text-cyan-300 transition-colors"
+              >
+                首頁
               </Link>
               <h1 className="font-mono text-sm text-slate-400">專案</h1>
               <div className="flex gap-4 items-center">
-                <Link href="/resume">
-                  <a className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors">
-                    履歷
-                  </a>
+                <Link
+                  href="/resume"
+                  className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
+                >
+                  履歷
                 </Link>
                 <span className="text-slate-600">|</span>
-                <Link href="/biography">
-                  <a className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors">
-                    自傳
-                  </a>
+                <Link
+                  href="/biography"
+                  className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
+                >
+                  自傳
                 </Link>
               </div>
             </div>

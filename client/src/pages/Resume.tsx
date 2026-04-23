@@ -54,10 +54,11 @@ export default function Resume() {
           {/* Navigation */}
           <nav className="sticky top-0 z-50 bg-slate-950/60 backdrop-blur-md border-b border-cyan-500/10">
             <div className="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
-              <Link href="/">
-                <a className="font-mono text-cyan-400 hover:text-cyan-300 transition-colors">
-                  首頁
-                </a>
+              <Link
+                href="/"
+                className="font-mono text-cyan-400 hover:text-cyan-300 transition-colors"
+              >
+                首頁
               </Link>
               <h1 className="font-mono text-sm text-slate-400">履歷</h1>
               <div className="flex gap-4 items-center">
