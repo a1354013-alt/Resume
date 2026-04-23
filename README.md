@@ -5,17 +5,17 @@
 
 ## Demo
 
-- Live demo: _TBD_（建議填入實際部署連結）
+- Live demo: （尚未公開部署；完成部署後請填入實際連結）
 
 ## Screenshots
 
-（目前 repo 未包含實際截圖，先保留清楚結構；建議放在 `docs/screenshots/`）
+（目前 repo 未包含實際截圖；建議放在 `docs/screenshots/`，並使用下列檔名方便維護）
 
-- Home: _TBD_ (`docs/screenshots/home.png`)
-- Projects: _TBD_ (`docs/screenshots/projects.png`)
-- Project dialog: _TBD_ (`docs/screenshots/project-dialog.png`)
-- Resume: _TBD_ (`docs/screenshots/resume.png`)
-- 404: _TBD_ (`docs/screenshots/404.png`)
+- Home (`docs/screenshots/home.png`)
+- Projects (`docs/screenshots/projects.png`)
+- Project dialog (`docs/screenshots/project-dialog.png`)
+- Resume (`docs/screenshots/resume.png`)
+- 404 (`docs/screenshots/404.png`)
 
 ## Tech Stack
 
@@ -66,9 +66,9 @@ CI 僅跑單一入口：`pnpm ci`，本機請用同一條命令確保一致。
 │  ├─ index.html
 │  └─ src/
 │     ├─ components/        # UI components
-│     ├─ contexts/          # ThemeProvider（只負責套用 dark class）
 │     ├─ data/              # profile/projects 靜態資料
 │     ├─ hooks/             # focus trap / scroll lock / escape key 等
+│     ├─ lib/               # analytics 等可重用模組
 │     ├─ pages/             # Home / Projects / Resume / Biography / NotFound
 │     ├─ __tests__/         # Vitest tests（jsdom + Testing Library）
 │     ├─ index.css
@@ -113,7 +113,7 @@ CI 僅跑單一入口：`pnpm ci`，本機請用同一條命令確保一致。
 - `VITE_ANALYTICS_ENDPOINT`
 - `VITE_ANALYTICS_WEBSITE_ID`
 
-實作在 `client/src/main.tsx`，並包含「避免重複插入 script」的保護（例如 HMR / 重複 import）。
+實作在 `client/src/lib/analytics.ts`，由 `client/src/main.tsx` 啟動，並包含「避免重複插入 script」的保護（例如 HMR / 重複 import）。
 
 ## Environment Variables
 
