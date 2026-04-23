@@ -33,7 +33,10 @@ export default defineConfig(({ mode }) => {
     envDir: path.resolve(import.meta.dirname),
     root: path.resolve(import.meta.dirname, "client"),
     build: {
-      outDir: path.resolve(import.meta.dirname, isPages ? "dist" : "dist/public"),
+      outDir: path.resolve(
+        import.meta.dirname,
+        isPages ? "dist" : "dist/public"
+      ),
       emptyOutDir: true,
     },
     server: {
