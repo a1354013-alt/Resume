@@ -115,8 +115,7 @@ export default function ProjectsPage() {
     if (sortBy === "tier") {
       return [...filtered].sort(
         (a, b) =>
-          tierOrder[a.tier] - tierOrder[b.tier] ||
-          a.name.localeCompare(b.name)
+          tierOrder[a.tier] - tierOrder[b.tier] || a.name.localeCompare(b.name)
       );
     }
 
@@ -257,7 +256,8 @@ export default function ProjectsPage() {
 
               <p className="text-slate-300 max-w-3xl leading-relaxed">
                 這裡整理我目前較適合放在求職作品集中的專案，包含全端系統、AI
-                應用、PDF 引擎、文件知識管理與學習平台。每個專案都著重在實作架構、資料流、測試與可維護性。
+                應用、PDF
+                引擎、文件知識管理與學習平台。每個專案都著重在實作架構、資料流、測試與可維護性。
               </p>
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
@@ -268,7 +268,6 @@ export default function ProjectsPage() {
               </div>
             </section>
 
-      
             <section className="mb-10">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="relative">

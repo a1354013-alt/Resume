@@ -30,13 +30,24 @@ export const projects: Project[] = [
     role: "全端工程師",
     category: "enterprise",
     tier: "gold",
-    technologies: ["TypeScript", "PDF.js", "Canvas", "Vite", "Vitest", "GitHub Actions"],
-    metrics: "完成可重用 npm library，支援 ESM/CJS，並建立 CI Smoke Test 驗證交付品質",
+    technologies: [
+      "TypeScript",
+      "PDF.js",
+      "Canvas",
+      "Vite",
+      "Vitest",
+      "GitHub Actions",
+    ],
+    metrics:
+      "完成可重用 npm library，支援 ESM/CJS，並建立 CI Smoke Test 驗證交付品質",
     featured: true,
     details: {
-      problem: "現代 Web 系統需要可客製化的 PDF 顯示與註記能力，但現有工具難以擴充與整合。",
-      solution: "使用 PDF.js 與 Canvas 建立模組化 PDF 渲染核心，實作多種註記工具並封裝為可重用 npm 套件。",
-      contribution: "負責 PDF 載入、頁面渲染、註記工具、套件封裝與 CI 驗證流程設計。",
+      problem:
+        "現代 Web 系統需要可客製化的 PDF 顯示與註記能力，但現有工具難以擴充與整合。",
+      solution:
+        "使用 PDF.js 與 Canvas 建立模組化 PDF 渲染核心，實作多種註記工具並封裝為可重用 npm 套件。",
+      contribution:
+        "負責 PDF 載入、頁面渲染、註記工具、套件封裝與 CI 驗證流程設計。",
       highlights: [
         "高解析 PDF 渲染（pdf.js + Web Worker）",
         "實作 Draw / Text / Eraser 註記工具",
@@ -58,13 +69,24 @@ export const projects: Project[] = [
     role: "後端工程師",
     category: "enterprise",
     tier: "gold",
-    technologies: ["Python", "SQLite", "Pytest", "MyPy", "Ruff", "GitHub Actions"],
-    metrics: "支援自動分類、重複檔案偵測與閒置檔案分析，並具備完整測試與 CI 流程",
+    technologies: [
+      "Python",
+      "SQLite",
+      "Pytest",
+      "MyPy",
+      "Ruff",
+      "GitHub Actions",
+    ],
+    metrics:
+      "支援自動分類、重複檔案偵測與閒置檔案分析，並具備完整測試與 CI 流程",
     featured: true,
     details: {
-      problem: "長期累積的檔案缺乏分類與整理機制，導致儲存空間浪費與資料管理困難。",
-      solution: "建立模組化檔案整理系統，自動掃描資料夾並分類檔案，偵測重複與閒置資料。",
-      contribution: "負責核心掃描流程、分類邏輯、儲存層設計、測試流程與 CI/CD 設定。",
+      problem:
+        "長期累積的檔案缺乏分類與整理機制，導致儲存空間浪費與資料管理困難。",
+      solution:
+        "建立模組化檔案整理系統，自動掃描資料夾並分類檔案，偵測重複與閒置資料。",
+      contribution:
+        "負責核心掃描流程、分類邏輯、儲存層設計、測試流程與 CI/CD 設定。",
       highlights: [
         "依副檔名與規則自動分類檔案",
         "透過 Hash（MD5 / SHA）偵測重複檔案",
@@ -97,7 +119,8 @@ export const projects: Project[] = [
       "Vitest",
       "GitHub Actions",
     ],
-    metrics: "建立完整文件與知識管理流程，整合 AI Prompt、Vector Database、CI 與發佈驗證",
+    metrics:
+      "建立完整文件與知識管理流程，整合 AI Prompt、Vector Database、CI 與發佈驗證",
     featured: false,
     details: {
       problem:
@@ -125,18 +148,29 @@ export const projects: Project[] = [
   {
     id: "finance-dashboard",
     name: "AI 財務分析儀表板",
-    tagline:
-      "整合 AI 分析與股票資料的全端財務管理平台。",
+    tagline: "整合 AI 分析與股票資料的全端財務管理平台。",
     role: "全端工程師",
     category: "enterprise",
     tier: "silver",
-    technologies: ["FastAPI", "Vue 3", "SQLite", "JWT", "Pytest", "Vitest", "GitHub Actions"],
-    metrics: "建立完整財務管理與 AI 分析流程，整合 Provider abstraction 與 CI 測試",
+    technologies: [
+      "FastAPI",
+      "Vue 3",
+      "SQLite",
+      "JWT",
+      "Pytest",
+      "Vitest",
+      "GitHub Actions",
+    ],
+    metrics:
+      "建立完整財務管理與 AI 分析流程，整合 Provider abstraction 與 CI 測試",
     featured: false,
     details: {
-      problem: "使用者需要整合式平台管理收支、預算與投資資訊，並取得智慧化分析建議。",
-      solution: "建立全端財務儀表板，整合股票資料 API、AI 分析模組與可切換 Provider 架構。",
-      contribution: "負責系統架構設計、後端 API、前端儀表板、AI Insights、股票資料整合與測試流程。",
+      problem:
+        "使用者需要整合式平台管理收支、預算與投資資訊，並取得智慧化分析建議。",
+      solution:
+        "建立全端財務儀表板，整合股票資料 API、AI 分析模組與可切換 Provider 架構。",
+      contribution:
+        "負責系統架構設計、後端 API、前端儀表板、AI Insights、股票資料整合與測試流程。",
       highlights: [
         "JWT 身份驗證與帳號管理",
         "支出、預算與月度財務統計",
@@ -184,8 +218,7 @@ export const projects: Project[] = [
         "設計 lesson / review / progress / analytics API 契約",
         "建立 pytest、Vitest、Playwright 與 GitHub Actions CI 驗證流程",
       ],
-      result:
-        "完成前後端分離的 AI 語言學習平台 MVP，可作為教育科技產品原型。",
+      result: "完成前後端分離的 AI 語言學習平台 MVP，可作為教育科技產品原型。",
       challenges:
         "需設計可持續累積的學習閉環，讓課程、錯題、複習與分析資料能互相串接。",
       nextSteps:
@@ -197,18 +230,27 @@ export const projects: Project[] = [
   {
     id: "covid-cough-detection",
     name: "COVID-19 咳嗽聲音偵測系統",
-    tagline:
-      "基於 AI 的聲音分析平台，支援音訊上傳、驗證與模型推論。",
+    tagline: "基於 AI 的聲音分析平台，支援音訊上傳、驗證與模型推論。",
     role: "全端工程師",
     category: "ai",
     tier: "silver",
-    technologies: ["React", "TypeScript", "Node.js", "Python", "GitHub Actions"],
-    metrics: "完成端到端 AI 音訊分析流程，包含上傳驗證、推論處理、結果回傳與 CI 測試",
+    technologies: [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "Python",
+      "GitHub Actions",
+    ],
+    metrics:
+      "完成端到端 AI 音訊分析流程，包含上傳驗證、推論處理、結果回傳與 CI 測試",
     featured: false,
     details: {
-      problem: "需要建立穩定的音訊驗證與推論流程，以確保模型輸入品質與結果可靠性。",
-      solution: "設計完整音訊處理平台，支援上傳、格式驗證、大小檢查、推論流程與結果顯示。",
-      contribution: "負責前後端流程、音訊驗證 middleware、推論串接、API 測試與 CI 驗證。",
+      problem:
+        "需要建立穩定的音訊驗證與推論流程，以確保模型輸入品質與結果可靠性。",
+      solution:
+        "設計完整音訊處理平台，支援上傳、格式驗證、大小檢查、推論流程與結果顯示。",
+      contribution:
+        "負責前後端流程、音訊驗證 middleware、推論串接、API 測試與 CI 驗證。",
       highlights: [
         "安全音訊上傳 API",
         "音訊格式、大小與長度檢查",
@@ -219,7 +261,8 @@ export const projects: Project[] = [
       result: "建立可擴充的 AI 音訊推論平台。",
       challenges: "需確保音訊前處理與模型推論流程一致，避免無效輸入影響結果。",
       nextSteps: "規劃加入更多資料集、模型優化與推論效能改善。",
-      githubUrl: "https://github.com/a1354013-alt/covid_cough_detection_complete_with_dataset",
+      githubUrl:
+        "https://github.com/a1354013-alt/covid_cough_detection_complete_with_dataset",
     },
   },
 ];

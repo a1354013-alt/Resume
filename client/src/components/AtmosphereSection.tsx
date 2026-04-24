@@ -25,9 +25,7 @@ export default function AtmosphereSection() {
         )
       );
 
-      setScrollProgress(prev =>
-        prev === progress ? prev : progress
-      );
+      setScrollProgress(prev => (prev === progress ? prev : progress));
     };
 
     const handleScroll = () => {
@@ -54,7 +52,6 @@ export default function AtmosphereSection() {
       ref={sectionRef}
       className="relative w-full h-screen overflow-hidden bg-gradient-to-b from-black via-slate-950 to-black"
     >
-
       {/* 原本的動態漸層背景 */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_40%,rgba(0,217,255,0.12),transparent_55%)]" />
@@ -70,7 +67,6 @@ export default function AtmosphereSection() {
 
       {/* 主內容 */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center px-4">
-
         <div
           className="text-center max-w-3xl transition-all duration-500"
           style={{
@@ -78,7 +74,6 @@ export default function AtmosphereSection() {
             transform: `translateY(${scrollProgress * 24}px)`,
           }}
         >
-
           <h2
             className="text-4xl md:text-5xl font-bold mb-6 glow-text"
             style={{ fontFamily: "'Orbitron', monospace" }}
@@ -91,7 +86,6 @@ export default function AtmosphereSection() {
           </p>
 
           <div className="mt-8 flex justify-center gap-3">
-
             <Link
               href="/projects"
               className="px-5 py-3 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-200 hover:bg-cyan-500/30 transition-colors font-medium"
@@ -105,9 +99,7 @@ export default function AtmosphereSection() {
             >
               前往履歷
             </Link>
-
           </div>
-
         </div>
 
         {/* 向下指示 */}
@@ -117,14 +109,10 @@ export default function AtmosphereSection() {
         >
           <div className="flex flex-col items-center gap-3">
             <div className="w-1 h-8 bg-gradient-to-b from-cyan-400 to-transparent rounded-full animate-pulse" />
-            <span className="font-mono text-xs text-cyan-300">
-              繼續往下
-            </span>
+            <span className="font-mono text-xs text-cyan-300">繼續往下</span>
           </div>
         </div>
-
       </div>
-
     </section>
   );
 }

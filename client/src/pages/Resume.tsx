@@ -31,13 +31,7 @@ function ResumeLink({
   );
 }
 
-function Section({
-  title,
-  children,
-}: {
-  title: string;
-  children: ReactNode;
-}) {
+function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="space-y-5 rounded-2xl bg-slate-950/45 border border-cyan-500/10 p-6 shadow-lg shadow-cyan-950/10">
       <h3 className="text-2xl font-bold text-cyan-300">{title}</h3>
@@ -143,9 +137,9 @@ export default function Resume() {
                 </p>
 
                 <p className="text-slate-300 leading-relaxed">
-                  具備 9~10 年跨領域工作經驗，目前擔任 ERP 軟體工程師，
-                  專注於 Delphi 遺留系統現代化、Vue3 + Go Web 架構轉換、
-                  RESTful API 整合與企業內部系統重構。
+                  具備 9~10 年跨領域工作經驗，目前擔任 ERP 軟體工程師， 專注於
+                  Delphi 遺留系統現代化、Vue3 + Go Web 架構轉換、 RESTful API
+                  整合與企業內部系統重構。
                 </p>
               </div>
 
@@ -179,7 +173,8 @@ export default function Resume() {
 
                 <p>
                   目前工作重心為 ERP 系統功能開發、維護、重構與 Web 化。
-                  面對缺乏完整文件的舊系統，能從 Delphi 原始碼與資料庫結構反向推敲流程，
+                  面對缺乏完整文件的舊系統，能從 Delphi
+                  原始碼與資料庫結構反向推敲流程，
                   釐清商業邏輯、資料流與異常根因，再以穩定、可維護、可落地的方式完成改善。
                 </p>
               </div>
@@ -317,7 +312,8 @@ export default function Resume() {
 
             <Section title="系統 Web 化經驗">
               <p className="text-slate-300 leading-relaxed">
-                曾參與並推動多套核心 ERP 系統從 Delphi / Legacy 架構轉移到 Web 架構。
+                曾參與並推動多套核心 ERP 系統從 Delphi / Legacy 架構轉移到 Web
+                架構。
                 過程中不只是照搬舊功能，而是重新整理流程、切割商業邏輯與畫面事件，
                 讓系統更容易維護、擴充與導入。
               </p>
@@ -331,7 +327,7 @@ export default function Resume() {
                     >
                       {system}
                     </div>
-                  ),
+                  )
                 )}
               </div>
             </Section>
@@ -342,7 +338,9 @@ export default function Resume() {
                   <h4 className="font-semibold text-slate-100">
                     國立彰化師範大學｜人工智慧科技應用碩士學位學程
                   </h4>
-                  <p className="text-slate-400">2024/9 — 2026/6｜碩士夜間就讀中</p>
+                  <p className="text-slate-400">
+                    2024/9 — 2026/6｜碩士夜間就讀中
+                  </p>
                 </div>
 
                 <div>
@@ -367,7 +365,8 @@ export default function Resume() {
 
             <Section title="專案作品">
               <p className="text-slate-300 leading-relaxed">
-                我把可公開的作品與案例整理在專案頁；公司內部 ERP 系統會以非公開案例方式呈現，
+                我把可公開的作品與案例整理在專案頁；公司內部 ERP
+                系統會以非公開案例方式呈現，
                 主要展示我在系統重構、資料流整理、效能優化與產品落地上的能力。
               </p>
 

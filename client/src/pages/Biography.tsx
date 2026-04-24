@@ -133,7 +133,7 @@ export default function Biography() {
         ],
       },
     ],
-    [],
+    []
   );
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
@@ -151,52 +151,52 @@ export default function Biography() {
 
         <div className="relative z-10">
           <nav className="sticky top-0 z-50 bg-slate-950/60 backdrop-blur-md border-b border-cyan-500/10">
-  <div className="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
-    <Link
-      href="/"
-      className="font-mono text-cyan-400 hover:text-cyan-300 transition-colors"
-    >
-      首頁
-    </Link>
+            <div className="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
+              <Link
+                href="/"
+                className="font-mono text-cyan-400 hover:text-cyan-300 transition-colors"
+              >
+                首頁
+              </Link>
 
-    <div className="flex gap-4 items-center">
-      <Link
-        href="/biography"
-        className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
-      >
-        自傳
-      </Link>
+              <div className="flex gap-4 items-center">
+                <Link
+                  href="/biography"
+                  className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
+                >
+                  自傳
+                </Link>
 
-      <span className="text-slate-600">|</span>
+                <span className="text-slate-600">|</span>
 
-      <Link
-        href="/resume"
-        className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
-      >
-        履歷
-      </Link>
+                <Link
+                  href="/resume"
+                  className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
+                >
+                  履歷
+                </Link>
 
-      <span className="text-slate-600">|</span>
+                <span className="text-slate-600">|</span>
 
-      <Link
-        href="/projects"
-        className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
-      >
-        專案
-      </Link>
+                <Link
+                  href="/projects"
+                  className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
+                >
+                  專案
+                </Link>
 
-      <span className="text-slate-600">|</span>
+                <span className="text-slate-600">|</span>
 
-      <button
-        type="button"
-        onClick={scrollToTop}
-        className="font-mono text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
-      >
-        回到頂部
-      </button>
-    </div>
-  </div>
-</nav>
+                <button
+                  type="button"
+                  onClick={scrollToTop}
+                  className="font-mono text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
+                >
+                  回到頂部
+                </button>
+              </div>
+            </div>
+          </nav>
 
           <div className="max-w-4xl mx-auto px-6 py-12 sm:py-16 space-y-12 sm:space-y-16">
             <header className="space-y-6">
@@ -207,13 +207,13 @@ export default function Biography() {
                 {displayedText}
               </h2>
               <p className="text-slate-300 leading-relaxed">
-                我是一名以「穩定、可維護、可落地」為優先的 ERP 系統開發工程師，擅長從第一線使用情境出發，將遺留系統的業務邏輯清楚翻譯為可維護、可擴充的解法。
+                我是一名以「穩定、可維護、可落地」為優先的 ERP
+                系統開發工程師，擅長從第一線使用情境出發，將遺留系統的業務邏輯清楚翻譯為可維護、可擴充的解法。
               </p>
-             
             </header>
 
             <div className="space-y-10 sm:space-y-12">
-              {sections.map((section) => (
+              {sections.map(section => (
                 <section
                   key={section.title}
                   className="bg-slate-900/20 border border-slate-700/40 rounded-2xl p-6 sm:p-8 space-y-6"
@@ -223,24 +223,28 @@ export default function Biography() {
                       {section.title}
                     </h3>
                     {section.subtitle ? (
-                      <p className="text-slate-400 text-sm">{section.subtitle}</p>
+                      <p className="text-slate-400 text-sm">
+                        {section.subtitle}
+                      </p>
                     ) : null}
                   </div>
 
                   <div className="space-y-4 text-slate-300 leading-relaxed">
-                    {section.paragraphs.map((paragraph) => (
+                    {section.paragraphs.map(paragraph => (
                       <p key={paragraph}>{paragraph}</p>
                     ))}
                   </div>
 
-                  {section.bullets?.map((group) => (
+                  {section.bullets?.map(group => (
                     <div
                       key={group.label}
                       className="bg-slate-950/40 border border-slate-700/40 rounded-xl p-5 space-y-3"
                     >
-                      <p className="text-slate-200 font-medium">{group.label}</p>
+                      <p className="text-slate-200 font-medium">
+                        {group.label}
+                      </p>
                       <ul className="list-disc pl-5 space-y-2 text-slate-300">
-                        {group.items.map((item) => (
+                        {group.items.map(item => (
                           <li key={item}>{item}</li>
                         ))}
                       </ul>
@@ -263,7 +267,6 @@ export default function Biography() {
 
             <section className="space-y-4">
               <h3 className="text-2xl font-bold text-cyan-300">Contact</h3>
-             
 
               <div className="flex flex-wrap gap-3">
                 <a
@@ -300,4 +303,3 @@ export default function Biography() {
     </>
   );
 }
-
