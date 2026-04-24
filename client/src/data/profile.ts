@@ -23,7 +23,7 @@ export const profile: Profile = {
   nameEn: "Yang-Wen Luo",
   title: "全端工程師｜企業系統現代化與整合",
   tagline:
-    "聚焦企業內部系統現代化：Delphi/Legacy → Web（Vue/React）+ API（Go/Node），把需求、流程與可維護性一起做對。",
+    "善於與使用者與客戶溝通需求，能將複雜問題轉化為可落地的解法；具備獨立作業能力，也能在跨部門或客戶討論中清楚表達技術方案與實作方向。",
   background:
     "具備企業 ERP 與內部系統整合經驗，熟悉從既有系統盤點、需求拆解、資料與流程梳理，到前後端落地與部署。重視可讀性、可觀測性與長期維護成本，偏好用工程化方法把問題一次解到位。",
   contact: {
