@@ -145,8 +145,7 @@ export default function Resume() {
                 <p className="text-slate-300 leading-relaxed">
                   具備 9~10 年跨領域工作經驗，目前擔任 ERP 軟體工程師，
                   專注於 Delphi 遺留系統現代化、Vue3 + Go Web 架構轉換、
-                  RESTful API 整合與企業內部系統重構。核心定位是
-                  「遺留系統邏輯翻譯機 × 高風險需求技術顧問」。
+                  RESTful API 整合與企業內部系統重構。
                 </p>
               </div>
 
