@@ -52,7 +52,7 @@ export default function AtmosphereSection() {
     <section
       id="atmosphere"
       ref={sectionRef}
-      className="relative w-full h-screen overflow-hidden bg-black"
+      className="relative w-full h-screen overflow-hidden bg-gradient-to-b from-black via-slate-950 to-black"
     >
 
       {/* 原本的動態漸層背景 */}
