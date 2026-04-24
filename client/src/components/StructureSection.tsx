@@ -12,22 +12,21 @@ const capabilities: CapabilityCard[] = [
     title: "系統盤點 → 可落地拆分",
     description:
       "把現況流程、角色與資料關係梳理清楚，將 Legacy/ERP 的複雜度拆成可維護的模組邊界與交付節點。",
-    icon: "🧭",
+    icon: "/Resume/icons/icon-radar.png",
   },
   {
     title: "前後端整合與 API 設計",
     description:
       "以 TypeScript + React/Vue 落地 UI，搭配 Go/Node API 與資料庫，處理權限、錯誤、資料一致性與可觀測性。",
-    icon: "🧱",
+    icon: "/Resume/icons/icon-server-api.png",
   },
   {
     title: "工程化交付",
     description:
       "建立一致的腳本、CI、環境變數與最小測試；確保 build/typecheck/lint 可持續通過，方便維運與擴充。",
-    icon: "✅",
+    icon: "/Resume/icons/icon-shield-check.png",
   },
 ];
-
 export default function StructureSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [visibleCards, setVisibleCards] = useState<boolean[]>([
@@ -101,7 +100,11 @@ export default function StructureSection() {
             >
               <div className="group relative h-full">
                 <div className="relative h-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-8 shadow-lg border border-cyan-300/40 hover:border-cyan-300/80 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/10">
-                  <div className="text-5xl mb-6">{capability.icon}</div>
+                  <img
+  src={capability.icon}
+  alt={capability.title}
+  className="w-20 h-20 object-contain mb-6"
+/>
                   <h3 className="font-bold text-slate-900 text-lg mb-4 leading-tight">
                     {capability.title}
                   </h3>
