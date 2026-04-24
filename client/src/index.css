@@ -329,3 +329,52 @@
     animation-delay: 0.5s;
   }
 }
+@keyframes meteor-fly {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-35deg);
+    opacity: 0;
+  }
+
+  8% {
+    opacity: 1;
+  }
+
+  35% {
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translate3d(-900px, 520px, 0) rotate(-35deg);
+    opacity: 0;
+  }
+}
+
+.meteor {
+  position: absolute;
+  width: 180px;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 217, 255, 0),
+    rgba(0, 217, 255, 0.95),
+    rgba(255, 255, 255, 0.9)
+  );
+  filter: drop-shadow(0 0 8px rgba(0, 217, 255, 0.8));
+  opacity: 0;
+}
+
+.meteor-1 {
+  top: 18%;
+  right: -10%;
+  animation: meteor-fly 5.5s linear infinite;
+  animation-delay: 1.2s;
+}
+
+.meteor-2 {
+  top: 38%;
+  right: -15%;
+  width: 120px;
+  animation: meteor-fly 7.5s linear infinite;
+  animation-delay: 4.8s;
+}
