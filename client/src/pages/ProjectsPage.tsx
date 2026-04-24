@@ -61,14 +61,6 @@ export default function ProjectsPage() {
     return () => document.removeEventListener("mousedown", onMouseDown);
   }, [showTechFilter]);
 
-  const featuredProjects = useMemo(
-    () =>
-      projects
-        .filter(project => project.featured)
-        .sort((a, b) => tierOrder[a.tier] - tierOrder[b.tier]),
-    []
-  );
-
   const projectStats = useMemo(() => {
     return {
       total: projects.length,
@@ -276,32 +268,7 @@ export default function ProjectsPage() {
               </div>
             </section>
 
-            {featuredProjects.length > 0 && (
-              <section className="mb-12">
-                <div className="flex items-end justify-between gap-4 mb-4">
-                  <div>
-                    <h3 className="text-xl font-semibold">精選作品</h3>
-                    <p className="text-sm text-slate-400 mt-1">
-                      最能代表目前工程能力與完整度的專案。
-                    </p>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {featuredProjects.slice(0, 4).map(project => (
-                    <ProjectCard
-                      key={project.id}
-                      project={project}
-                      getTierColor={getTierColor}
-                      getTierBadge={getTierBadge}
-                      getCategoryLabel={getCategoryLabel}
-                      onProjectClick={handleProjectClick}
-                    />
-                  ))}
-                </div>
-              </section>
-            )}
-
+      
             <section className="mb-10">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="relative">
