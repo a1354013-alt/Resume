@@ -151,38 +151,52 @@ export default function Biography() {
 
         <div className="relative z-10">
           <nav className="sticky top-0 z-50 bg-slate-950/60 backdrop-blur-md border-b border-cyan-500/10">
-            <div className="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
-              <Link
-                href="/"
-                className="font-mono text-cyan-400 hover:text-cyan-300 transition-colors"
-              >
-                Home
-              </Link>
-              <h1 className="font-mono text-sm text-slate-400">Biography</h1>
-              <div className="flex gap-4 items-center">
-                <Link
-                  href="/resume"
-                  className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
-                >
-                  Resume
-                </Link>
-                <span className="text-slate-600">|</span>
-                <Link
-                  href="/projects"
-                  className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
-                >
-                  Projects
-                </Link>
-                <span className="text-slate-600">|</span>
-                <button
-                  onClick={scrollToTop}
-                  className="font-mono text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
-                >
-                  Back to top
-                </button>
-              </div>
-            </div>
-          </nav>
+  <div className="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
+    <Link
+      href="/"
+      className="font-mono text-cyan-400 hover:text-cyan-300 transition-colors"
+    >
+      首頁
+    </Link>
+
+    <div className="flex gap-4 items-center">
+      <Link
+        href="/biography"
+        className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
+      >
+        自傳
+      </Link>
+
+      <span className="text-slate-600">|</span>
+
+      <Link
+        href="/resume"
+        className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
+      >
+        履歷
+      </Link>
+
+      <span className="text-slate-600">|</span>
+
+      <Link
+        href="/projects"
+        className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
+      >
+        專案
+      </Link>
+
+      <span className="text-slate-600">|</span>
+
+      <button
+        type="button"
+        onClick={scrollToTop}
+        className="font-mono text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
+      >
+        回到頂部
+      </button>
+    </div>
+  </div>
+</nav>
 
           <div className="max-w-4xl mx-auto px-6 py-12 sm:py-16 space-y-12 sm:space-y-16">
             <header className="space-y-6">
