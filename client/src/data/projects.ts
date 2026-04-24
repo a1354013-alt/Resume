@@ -25,7 +25,8 @@ export const projects: Project[] = [
   {
     id: "pdf-annotation-engine",
     name: "PDF 註記與渲染引擎",
-    tagline: "可重用的高解析 PDF 渲染與註記系統，支援多工具標註並封裝為 npm 套件。",
+    tagline:
+      "可重用的高解析 PDF 渲染與註記系統，支援多工具標註並封裝為 npm 套件。",
     role: "全端工程師",
     category: "enterprise",
     tier: "gold",
@@ -52,7 +53,8 @@ export const projects: Project[] = [
   {
     id: "smart-organizer",
     name: "智慧檔案整理系統",
-    tagline: "以 Python 建立的智慧檔案整理工具，支援分類、重複偵測與長期未使用檔案分析。",
+    tagline:
+      "以 Python 建立的智慧檔案整理工具，支援分類、重複偵測與長期未使用檔案分析。",
     role: "後端工程師",
     category: "enterprise",
     tier: "gold",
@@ -61,7 +63,7 @@ export const projects: Project[] = [
     featured: true,
     details: {
       problem: "長期累積的檔案缺乏分類與整理機制，導致儲存空間浪費與資料管理困難。",
-      solution: "建立模組化檔案整理系統，自動掃描資料夾、分類檔案、偵測重複資料並提供清理建議。",
+      solution: "建立模組化檔案整理系統，自動掃描資料夾並分類檔案，偵測重複與閒置資料。",
       contribution: "負責核心掃描流程、分類邏輯、儲存層設計、測試流程與 CI/CD 設定。",
       highlights: [
         "依副檔名與規則自動分類檔案",
@@ -77,19 +79,64 @@ export const projects: Project[] = [
     },
   },
   {
-    id: "finance-dashboard",
-    name: "AI 財務分析儀表板",
-    tagline: "整合 AI 分析與股票資料的全端財務管理平台。",
+    id: "knowledge-workspace",
+    name: "Knowledge Workspace — 智慧文件與知識整理平台",
+    tagline:
+      "整合文件管理、知識庫、操作紀錄與 AI 協助功能的全端 Workspace 系統。",
     role: "全端工程師",
     category: "enterprise",
-    tier: "gold",
+    tier: "silver",
+    technologies: [
+      "FastAPI",
+      "Vue 3",
+      "TypeScript",
+      "SQLite",
+      "JWT",
+      "ChromaDB",
+      "Pytest",
+      "Vitest",
+      "GitHub Actions",
+    ],
+    metrics: "建立完整文件與知識管理流程，整合 AI Prompt、Vector Database、CI 與發佈驗證",
+    featured: false,
+    details: {
+      problem:
+        "文件、圖片、操作紀錄與知識常分散於不同位置，造成資料難以追蹤、分類與重複利用。",
+      solution:
+        "設計統一 Workspace 架構，整合文件管理、知識庫整理、Logbook 操作紀錄與 AI Prompt 工作流程。",
+      contribution:
+        "負責系統架構設計、API 資料模型、文件與圖片管理、AI Prompt 流程、前後端整合與 CI 建置流程。",
+      highlights: [
+        "建立 Knowledge / Logbook / Prompt 多模組系統",
+        "整合文件與圖片上傳管理流程",
+        "導入 JWT Authentication 與角色存取控制",
+        "整合 ChromaDB Vector Database 與 LLM Prompt 流程",
+        "建立 build / lint / test / smoke test / release packaging 驗證流程",
+      ],
+      result:
+        "完成接近實務系統的智慧文件與知識整理平台，可作為團隊知識管理工具原型。",
+      challenges:
+        "需整合文件管理、知識沉澱、操作紀錄與 AI 工作流程，並維持前後端資料契約一致。",
+      nextSteps:
+        "規劃加入全文搜尋、多使用者協作、權限細分與更完整的知識檢索流程。",
+      githubUrl: "https://github.com/a1354013-alt/Knowledge_Workspace",
+    },
+  },
+  {
+    id: "finance-dashboard",
+    name: "AI 財務分析儀表板",
+    tagline:
+      "整合 AI 分析與股票資料的全端財務管理平台。",
+    role: "全端工程師",
+    category: "enterprise",
+    tier: "silver",
     technologies: ["FastAPI", "Vue 3", "SQLite", "JWT", "Pytest", "Vitest", "GitHub Actions"],
-    metrics: "完成全端財務平台，整合 JWT、股票資料、AI Insights、Provider abstraction 與 CI 測試流程",
-    featured: true,
+    metrics: "建立完整財務管理與 AI 分析流程，整合 Provider abstraction 與 CI 測試",
+    featured: false,
     details: {
       problem: "使用者需要整合式平台管理收支、預算與投資資訊，並取得智慧化分析建議。",
       solution: "建立全端財務儀表板，整合股票資料 API、AI 分析模組與可切換 Provider 架構。",
-      contribution: "負責系統架構設計、後端 API、前端儀表板、AI insights、股票資料整合與測試流程。",
+      contribution: "負責系統架構設計、後端 API、前端儀表板、AI Insights、股票資料整合與測試流程。",
       highlights: [
         "JWT 身份驗證與帳號管理",
         "支出、預算與月度財務統計",
@@ -104,9 +151,54 @@ export const projects: Project[] = [
     },
   },
   {
+    id: "language-learning-coach",
+    name: "English-Japanese Learning Coach",
+    tagline:
+      "AI 個人化英日文學習平台，支援 SRS、錯題追蹤、教材匯入與 RAG 問答。",
+    role: "全端工程師",
+    category: "learning",
+    tier: "silver",
+    technologies: [
+      "FastAPI",
+      "Vue 3",
+      "TypeScript",
+      "SQLite",
+      "Pytest",
+      "Vitest",
+      "Playwright",
+      "GitHub Actions",
+    ],
+    metrics: "建立從課程、作答、錯題、複習到學習分析的完整學習閉環",
+    featured: false,
+    details: {
+      problem:
+        "語言學習流程常分散在不同工具中，錯題、複習與學習進度難以持續追蹤。",
+      solution:
+        "建立完整學習資料流，支援每日課程、錯題本、SRS 複習、學習分析、教材匯入與 AI 輔助問答。",
+      contribution:
+        "負責課程、複習、錯題、教材與學習分析 API 設計，並完成前後端整合與測試流程。",
+      highlights: [
+        "設計 SRS 間隔重複複習機制",
+        "實作 wrong answers 錯題本與重新挑戰流程",
+        "整合 RAG 素材問答流程",
+        "設計 lesson / review / progress / analytics API 契約",
+        "建立 pytest、Vitest、Playwright 與 GitHub Actions CI 驗證流程",
+      ],
+      result:
+        "完成前後端分離的 AI 語言學習平台 MVP，可作為教育科技產品原型。",
+      challenges:
+        "需設計可持續累積的學習閉環，讓課程、錯題、複習與分析資料能互相串接。",
+      nextSteps:
+        "規劃加入 AI Chat Tutor、語音互動、個人化學習推薦與更多教材格式支援。",
+      githubUrl:
+        "https://github.com/a1354013-alt/English-Japanese-Learning-Coach-Project-Requirements",
+    },
+  },
+  {
     id: "covid-cough-detection",
     name: "COVID-19 咳嗽聲音偵測系統",
-    tagline: "基於 AI 的聲音分析平台，支援音訊上傳、驗證與模型推論。",
+    tagline:
+      "基於 AI 的聲音分析平台，支援音訊上傳、驗證與模型推論。",
     role: "全端工程師",
     category: "ai",
     tier: "silver",
