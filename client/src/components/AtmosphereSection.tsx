@@ -75,10 +75,7 @@ export default function AtmosphereSection() {
           <p className="font-mono text-lg md:text-xl text-cyan-200 mb-4">
             把需求、資料與權限拆清楚，再用可維護的工程實作落地。
           </p>
-          <p className="text-slate-300 leading-relaxed">
-            專案頁會清楚標示 Demo/Repo
-            是否可公開；沒有連結就不會出現可點擊按鈕，避免「看得到卻點不到」。
-          </p>
+        
 
           <div className="mt-8 flex justify-center gap-3">
             <Link
