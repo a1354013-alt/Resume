@@ -194,100 +194,163 @@ export default function Resume() {
             </Section>
 
             <Section title="工作經驗">
-  <div className="space-y-8">
-    <div className="rounded-2xl border border-cyan-500/20 bg-cyan-500/5 p-5">
-      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-2">
-        <div>
-          <p className="text-sm font-mono text-cyan-300 mb-2">
-            Current Role
-          </p>
+              <div className="space-y-0">
+                <div className="mb-6 flex items-center gap-4 text-sm">
+                  <span className="text-slate-400">總年資</span>
+                  <span className="font-semibold text-slate-100">9~10年工作經驗</span>
+                </div>
 
-          <h4 className="text-xl font-semibold text-slate-100">
-            中程資訊顧問有限公司｜軟體工程師
-          </h4>
+                {[
+                  {
+                    logo: "CMIS",
+                    logoClass: "bg-slate-100 text-blue-900",
+                    title: "軟體工程師",
+                    company: "中程資訊顧問有限公司（電腦軟體服務業）",
+                    role: "軟體工程師",
+                    period: "2022/8~仍在職",
+                    duration: "",
+                    bullets: [
+                      "主導 Delphi ERP 系統現代化，轉換為 Vue3 + Go Web 架構。",
+                      "建立 RESTful API 並整合前後端系統。",
+                      "重構複雜商業邏輯，提升系統可維護性。",
+                      "支援客戶需求訪談與問題排查。",
+                      "協助系統導入與使用者教育訓練。",
+                      "重新設計查詢流程，將關鍵頁面由 26 秒優化至 1 秒內。",
+                    ],
+                    linkText: "展開經歷亮點",
+                  },
+                  {
+                    logo: "台",
+                    logoClass: "bg-green-500 text-white",
+                    title: "網站設計師",
+                    company: "台灣久林股份有限公司（鞋類製造業 30~100人）",
+                    role: "平面設計 / 美編｜台中市大雅區",
+                    period: "2018/7~2022/2",
+                    duration: "3年8個月",
+                    bullets: [
+                      "設計製作平面文宣、海報、DM、廣告、型錄等視覺素材。",
+                      "規劃商品包裝設計製作及發印。",
+                      "進行圖稿、文案的排版設計。",
+                      "與印刷廠聯絡，處理估價、打樣與輸出流程。",
+                      "協助維護與修改公司網站內容。",
+                    ],
+                    linkText: "展開經歷亮點",
+                  },
+                  {
+                    logo: "鵬",
+                    logoClass: "bg-green-500 text-white",
+                    title: "網頁美工",
+                    company: "鵬薦數位股份有限公司（其他出版業 1~30人）",
+                    role: "網頁設計師｜台中市北屯區",
+                    period: "2017/2~2018/7",
+                    duration: "1年6個月",
+                    bullets: [
+                      "負責印前美工稿件製作。",
+                      "設計製作平面文宣、海報、DM、廣告、型錄等素材。",
+                      "協助網站工程師製作與維護網站。",
+                    ],
+                    linkText: "展開經歷亮點",
+                  },
+                  {
+                    logo: "富",
+                    logoClass: "bg-blue-600 text-white",
+                    title: "美編行銷",
+                    company: "富勝印刷股份有限公司",
+                    role: "平面設計 / 美編｜台中市神岡區",
+                    period: "2016/1~2017/2",
+                    duration: "1年2個月",
+                    bullets: [
+                      "負責印前美工稿件製作。",
+                      "修改與編繪美工圖稿。",
+                      "操作數位印刷機台，處理印前製稿、校稿與改稿。",
+                      "熟悉 Adobe Illustrator、Adobe Photoshop 等設計工具。",
+                      "協助處理主管交辦事項。",
+                    ],
+                    linkText: "展開經歷亮點",
+                  },
+                  {
+                    logo: "教",
+                    logoClass: "bg-cyan-600 text-white",
+                    title: "教學助理",
+                    company: "國立中興大學（大專校院教育事業）",
+                    role: "助教｜台中市南區",
+                    period: "2015/1~2015/8",
+                    duration: "8個月",
+                    bullets: [
+                      "協助課程教學與現場支援。",
+                      "協助學生理解課程操作流程。",
+                      "培養技術說明、問題引導與現場支援能力。",
+                    ],
+                    linkText: "展開經歷亮點",
+                  },
+                  {
+                    logo: "製",
+                    logoClass: "bg-orange-500 text-white",
+                    title: "產品設計工程師",
+                    company: "晨州塑膠工業股份有限公司",
+                    role: "機械設計工程師｜台中市大雅區",
+                    period: "2012/3~2014/3",
+                    duration: "2年1個月",
+                    bullets: [
+                      "參與產品設計與製造流程規劃。",
+                      "理解傳統製造業現場流程與作業限制。",
+                      "培養從實務操作角度思考系統設計的能力。",
+                    ],
+                    linkText: "展開經歷亮點",
+                  },
+                ].map((job, index, list) => (
+                  <div
+                    key={`${job.company}-${job.period}`}
+                    className={`grid grid-cols-[52px_1fr] gap-4 pb-8 ${index === list.length - 1
+                        ? ""
+                        : "border-b border-slate-700/40 mb-8"
+                      }`}
+                  >
+                    <div className="pt-1">
+                      <div
+                        className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-bold shadow-lg ${job.logoClass}`}
+                      >
+                        {job.logo}
+                      </div>
+                    </div>
 
-          <p className="text-slate-400">2022/8 — 至今</p>
-        </div>
+                    <div>
+                      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2">
+                        <div>
+                          <h4 className="text-lg font-semibold text-slate-100">
+                            {job.title}
+                          </h4>
 
-        <span className="text-cyan-300 text-sm font-mono">
-          ERP / Delphi / Vue3 / Go / SQL Server
-        </span>
-      </div>
+                          <p className="text-slate-200 font-medium">{job.company}</p>
 
-      <p className="mt-4 text-slate-300 leading-relaxed">
-        參與並推動多套核心 ERP 系統 Web 化，負責 Legacy System
-        Refactor、RESTful API 整合、資料流重整、效能優化與客戶導入支援。
-      </p>
+                          <p className="text-sm text-slate-400">{job.role}</p>
+                        </div>
 
-      <div className="mt-5">
-        <BulletList
-          items={[
-            "主導 Delphi ERP 系統現代化，逐步轉換為 Vue3 + Go RESTful API 架構，建立前後端分離系統基礎。",
-            "重新設計資料存取與查詢流程，解決 N+1 Query 問題，使關鍵頁面回應時間由 26 秒優化至 1 秒內。",
-            "重構高度耦合的既有商業邏輯，切割模組邊界並整理資料流，提升系統可維護性與擴充能力。",
-            "負責缺乏文件的 Delphi 舊系統除錯與流程還原，透過 Root Cause Analysis 解決跨系統資料異常問題。",
-            "參與多家企業 ERP 系統導入與歷史資料轉換，確保系統能在實務環境穩定運作。",
-            "執行需求訪談、問題排查與使用者教育訓練，並多次至客戶現場進行專案簡報與導入支援。",
-          ]}
-        />
-      </div>
-    </div>
+                        <div className="text-left md:text-right text-sm text-slate-400 shrink-0">
+                          <p>{job.period}</p>
+                          {job.duration && <p>{job.duration}</p>}
+                        </div>
+                      </div>
 
-    <div>
-      <div className="mb-4">
-        <p className="text-sm font-mono text-slate-500">
-          Earlier Experience
-        </p>
+                      <ol className="mt-4 space-y-1.5 text-slate-300 leading-relaxed">
+                        {job.bullets.map((item, bulletIndex) => (
+                          <li key={item}>
+                            {bulletIndex + 1}. {item}
+                          </li>
+                        ))}
+                      </ol>
 
-        <h4 className="text-lg font-semibold text-slate-100 mt-1">
-          早期跨領域經歷
-        </h4>
-
-        <p className="text-sm text-slate-400 mt-2 leading-relaxed">
-          這些經歷建立了我對使用者情境、視覺設計、現場流程與技術溝通的理解，
-          也成為後續投入企業系統開發的重要基礎。
-        </p>
-      </div>
-
-      <div className="grid md:grid-cols-3 gap-4">
-        {[
-          {
-            title: "網站設計 / 平面設計",
-            period: "2016 — 2022",
-            desc: "累積網頁視覺、版面配置、印前製稿與跨部門溝通經驗。",
-          },
-          {
-            title: "教學助理",
-            period: "2015",
-            desc: "協助課程教學與現場支援，培養技術說明與使用者引導能力。",
-          },
-          {
-            title: "產品設計工程師",
-            period: "2012 — 2014",
-            desc: "理解製造現場流程，培養從實務操作角度思考系統設計的能力。",
-          },
-        ].map(item => (
-          <div
-            key={item.title}
-            className="rounded-xl bg-slate-900/35 border border-slate-700/30 p-4 hover:border-cyan-500/25 transition-colors"
-          >
-            <p className="text-xs font-mono text-slate-500 mb-2">
-              {item.period}
-            </p>
-
-            <h5 className="text-base font-semibold text-slate-100 mb-2">
-              {item.title}
-            </h5>
-
-            <p className="text-sm text-slate-300 leading-relaxed">
-              {item.desc}
-            </p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-</Section>
+                      <button
+                        type="button"
+                        className="mt-4 text-sm font-semibold text-cyan-300 hover:text-cyan-200 transition-colors"
+                      >
+                        {job.linkText}
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Section>
 
             <Section title="代表性技術成果">
               <div className="grid gap-5">
