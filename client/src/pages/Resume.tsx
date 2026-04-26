@@ -194,67 +194,100 @@ export default function Resume() {
             </Section>
 
             <Section title="工作經驗">
-              <div className="space-y-8">
-                <div>
-                  <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-2">
-                    <div>
-                      <h4 className="text-xl font-semibold text-slate-100">
-                        中程資訊顧問有限公司｜軟體工程師
-                      </h4>
-                      <p className="text-slate-400">2022/8 — 至今</p>
-                    </div>
-                    <span className="text-cyan-300 text-sm font-mono">
-                      ERP / Delphi / Vue3 / Go / SQL Server
-                    </span>
-                  </div>
+  <div className="space-y-8">
+    <div className="rounded-2xl border border-cyan-500/20 bg-cyan-500/5 p-5">
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-2">
+        <div>
+          <p className="text-sm font-mono text-cyan-300 mb-2">
+            Current Role
+          </p>
 
-                  <p className="mt-4 text-slate-300 leading-relaxed">
-                    參與並推動 4 套核心 ERP 系統 Web 化，包含預算採發估驗、
-                    變更追加減、高階簽核與人事出勤。工作重點不只是功能開發，
-                    更包含舊系統邏輯還原、資料流整理、效能優化與客戶端導入。
-                  </p>
+          <h4 className="text-xl font-semibold text-slate-100">
+            中程資訊顧問有限公司｜軟體工程師
+          </h4>
 
-                  <div className="mt-5">
-                    <BulletList
-                      items={[
-                        "主導 Delphi ERP 系統現代化，逐步轉換為 Vue3 + Go RESTful API 架構，建立前後端分離系統基礎。",
-                        "重新設計資料存取與查詢流程，解決 N+1 Query 問題，使關鍵頁面回應時間由 26 秒優化至 1 秒內。",
-                        "重構高度耦合的既有商業邏輯，切割模組邊界並整理資料流，提升系統可維護性與擴充能力。",
-                        "負責缺乏文件的 Delphi 舊系統除錯與流程還原，透過 Root Cause Analysis 解決跨系統資料異常問題。",
-                        "參與多家企業 ERP 系統導入與歷史資料轉換，包含營造與製造產業，確保系統能在實務環境穩定運作。",
-                        "執行需求訪談、問題排查與使用者教育訓練，並多次至客戶現場進行專案簡報與系統導入支援。",
-                      ]}
-                    />
-                  </div>
-                </div>
+          <p className="text-slate-400">2022/8 — 至今</p>
+        </div>
 
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="text-lg font-semibold text-slate-100">
-                      早期跨領域經歷
-                    </h4>
-                    <p className="text-sm text-slate-400 mt-1">
-                      這些經驗讓我在系統開發時更能理解使用者情境、現場流程與溝通成本。
-                    </p>
-                  </div>
+        <span className="text-cyan-300 text-sm font-mono">
+          ERP / Delphi / Vue3 / Go / SQL Server
+        </span>
+      </div>
 
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {[
-                      "網站設計與平面設計：累積 UI 視覺、版面配置、印前製稿與跨部門溝通經驗。",
-                      "教學助理：協助課程教學與操作指導，培養技術說明與使用者引導能力。",
-                      "產品設計工程師：理解製造現場流程，培養從實務操作角度思考系統設計能力。",
-                    ].map(item => (
-                      <div
-                        key={item}
-                        className="rounded-xl bg-slate-900/35 border border-slate-700/30 p-4 text-slate-300 leading-relaxed"
-                      >
-                        {item}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </Section>
+      <p className="mt-4 text-slate-300 leading-relaxed">
+        參與並推動多套核心 ERP 系統 Web 化，負責 Legacy System
+        Refactor、RESTful API 整合、資料流重整、效能優化與客戶導入支援。
+      </p>
+
+      <div className="mt-5">
+        <BulletList
+          items={[
+            "主導 Delphi ERP 系統現代化，逐步轉換為 Vue3 + Go RESTful API 架構，建立前後端分離系統基礎。",
+            "重新設計資料存取與查詢流程，解決 N+1 Query 問題，使關鍵頁面回應時間由 26 秒優化至 1 秒內。",
+            "重構高度耦合的既有商業邏輯，切割模組邊界並整理資料流，提升系統可維護性與擴充能力。",
+            "負責缺乏文件的 Delphi 舊系統除錯與流程還原，透過 Root Cause Analysis 解決跨系統資料異常問題。",
+            "參與多家企業 ERP 系統導入與歷史資料轉換，確保系統能在實務環境穩定運作。",
+            "執行需求訪談、問題排查與使用者教育訓練，並多次至客戶現場進行專案簡報與導入支援。",
+          ]}
+        />
+      </div>
+    </div>
+
+    <div>
+      <div className="mb-4">
+        <p className="text-sm font-mono text-slate-500">
+          Earlier Experience
+        </p>
+
+        <h4 className="text-lg font-semibold text-slate-100 mt-1">
+          早期跨領域經歷
+        </h4>
+
+        <p className="text-sm text-slate-400 mt-2 leading-relaxed">
+          這些經歷建立了我對使用者情境、視覺設計、現場流程與技術溝通的理解，
+          也成為後續投入企業系統開發的重要基礎。
+        </p>
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-4">
+        {[
+          {
+            title: "網站設計 / 平面設計",
+            period: "2016 — 2022",
+            desc: "累積網頁視覺、版面配置、印前製稿與跨部門溝通經驗。",
+          },
+          {
+            title: "教學助理",
+            period: "2015",
+            desc: "協助課程教學與現場支援，培養技術說明與使用者引導能力。",
+          },
+          {
+            title: "產品設計工程師",
+            period: "2012 — 2014",
+            desc: "理解製造現場流程，培養從實務操作角度思考系統設計的能力。",
+          },
+        ].map(item => (
+          <div
+            key={item.title}
+            className="rounded-xl bg-slate-900/35 border border-slate-700/30 p-4 hover:border-cyan-500/25 transition-colors"
+          >
+            <p className="text-xs font-mono text-slate-500 mb-2">
+              {item.period}
+            </p>
+
+            <h5 className="text-base font-semibold text-slate-100 mb-2">
+              {item.title}
+            </h5>
+
+            <p className="text-sm text-slate-300 leading-relaxed">
+              {item.desc}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</Section>
 
             <Section title="代表性技術成果">
               <div className="grid gap-5">
