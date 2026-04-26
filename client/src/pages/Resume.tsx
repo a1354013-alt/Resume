@@ -202,7 +202,7 @@ export default function Resume() {
 
                 {[
                   {
-                    logo: "CMIS",
+                  
                     logoClass: "bg-slate-100 text-blue-900",
                     title: "軟體工程師",
                     company: "中程資訊顧問有限公司（電腦軟體服務業）",
@@ -220,7 +220,7 @@ export default function Resume() {
                     linkText: "展開經歷亮點",
                   },
                   {
-                    logo: "台",
+                   
                     logoClass: "bg-green-500 text-white",
                     title: "網站設計師",
                     company: "台灣久林股份有限公司（鞋類製造業 30~100人）",
@@ -237,7 +237,7 @@ export default function Resume() {
                     linkText: "展開經歷亮點",
                   },
                   {
-                    logo: "鵬",
+                    
                     logoClass: "bg-green-500 text-white",
                     title: "網頁美工",
                     company: "鵬薦數位股份有限公司（其他出版業 1~30人）",
@@ -252,7 +252,7 @@ export default function Resume() {
                     linkText: "展開經歷亮點",
                   },
                   {
-                    logo: "富",
+                   
                     logoClass: "bg-blue-600 text-white",
                     title: "美編行銷",
                     company: "富勝印刷股份有限公司",
@@ -269,7 +269,7 @@ export default function Resume() {
                     linkText: "展開經歷亮點",
                   },
                   {
-                    logo: "教",
+                   
                     logoClass: "bg-cyan-600 text-white",
                     title: "教學助理",
                     company: "國立中興大學（大專校院教育事業）",
