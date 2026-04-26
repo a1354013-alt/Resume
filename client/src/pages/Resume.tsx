@@ -208,33 +208,50 @@ export default function Resume() {
                     </span>
                   </div>
 
-                  <div className="mt-4">
+                  <p className="mt-4 text-slate-300 leading-relaxed">
+                    參與並推動 4 套核心 ERP 系統 Web 化，包含預算採發估驗、
+                    變更追加減、高階簽核與人事出勤。工作重點不只是功能開發，
+                    更包含舊系統邏輯還原、資料流整理、效能優化與客戶端導入。
+                  </p>
+
+                  <div className="mt-5">
                     <BulletList
                       items={[
-                        "主導 Delphi ERP 系統現代化，轉換為 Vue3 + Go Web 架構。",
-                        "建立 RESTful API 並整合前後端系統，將既有商業邏輯整理為更清楚的系統邊界。",
-                        "重構複雜商業邏輯，降低耦合度並提升系統可維護性。",
-                        "支援客戶需求訪談、問題排查、系統導入與使用者教育訓練。",
-                        "參與皇昌營造、德昌營造等企業 ERP 導入與歷史資料轉換。",
-                        "曾至格瑞、富旺、精銳、惠宇建設等現場進行專案簡報與教育訓練。",
+                        "主導 Delphi ERP 系統現代化，逐步轉換為 Vue3 + Go RESTful API 架構，建立前後端分離系統基礎。",
+                        "重新設計資料存取與查詢流程，解決 N+1 Query 問題，使關鍵頁面回應時間由 26 秒優化至 1 秒內。",
+                        "重構高度耦合的既有商業邏輯，切割模組邊界並整理資料流，提升系統可維護性與擴充能力。",
+                        "負責缺乏文件的 Delphi 舊系統除錯與流程還原，透過 Root Cause Analysis 解決跨系統資料異常問題。",
+                        "參與多家企業 ERP 系統導入與歷史資料轉換，包含營造與製造產業，確保系統能在實務環境穩定運作。",
+                        "執行需求訪談、問題排查與使用者教育訓練，並多次至客戶現場進行專案簡報與系統導入支援。",
                       ]}
                     />
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-4">
-                  {[
-                    "網站設計師 / 平面設計 / 美編行銷：累積網站視覺、版面設計、印前製稿與跨部門溝通經驗。",
-                    "教學助理：協助課程與教學現場支援，培養說明複雜概念與引導使用者的能力。",
-                    "產品設計工程師：具備傳統製造業與現場流程理解，能從實務操作角度思考系統設計。",
-                  ].map(item => (
-                    <div
-                      key={item}
-                      className="rounded-xl bg-slate-900/35 border border-slate-700/30 p-4 text-slate-300 leading-relaxed"
-                    >
-                      {item}
-                    </div>
-                  ))}
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="text-lg font-semibold text-slate-100">
+                      早期跨領域經歷
+                    </h4>
+                    <p className="text-sm text-slate-400 mt-1">
+                      這些經驗讓我在系統開發時更能理解使用者情境、現場流程與溝通成本。
+                    </p>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {[
+                      "網站設計與平面設計：累積 UI 視覺、版面配置、印前製稿與跨部門溝通經驗。",
+                      "教學助理：協助課程教學與操作指導，培養技術說明與使用者引導能力。",
+                      "產品設計工程師：理解製造現場流程，培養從實務操作角度思考系統設計能力。",
+                    ].map(item => (
+                      <div
+                        key={item}
+                        className="rounded-xl bg-slate-900/35 border border-slate-700/30 p-4 text-slate-300 leading-relaxed"
+                      >
+                        {item}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </Section>
