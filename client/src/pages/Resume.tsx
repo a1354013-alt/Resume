@@ -197,12 +197,13 @@ export default function Resume() {
               <div className="space-y-0">
                 <div className="mb-6 flex items-center gap-4 text-sm">
                   <span className="text-slate-400">總年資</span>
-                  <span className="font-semibold text-slate-100">9~10年工作經驗</span>
+                  <span className="font-semibold text-slate-100">
+                    9~10年工作經驗
+                  </span>
                 </div>
 
                 {[
                   {
-                  
                     logoClass: "bg-slate-100 text-blue-900",
                     title: "軟體工程師",
                     company: "中程資訊顧問有限公司（電腦軟體服務業）",
@@ -220,7 +221,6 @@ export default function Resume() {
                     linkText: "展開經歷亮點",
                   },
                   {
-                   
                     logoClass: "bg-green-500 text-white",
                     title: "網站設計師",
                     company: "台灣久林股份有限公司（鞋類製造業 30~100人）",
@@ -237,7 +237,6 @@ export default function Resume() {
                     linkText: "展開經歷亮點",
                   },
                   {
-                    
                     logoClass: "bg-green-500 text-white",
                     title: "網頁美工",
                     company: "鵬薦數位股份有限公司（其他出版業 1~30人）",
@@ -252,7 +251,6 @@ export default function Resume() {
                     linkText: "展開經歷亮點",
                   },
                   {
-                   
                     logoClass: "bg-blue-600 text-white",
                     title: "美編行銷",
                     company: "富勝印刷股份有限公司",
@@ -269,7 +267,6 @@ export default function Resume() {
                     linkText: "展開經歷亮點",
                   },
                   {
-                   
                     logoClass: "bg-cyan-600 text-white",
                     title: "教學助理",
                     company: "國立中興大學（大專校院教育事業）",
@@ -301,10 +298,11 @@ export default function Resume() {
                 ].map((job, index, list) => (
                   <div
                     key={`${job.company}-${job.period}`}
-                    className={`grid grid-cols-[52px_1fr] gap-4 pb-8 ${index === list.length - 1
+                    className={`grid grid-cols-[52px_1fr] gap-4 pb-8 ${
+                      index === list.length - 1
                         ? ""
                         : "border-b border-slate-700/40 mb-8"
-                      }`}
+                    }`}
                   >
                     <div className="pt-1">
                       <div
@@ -321,7 +319,9 @@ export default function Resume() {
                             {job.title}
                           </h4>
 
-                          <p className="text-slate-200 font-medium">{job.company}</p>
+                          <p className="text-slate-200 font-medium">
+                            {job.company}
+                          </p>
 
                           <p className="text-sm text-slate-400">{job.role}</p>
                         </div>
