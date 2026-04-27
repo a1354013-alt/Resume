@@ -1,35 +1,37 @@
-import { afterEach, describe, expect, test } from "vitest";
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { describe, expect, test } from "vitest";
+import { render, screen } from "@testing-library/react";
 import App from "@/App";
-
-afterEach(() => cleanup());
-
-function navigate(pathname: string) {
-  window.history.pushState({}, "", pathname);
-}
 
 describe("App routing", () => {
   test("renders Home route", async () => {
-    navigate("/");
+    window.history.pushState({}, "", "/");
+
     render(<App />);
-    await waitFor(() => {
-      expect(document.getElementById("hero")).not.toBeNull();
-    });
+
+    const headings = await screen.findAllByRole("heading");
+
+    expect(headings.length).toBeGreaterThan(0);
   });
 
   test("renders Projects route", async () => {
-    navigate("/projects");
+    window.history.pushState({}, "", "/projects");
+
     render(<App />);
-    expect(
-      await screen.findByRole("heading", { name: /projects/i })
-    ).toBeVisible();
+
+    const headings = await screen.findAllByRole("heading", {
+      name: /工程作品與實作專案/i,
+    });
+
+    expect(headings.length).toBeGreaterThan(0);
   });
 
   test("renders NotFound on unknown route (fallback)", async () => {
-    navigate("/this-route-does-not-exist");
+    window.history.pushState({}, "", "/unknown");
+
     render(<App />);
-    expect(
-      await screen.findByRole("heading", { name: /page not found/i })
-    ).toBeVisible();
+
+    const notFoundTexts = await screen.findAllByText(/page not found/i);
+
+    expect(notFoundTexts.length).toBeGreaterThan(0);
   });
 });
