@@ -1,6 +1,7 @@
 import NotFound from "@/pages/NotFound";
 import { Route, Router as WouterRouter, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
+import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
 import Resume from "./pages/Resume";
 import ProjectsPage from "./pages/ProjectsPage";
@@ -30,6 +31,7 @@ function App() {
   return (
     <ErrorBoundary>
       <WouterRouter base={getRouterBase()}>
+        <ScrollToTop />
         <Router />
       </WouterRouter>
     </ErrorBoundary>

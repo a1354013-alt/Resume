@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { Link } from "wouter";
 import { ExternalLink, Github, Linkedin, Mail } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
@@ -54,10 +54,6 @@ function BulletList({ items }: { items: string[] }) {
 }
 
 export default function Resume() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   const skills = [

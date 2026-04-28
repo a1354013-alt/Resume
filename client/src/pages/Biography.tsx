@@ -18,10 +18,6 @@ export default function Biography() {
   const fullText = `${profile.name}${profile.nameEn ? `  ${profile.nameEn}` : ""}`;
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
     let index = 0;
     let lastTime = 0;
     const speed = 60;
@@ -159,41 +155,22 @@ export default function Biography() {
                 首頁
               </Link>
 
+              <h1 className="font-mono text-sm text-slate-400">自傳</h1>
+
               <div className="flex gap-4 items-center">
-                <Link
-                  href="/biography"
-                  className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
-                >
-                  自傳
-                </Link>
-
-                <span className="text-slate-600">|</span>
-
                 <Link
                   href="/resume"
                   className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
                 >
                   履歷
                 </Link>
-
                 <span className="text-slate-600">|</span>
-
                 <Link
                   href="/projects"
                   className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
                 >
                   專案
                 </Link>
-
-                <span className="text-slate-600">|</span>
-
-                <button
-                  type="button"
-                  onClick={scrollToTop}
-                  className="font-mono text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
-                >
-                  回到頂部
-                </button>
               </div>
             </div>
           </nav>
