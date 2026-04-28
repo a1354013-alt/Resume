@@ -34,7 +34,7 @@ export const profile: Profile = {
   },
  contactMessage: {
   line1:
-    "若你正在找能把需求落地、把舊系統帶進現代化架構的工程師，歡迎透過 Email 或 LinkedIn 聯絡我。",
+    "歡迎透過 Email 或 LinkedIn 聯絡我，也可以直接到 GitHub 看我的公開作品。",
   hashtags: ["#ERP現代化", "#AI應用開發", "#系統整合", "#後端工程"],
 },
   footer: {
