@@ -9,19 +9,19 @@ interface CapabilityCard {
 
 const capabilities: CapabilityCard[] = [
   {
-    title: "系統盤點 → 可落地拆分",
+    title: "需求拆解與系統盤點",
     description:
       "把現況流程、角色與資料關係梳理清楚，將 Legacy/ERP 的複雜度拆成可維護的模組邊界與交付節點。",
     icon: "/Resume/icons/icon-radar.png",
   },
   {
-    title: "前後端整合與 API 設計",
+    title: "模組開發與 API 設計",
     description:
       "以 TypeScript + React/Vue 落地 UI，搭配 Go/Node API 與資料庫，處理權限、錯誤、資料一致性與可觀測性。",
     icon: "/Resume/icons/icon-server-api.png",
   },
   {
-    title: "工程化交付",
+    title: "測試與穩定交付",
     description:
       "建立一致的腳本、CI、環境變數與最小測試；確保 build/typecheck/lint 可持續通過，方便維運與擴充。",
     icon: "/Resume/icons/icon-shield-check.png",
@@ -83,7 +83,7 @@ export default function StructureSection() {
             className="text-4xl md:text-5xl font-bold mb-6 glow-text"
             style={{ fontFamily: "'Orbitron', monospace", color: "#00d9ff" }}
           >
-            交付方法
+            系統開發
           </h2>
 
           <p className="font-mono text-slate-400 text-sm max-w-2xl mx-auto leading-relaxed">
