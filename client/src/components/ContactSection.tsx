@@ -136,13 +136,21 @@ export default function ContactSection() {
 
         {/* Message */}
         <div className="text-center max-w-2xl mb-16">
-          <p className="font-mono text-indigo-200 text-lg mb-4">
-            {profile.contactMessage.line1}
-          </p>
-          <p className="font-mono text-cyan-300 text-lg">
-            {profile.contactMessage.line2}
-          </p>
-        </div>
+  <p className="font-mono text-indigo-200 text-lg mb-6 leading-relaxed">
+    {profile.contactMessage.line1}
+  </p>
+
+  <div className="flex flex-wrap justify-center gap-3">
+    {profile.contactMessage.hashtags.map(tag => (
+      <span
+        key={tag}
+        className="font-mono text-sm text-cyan-300 border border-cyan-500/30 rounded-full px-4 py-2 bg-cyan-500/5"
+      >
+        {tag}
+      </span>
+    ))}
+  </div>
+</div>
 
         {/* Links */}
         <div className="flex flex-wrap justify-center gap-8 mb-16">
