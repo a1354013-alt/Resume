@@ -1,31 +1,28 @@
-import { useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import { profile } from "@/data/profile";
 
 interface ContactLink {
   label: string;
   url: string;
-  icon: string;
-  color: string;
+  icon: ReactNode;
 }
 
 const contactLinks: ContactLink[] = [
   {
     label: "Email",
     url: `mailto:${profile.contact.email}`,
-    icon: "✉️",
-    color: "hover:text-cyan-400",
+    icon: <Mail className="w-10 h-10 text-cyan-300" />,
   },
   {
     label: "GitHub",
     url: profile.contact.github,
-    icon: "GitHub",
-    color: "hover:text-purple-400",
+    icon: <Github className="w-10 h-10 text-cyan-300" />,
   },
   {
     label: "LinkedIn",
     url: profile.contact.linkedin,
-    icon: "in",
-    color: "hover:text-blue-400",
+    icon: <Linkedin className="w-10 h-10 text-cyan-300" />,
   },
 ];
 
@@ -167,13 +164,15 @@ export default function ContactSection() {
                 target={target}
                 rel={rel}
                 referrerPolicy={referrerPolicy}
-                className={`group relative transition-all duration-300 ${link.color}`}
+                className="group relative block transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
               >
-                <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-cyan-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-lg -z-10" />
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-cyan-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl -z-10" />
 
-                <div className="flex flex-col items-center gap-2 px-6 py-4 border border-cyan-500/30 group-hover:border-cyan-400/60 rounded-lg transition-all duration-300 backdrop-blur-sm">
-                  <span className="text-3xl">{link.icon}</span>
-                  <span className="font-mono text-sm font-medium">
+                <div className="flex flex-col items-center justify-center gap-3 w-full max-w-xs min-w-[12rem] px-6 py-6 border border-cyan-500/20 rounded-3xl bg-slate-950/90 text-slate-100 shadow-sm transition-all duration-300 hover:border-cyan-400/60 hover:bg-slate-900/95 hover:shadow-cyan-500/10">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-slate-900/70">
+                    {link.icon}
+                  </div>
+                  <span className="font-mono text-sm font-medium tracking-wide">
                     {link.label}
                   </span>
                 </div>

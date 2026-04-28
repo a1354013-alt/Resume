@@ -16,6 +16,7 @@
     "preview": "vite preview --host",
     "preview:pages": "cross-env VITE_DEPLOY_TARGET=pages vite preview --host",
     "typecheck": "tsc --noEmit",
+    "lint": "pnpm -s run style:check",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "style:fix": "pnpm -s run format",
