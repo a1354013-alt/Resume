@@ -10,9 +10,9 @@ export type Profile = {
     linkedin: string;
   };
   contactMessage: {
-  line1: string;
-  hashtags: string[];
-};
+    line1: string;
+    hashtags: string[];
+  };
   footer: {
     tagline: string;
   };
@@ -32,11 +32,11 @@ export const profile: Profile = {
     linkedin:
       "https://www.linkedin.com/in/%E6%8F%9A%E6%96%87-%E7%BE%85-a9b9849a/",
   },
- contactMessage: {
-  line1:
-    "歡迎透過 Email 或 LinkedIn 聯絡我，也可以直接到 GitHub 看我的公開作品。",
-  hashtags: ["#ERP現代化", "#AI應用開發", "#系統整合", "#後端工程"],
-},
+  contactMessage: {
+    line1:
+      "歡迎透過 Email 或 LinkedIn 聯絡我，也可以直接到 GitHub 看我的公開作品。",
+    hashtags: ["#ERP現代化", "#AI應用開發", "#系統整合", "#後端工程"],
+  },
   footer: {
     tagline: "React + Vite + TypeScript + Tailwind CSS",
   },

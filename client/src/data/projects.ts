@@ -266,47 +266,47 @@ export const projects: Project[] = [
     },
   },
   {
-  id: "ai-video-subtitle-generator",
-  name: "AI 影片字幕生成系統",
-  tagline:
-    "以 Python 建立的智慧字幕生成工具，支援語音辨識、字幕時間軸生成、多語翻譯與 AI 模型切換。",
-  role: "AI 系統開發 / 後端工程師",
-  category: "ai",
-  tier: "silver",
-  technologies: [
-    "Python",
-    "FastAPI",
-    "OpenAI API",
-    "Whisper",
-    "FFmpeg",
-    "Pytest",
-    "GitHub Actions",
-  ],
-  metrics:
-    "完成從影片音訊擷取、語音辨識、字幕時間同步到 SRT 輸出的自動化字幕生成流程",
-  featured: false,
-  details: {
-    problem:
-      "影片字幕製作通常需要人工逐段聆聽、輸入文字與調整時間軸，長影片、多語翻譯與批次處理時成本高且容易出錯。",
-    solution:
-      "建立自動化 AI 字幕生成系統，整合 FFmpeg 音訊擷取、語音轉文字、字幕時間軸生成、多語翻譯與 SRT 輸出流程，並支援雲端與本地 AI 模型切換。",
-    contribution:
-      "負責整體字幕處理流程設計、AI 語音辨識 API 整合、字幕時間軸生成邏輯、翻譯模組、SRT 輸出模組與測試 / CI 流程建置。",
-    highlights: [
-      "支援 AI 語音辨識自動生成字幕",
-      "建立字幕時間同步 Timestamp Alignment 機制",
-      "支援多語翻譯與字幕生成",
-      "可切換 OpenAI API / 本地 AI 模型",
-      "支援批次影片字幕處理流程",
-      "建立 Pytest 與 GitHub Actions CI 驗證流程",
+    id: "ai-video-subtitle-generator",
+    name: "AI 影片字幕生成系統",
+    tagline:
+      "以 Python 建立的智慧字幕生成工具，支援語音辨識、字幕時間軸生成、多語翻譯與 AI 模型切換。",
+    role: "AI 系統開發 / 後端工程師",
+    category: "ai",
+    tier: "silver",
+    technologies: [
+      "Python",
+      "FastAPI",
+      "OpenAI API",
+      "Whisper",
+      "FFmpeg",
+      "Pytest",
+      "GitHub Actions",
     ],
-    result:
-      "成功建立完整字幕生成流程，可自動產生影片字幕並降低人工整理時間，適合用於教學影片、作品展示與多語內容製作。",
-    challenges:
-      "需處理語音辨識結果切段、字幕時間軸對齊、多語翻譯品質與長影片批次處理穩定性。",
-    nextSteps:
-      "規劃加入字幕預覽介面、長影片分段處理、模型效能比較與更多字幕格式輸出。",
-    githubUrl: "你的 GitHub Repo 連結放這裡",
+    metrics:
+      "完成從影片音訊擷取、語音辨識、字幕時間同步到 SRT 輸出的自動化字幕生成流程",
+    featured: false,
+    details: {
+      problem:
+        "影片字幕製作通常需要人工逐段聆聽、輸入文字與調整時間軸，長影片、多語翻譯與批次處理時成本高且容易出錯。",
+      solution:
+        "建立自動化 AI 字幕生成系統，整合 FFmpeg 音訊擷取、語音轉文字、字幕時間軸生成、多語翻譯與 SRT 輸出流程，並支援雲端與本地 AI 模型切換。",
+      contribution:
+        "負責整體字幕處理流程設計、AI 語音辨識 API 整合、字幕時間軸生成邏輯、翻譯模組、SRT 輸出模組與測試 / CI 流程建置。",
+      highlights: [
+        "支援 AI 語音辨識自動生成字幕",
+        "建立字幕時間同步 Timestamp Alignment 機制",
+        "支援多語翻譯與字幕生成",
+        "可切換 OpenAI API / 本地 AI 模型",
+        "支援批次影片字幕處理流程",
+        "建立 Pytest 與 GitHub Actions CI 驗證流程",
+      ],
+      result:
+        "成功建立完整字幕生成流程，可自動產生影片字幕並降低人工整理時間，適合用於教學影片、作品展示與多語內容製作。",
+      challenges:
+        "需處理語音辨識結果切段、字幕時間軸對齊、多語翻譯品質與長影片批次處理穩定性。",
+      nextSteps:
+        "規劃加入字幕預覽介面、長影片分段處理、模型效能比較與更多字幕格式輸出。",
+      githubUrl: "你的 GitHub Repo 連結放這裡",
+    },
   },
-}
 ];
