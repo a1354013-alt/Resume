@@ -306,7 +306,7 @@ export const projects: Project[] = [
         "需處理語音辨識結果切段、字幕時間軸對齊、多語翻譯品質與長影片批次處理穩定性。",
       nextSteps:
         "規劃加入字幕預覽介面、長影片分段處理、模型效能比較與更多字幕格式輸出。",
-      githubUrl: "你的 GitHub Repo 連結放這裡",
+      githubUrl: "https://github.com/a1354013-alt/ai_subtitle_tool",
     },
   },
 ];
