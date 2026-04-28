@@ -14,8 +14,8 @@ export default function Home() {
   return (
     <>
       <SEOHead title={title} description={description} canonicalPath="/" />
+      <FloatingNavbar />
       <div className="w-full bg-black overflow-hidden page-fade-in">
-        <FloatingNavbar />
         <HeroSection />
         <StructureSection />
         <AtmosphereSection />
