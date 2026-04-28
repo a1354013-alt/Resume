@@ -87,7 +87,7 @@ export default function StructureSection() {
           </h2>
 
           <p className="font-mono text-slate-400 text-sm max-w-2xl mx-auto leading-relaxed">
-            我偏好把問題拆成「可驗證、可交付」的步驟：先盤點流程與資料，再做可維護的拆分，最後用工程化工具把品質固定住。
+            我偏好將問題拆成「可驗證、可交付」的步驟：盤點流程、模組化拆分，並以工程化工具確保品質。
           </p>
         </div>
 
