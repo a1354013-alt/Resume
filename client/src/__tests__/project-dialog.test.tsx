@@ -39,6 +39,7 @@ describe("ProjectDialog links", () => {
 
     expect(await screen.findByRole("dialog")).toBeVisible();
     expect(screen.getByText(project.name)).toBeVisible();
+    expect(screen.queryByText("Screenshots")).toBeNull();
 
     expect(screen.queryByRole("link", { name: "Demo" })).toBeNull();
     expect(screen.queryByRole("link", { name: "Repo" })).toBeNull();

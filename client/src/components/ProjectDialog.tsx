@@ -11,6 +11,7 @@ import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useRestoreFocus } from "@/hooks/useRestoreFocus";
+import ProjectImageGallery from "@/components/ProjectImageGallery";
 
 interface ProjectDialogProps {
   project: Project | null;
@@ -114,6 +115,15 @@ export default function ProjectDialog({
 
           {/* Content */}
           <div className="px-6 py-6 space-y-8">
+            {project.images && project.images.length >= 2 && (
+              <div>
+                <h3 className="text-sm font-semibold text-cyan-400 mb-3">
+                  Screenshots
+                </h3>
+                <ProjectImageGallery images={project.images} />
+              </div>
+            )}
+
             <div>
               <h3 className="text-sm font-semibold text-cyan-400 mb-3">
                 Technologies

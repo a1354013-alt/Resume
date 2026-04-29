@@ -77,3 +77,60 @@ describe("ProjectsPage filtering", () => {
     expect(list.queryByText(smart.name)).toBeNull();
   });
 });
+
+describe("ProjectsPage image gallery", () => {
+  test("renders 2–4 images when image data exists", async () => {
+    render(<ProjectsPage />);
+
+    const pdf = projects.find(p => p.id === "pdf-annotation-engine");
+    if (!pdf || !pdf.images) throw new Error("Seed project images missing");
+
+    const openButton = await screen.findByRole("button", {
+      name: `Open project: ${pdf.name}`,
+    });
+
+    const card = openButton.closest("div");
+    if (!card) throw new Error("Project card container missing");
+
+    const imageButtons = within(card).getAllByRole("button", {
+      name: /Open image:/,
+    });
+
+    expect(imageButtons.length).toBeGreaterThanOrEqual(2);
+    expect(imageButtons.length).toBeLessThanOrEqual(4);
+  });
+
+  test("opens and closes lightbox from a project card image", async () => {
+    const user = userEvent.setup();
+    render(<ProjectsPage />);
+
+    const pdf = projects.find(p => p.id === "pdf-annotation-engine");
+    if (!pdf || !pdf.images) throw new Error("Seed project images missing");
+
+    const openButton = await screen.findByRole("button", {
+      name: `Open project: ${pdf.name}`,
+    });
+
+    const card = openButton.closest("div");
+    if (!card) throw new Error("Project card container missing");
+
+    const imageButton = within(card).getByRole("button", {
+      name: `Open image: ${pdf.images[0].alt}`,
+    });
+
+    await user.click(imageButton);
+
+    expect(screen.getByRole("dialog", { name: /lightbox/i })).toBeVisible();
+
+    await user.keyboard("{Escape}");
+    expect(screen.queryByRole("dialog", { name: /lightbox/i })).toBeNull();
+
+    // Open again to verify close button behavior.
+    await user.click(imageButton);
+    expect(screen.getByRole("dialog", { name: /lightbox/i })).toBeVisible();
+
+    await user.click(screen.getByRole("button", { name: /close lightbox/i }));
+
+    expect(screen.queryByRole("dialog", { name: /lightbox/i })).toBeNull();
+  });
+});

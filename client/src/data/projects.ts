@@ -8,6 +8,7 @@ export interface Project {
   technologies: string[];
   metrics: string;
   featured: boolean;
+  images?: ProjectImage[];
   details: {
     problem: string;
     solution: string;
@@ -19,6 +20,12 @@ export interface Project {
     demoUrl?: string;
     githubUrl?: string;
   };
+}
+
+export interface ProjectImage {
+  src: string;
+  alt: string;
+  caption?: string;
 }
 
 export const projects: Project[] = [
@@ -41,6 +48,20 @@ export const projects: Project[] = [
     metrics:
       "完成可重用 npm library，支援 ESM/CJS，並建立 CI Smoke Test 驗證交付品質",
     featured: true,
+    images: [
+      {
+        src: "/images/projects/pdf-engine/cover.png",
+        alt: "PDF 註記與渲染引擎首頁畫面",
+      },
+      {
+        src: "/images/projects/pdf-engine/annotation.png",
+        alt: "PDF 標註工具列與註記畫面",
+      },
+      {
+        src: "/images/projects/pdf-engine/export.png",
+        alt: "PDF 匯出與下載畫面",
+      },
+    ],
     details: {
       problem:
         "現代 Web 系統需要可客製化的 PDF 顯示與註記能力，但現有工具難以擴充與整合。",
@@ -80,6 +101,16 @@ export const projects: Project[] = [
     metrics:
       "支援自動分類、重複檔案偵測與閒置檔案分析，並具備完整測試與 CI 流程",
     featured: true,
+    images: [
+      {
+        src: "/images/projects/smart-organizer/dashboard.png",
+        alt: "智慧檔案整理系統控制面板",
+      },
+      {
+        src: "/images/projects/smart-organizer/rules.png",
+        alt: "智慧檔案整理系統規則設定畫面",
+      },
+    ],
     details: {
       problem:
         "長期累積的檔案缺乏分類與整理機制，導致儲存空間浪費與資料管理困難。",
@@ -122,6 +153,24 @@ export const projects: Project[] = [
     metrics:
       "建立完整文件與知識管理流程，整合 AI Prompt、Vector Database、CI 與發佈驗證",
     featured: false,
+    images: [
+      {
+        src: "/images/projects/knowledge-workspace/overview.png",
+        alt: "Knowledge Workspace 工作區總覽",
+      },
+      {
+        src: "/images/projects/knowledge-workspace/search.png",
+        alt: "Knowledge Workspace 向量搜尋結果頁",
+      },
+      {
+        src: "/images/projects/knowledge-workspace/prompt.png",
+        alt: "Knowledge Workspace AI Prompt 工作流設定",
+      },
+      {
+        src: "/images/projects/knowledge-workspace/notes.png",
+        alt: "Knowledge Workspace 文件筆記與標註",
+      },
+    ],
     details: {
       problem:
         "文件、圖片、操作紀錄與知識常分散於不同位置，造成資料難以追蹤、分類與重複利用。",
