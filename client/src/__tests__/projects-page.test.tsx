@@ -8,8 +8,8 @@ import {
   within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import ProjectsPage from "@/pages/ProjectsPage";
 import { projects } from "@/data/projects";
+import ProjectsPage from "@/pages/ProjectsPage";
 
 afterEach(() => cleanup());
 
@@ -74,7 +74,6 @@ describe("ProjectsPage filtering", () => {
     render(<ProjectsPage />);
 
     await user.click(await screen.findByLabelText("Technologies filter"));
-
     await user.click(
       screen.getByRole("button", {
         name: "TypeScript",
@@ -147,9 +146,6 @@ describe("ProjectsPage image gallery", () => {
     const card = openButton.closest("div");
     if (!card) throw new Error("Project card container missing");
 
-    // Keep firing error events until the gallery flips to its fallback UI.
-    // (In JSDOM, image loading can be timing-dependent, so the initial grid
-    // may contain fewer than the source image list.)
     for (let attempt = 0; attempt < 5; attempt += 1) {
       const imageButtons = within(card).queryAllByRole("button", {
         name: /Open image:/,
@@ -160,8 +156,6 @@ describe("ProjectsPage image gallery", () => {
         fireEvent.error(img);
       });
 
-      // Allow state updates to flush between attempts.
-      // eslint-disable-next-line no-await-in-loop
       await Promise.resolve();
     }
 
@@ -195,7 +189,6 @@ describe("ProjectsPage image gallery", () => {
     await user.keyboard("{Escape}");
     expect(screen.queryByRole("dialog", { name: /lightbox/i })).toBeNull();
 
-    // Open again to verify close button behavior.
     await user.click(imageButton);
     expect(screen.getByRole("dialog", { name: /lightbox/i })).toBeVisible();
 

@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 
-function FloatingNavbar() {
+export default function FloatingNavbar() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -55,5 +55,3 @@ function FloatingNavbar() {
     </nav>
   );
 }
-
-export default FloatingNavbar;
