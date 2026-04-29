@@ -104,7 +104,11 @@ export default function ProjectDialog({
                 <h3 className="text-sm font-semibold text-cyan-400 mb-3">
                   Screenshots
                 </h3>
-                <ProjectImageGallery images={project.images} />
+                <ProjectImageGallery
+                  images={project.images}
+                  projectName={project.name}
+                  tier={project.tier}
+                />
               </div>
             )}
 

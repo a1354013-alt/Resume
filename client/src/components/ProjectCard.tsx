@@ -13,19 +13,28 @@ export default function ProjectCard({
   onProjectClick,
 }: ProjectCardProps) {
   const highlights = project.details.highlights.slice(0, 4);
+  const isProduction = project.tier === "production";
 
   return (
     <div
       className={`bg-gradient-to-br ${getTierColor(
         project.tier
-      )} border rounded-lg overflow-hidden transition-all duration-300 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/10 w-full text-left group flex flex-col`}
+      )} border rounded-lg overflow-hidden transition-all duration-300 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/10 w-full text-left group flex flex-col min-h-[520px] max-h-[520px] md:min-h-[560px] md:max-h-[560px]`}
     >
       <div className="p-4 pb-0">
-        <div className="h-[180px]">
+        <div className="relative h-[140px]">
           <ProjectImageGallery
             images={project.images}
-            heightClassName="h-[180px]"
+            projectName={project.name}
+            tier={project.tier}
           />
+          {isProduction && (
+            <div className="absolute left-2 top-2">
+              <span className="inline-flex items-center rounded-full px-3 py-1 text-[11px] font-semibold tracking-wide text-emerald-100 border border-emerald-400/35 bg-gradient-to-r from-emerald-500/40 via-cyan-500/25 to-slate-950/40 backdrop-blur">
+                已上線專案
+              </span>
+            </div>
+          )}
         </div>
       </div>
 
@@ -33,15 +42,13 @@ export default function ProjectCard({
         type="button"
         onClick={() => onProjectClick(project)}
         aria-label={`Open project: ${project.name}`}
-        className="p-6 w-full text-left flex-1 min-h-0 flex flex-col"
+        className="p-6 w-full text-left flex-1 min-h-0 flex flex-col overflow-hidden"
       >
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between gap-4">
-              <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-300 transition-colors">
-                {project.name}
-              </h3>
-            </div>
+            <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-300 transition-colors">
+              {project.name}
+            </h3>
 
             <p className="text-sm text-slate-300/80 mt-2 line-clamp-2">
               {project.tagline}
@@ -49,7 +56,7 @@ export default function ProjectCard({
           </div>
         </div>
 
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mt-4 flex flex-wrap gap-2 max-h-[3.25rem] overflow-hidden">
           {project.technologies.map(tech => (
             <span
               key={tech}
@@ -60,7 +67,7 @@ export default function ProjectCard({
           ))}
         </div>
 
-        <div className="mt-4 pt-4 border-t border-slate-700/30 space-y-4 flex-1 min-h-0">
+        <div className="mt-4 pt-4 border-t border-slate-700/30 space-y-4 flex-1 min-h-0 overflow-hidden">
           <div>
             <p className="text-xs text-slate-500">角色</p>
             <p className="text-sm text-cyan-300 font-semibold">
@@ -69,8 +76,8 @@ export default function ProjectCard({
           </div>
 
           <div>
-            <p className="text-xs text-slate-500">成果</p>
-            <p className="text-sm text-slate-200 font-medium">
+            <p className="text-xs text-slate-500">指標</p>
+            <p className="text-sm text-slate-200 font-medium line-clamp-2">
               {project.metrics}
             </p>
           </div>
@@ -79,7 +86,10 @@ export default function ProjectCard({
             <p className="text-xs text-slate-500">Highlights</p>
             <ul className="mt-2 space-y-1 max-h-[5.5rem] overflow-hidden">
               {highlights.map(highlight => (
-                <li key={highlight} className="text-sm text-slate-200">
+                <li
+                  key={highlight}
+                  className="text-sm text-slate-200 line-clamp-1"
+                >
                   - {highlight}
                 </li>
               ))}
@@ -88,7 +98,7 @@ export default function ProjectCard({
 
           <div>
             <p className="text-xs text-slate-500">Outcome</p>
-            <p className="text-sm text-slate-200 font-medium">
+            <p className="text-sm text-slate-200 font-medium line-clamp-2">
               {project.details.result}
             </p>
           </div>

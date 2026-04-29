@@ -42,6 +42,16 @@ export const projects: Project[] = [
     technologies: ["Go", "Vue", "MySQL", "JWT", "RESTful API"],
     metrics: "完成工程變更流程 Web 化，使工程資料流程可視化並提升維護效率。",
     featured: true,
+    images: [
+      {
+        src: "/images/projects/erp-change-management/overview.png",
+        alt: "工程變更追加減管理系統 - 總覽畫面",
+      },
+      {
+        src: "/images/projects/erp-change-management/workflow.png",
+        alt: "工程變更追加減管理系統 - 變更流程畫面",
+      },
+    ],
     details: {
       problem:
         "工程變更與追加減資料量大且流程複雜，若以人工或分散工具管理，容易造成狀態不一致、追蹤困難與維護成本升高。",
@@ -77,6 +87,16 @@ export const projects: Project[] = [
     technologies: ["Go", "Vue", "MySQL", "JWT", "Swagger", "RESTful API"],
     metrics: "提升採購流程透明度與系統維護效率，使資料與流程更容易追蹤。",
     featured: true,
+    images: [
+      {
+        src: "/images/projects/erp-procurement-system/overview.png",
+        alt: "企業採購管理系統 - 總覽畫面",
+      },
+      {
+        src: "/images/projects/erp-procurement-system/approval.png",
+        alt: "企業採購管理系統 - 審核簽核畫面",
+      },
+    ],
     details: {
       problem:
         "採購流程涉及多角色、多階段狀態與大量表單資料，若缺乏一致的流程控管與權限管理，易造成追蹤困難與操作風險。",
@@ -110,6 +130,16 @@ export const projects: Project[] = [
     technologies: ["Go", "Vue", "MySQL", "JWT", "RESTful API"],
     metrics: "提升企業簽核流程透明度，使簽核進度與操作權限更容易控管。",
     featured: true,
+    images: [
+      {
+        src: "/images/projects/erp-approval-system/overview.png",
+        alt: "企業簽核管理系統 - 總覽畫面",
+      },
+      {
+        src: "/images/projects/erp-approval-system/flow.png",
+        alt: "企業簽核管理系統 - 簽核流程畫面",
+      },
+    ],
     details: {
       problem:
         "企業簽核流程常見多層級與多角色參與，若無清晰的狀態流轉與歷程追蹤，容易發生重複簽核、越權操作或進度不透明。",
@@ -142,6 +172,16 @@ export const projects: Project[] = [
     technologies: ["Go", "Vue", "MySQL", "JWT", "RESTful API"],
     metrics: "成功建立完整請假流程管理系統，使請假流程透明化並提升管理效率。",
     featured: true,
+    images: [
+      {
+        src: "/images/projects/erp-leave-system/overview.png",
+        alt: "企業請假管理系統 - 總覽畫面",
+      },
+      {
+        src: "/images/projects/erp-leave-system/calendar.png",
+        alt: "企業請假管理系統 - 行事曆/假單畫面",
+      },
+    ],
     details: {
       problem:
         "請假申請涉及假別規則、簽核層級與狀態追蹤，若缺乏一致流程與權限控管，容易造成管理負擔與資料難以追溯。",

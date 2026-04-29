@@ -18,7 +18,7 @@ const tierOrder: Record<Project["tier"], number> = {
 };
 
 const tierOptions: Array<{ value: TierFilter; label: string }> = [
-  { value: "all", label: "All / 全部" },
+  { value: "all", label: "全部作品" },
   { value: "production", label: "已上線專案" },
   { value: "gold", label: "金牌作品" },
   { value: "silver", label: "銀牌作品" },
@@ -115,8 +115,7 @@ export default function ProjectsPage() {
 
     if (sortBy === "tier") {
       return [...filtered].sort(
-        (a, b) =>
-          tierOrder[a.tier] - tierOrder[b.tier] || a.name.localeCompare(b.name)
+        (a, b) => tierOrder[a.tier] - tierOrder[b.tier]
       );
     }
 
@@ -128,12 +127,14 @@ export default function ProjectsPage() {
 
   const getTierColor = (tier: Project["tier"]) => {
     switch (tier) {
+      case "production":
+        return "from-emerald-500/18 via-cyan-500/10 to-slate-900/60 border-emerald-400/45 shadow-emerald-500/10";
       case "gold":
-        return "from-yellow-500/20 to-yellow-600/10 border-yellow-500/30";
+        return "from-yellow-500/18 via-amber-500/10 to-slate-900/60 border-yellow-400/40";
       case "silver":
-        return "from-slate-400/20 to-slate-500/10 border-slate-400/30";
+        return "from-slate-400/16 via-slate-500/10 to-slate-900/60 border-slate-400/30";
       default:
-        return "from-slate-500/20 to-slate-600/10 border-slate-500/30";
+        return "from-slate-400/16 via-slate-500/10 to-slate-900/60 border-slate-400/30";
     }
   };
 
@@ -197,7 +198,7 @@ export default function ProjectsPage() {
                 href="/"
                 className="font-mono text-cyan-400 hover:text-cyan-300 transition-colors"
               >
-                擐?
+                首頁
               </Link>
 
               <h1 className="font-mono text-sm text-slate-400">Projects</h1>
@@ -207,14 +208,14 @@ export default function ProjectsPage() {
                   href="/resume"
                   className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
                 >
-                  撅交風
+                  履歷
                 </Link>
                 <span className="text-slate-600">|</span>
                 <Link
                   href="/biography"
                   className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
                 >
-                  ?芸
+                  自傳
                 </Link>
               </div>
             </div>
@@ -222,18 +223,15 @@ export default function ProjectsPage() {
 
           <main className="max-w-6xl mx-auto px-4 py-12">
             <section className="mb-10">
-              <p className="text-cyan-300 font-mono text-sm mb-3">
-                Selected Projects
-              </p>
+              <p className="text-cyan-300 font-mono text-sm mb-3">精選作品</p>
 
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                工程作品與實作專案{" "}
+                工程作品與實作專案
               </h2>
 
               <p className="text-slate-300 max-w-3xl leading-relaxed">
-                ?ㄐ?渡?????拙??曉瘙雿??葉??獢???函垢蝟餌絞?I
-                ??DF
-                撘???隞嗥霅恣??摮貊?撟喳????獢???典祕雿瑽????葫閰西??舐雁霅瑟扼?{" "}
+                這裡整理我在企業系統、AI 工具、PDF
+                工程、資料處理與前後端整合上的實作成果。每個專案都以問題、解法、技術選型與實際成果呈現，強調可維護、可驗證與可交付的工程能力。
               </p>
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
@@ -264,7 +262,7 @@ export default function ProjectsPage() {
                     value={searchQuery}
                     onChange={event => setSearchQuery(event.target.value)}
                     aria-label="Search projects"
-                    placeholder="Search projects..."
+                    placeholder="搜尋專案名稱、技術或描述..."
                     className="w-full pl-10 pr-3 py-3 bg-slate-950/40 border border-slate-700/40 rounded-lg text-slate-200 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
                   />
                 </div>
@@ -290,8 +288,8 @@ export default function ProjectsPage() {
                   aria-label="Sort"
                   className="w-full px-3 py-3 bg-slate-950/40 border border-slate-700/40 rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
                 >
-                  <option value="tier">Sort: Tier</option>
-                  <option value="name">Sort: Name</option>
+                  <option value="tier">排序：作品等級</option>
+                  <option value="name">排序：名稱</option>
                 </select>
               </div>
 
@@ -304,7 +302,7 @@ export default function ProjectsPage() {
                   aria-label="Technologies filter"
                   className="inline-flex items-center gap-2 text-sm text-cyan-300 hover:text-cyan-200 transition-colors"
                 >
-                  ?銵祟??{" "}
+                  技術篩選{" "}
                   <ChevronDown
                     className={`w-4 h-4 transition-transform ${
                       showTechFilter ? "rotate-180" : ""
@@ -344,7 +342,7 @@ export default function ProjectsPage() {
                           onClick={clearTechFilters}
                           className="px-3 py-1 rounded-full text-sm bg-red-500/15 border border-red-500/30 text-red-200 hover:bg-red-500/25 transition-colors inline-flex items-center gap-1"
                         >
-                          皜 <X className="w-3 h-3" />
+                          清除 <X className="w-3 h-3" />
                         </button>
                       )}
                     </div>
@@ -353,17 +351,16 @@ export default function ProjectsPage() {
               </div>
 
               <div className="mt-4 text-sm text-slate-400">
-                ?桀?憿舐內 {filteredProjects.length} / {projects.length}{" "}
-                ??獢?{" "}
+                目前顯示 {filteredProjects.length} / {projects.length} 個專案
               </div>
             </section>
 
             <section aria-label="All projects">
-              <h3 className="text-xl font-semibold mb-4">?券雿?</h3>
+              <h3 className="text-xl font-semibold mb-4">全部作品</h3>
 
               {filteredProjects.length === 0 ? (
                 <div className="rounded-lg border border-slate-700/40 bg-slate-900/20 p-8 text-center text-slate-300">
-                  瘝?蝚血??桀????祟?豢?隞嗥?雿???{" "}
+                  找不到符合條件的專案，請調整搜尋或篩選條件。
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

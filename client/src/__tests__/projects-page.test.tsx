@@ -1,5 +1,12 @@
 import { afterEach, describe, expect, test } from "vitest";
-import { cleanup, render, screen, within } from "@testing-library/react";
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import ProjectsPage from "@/pages/ProjectsPage";
 import { projects } from "@/data/projects";
@@ -15,7 +22,6 @@ describe("ProjectsPage filtering", () => {
     const user = userEvent.setup();
 
     const pdf = projects.find(p => p.id === "pdf-annotation-engine");
-
     const smart = projects.find(p => p.id === "smart-organizer");
 
     if (!pdf || !smart) throw new Error("Seed projects missing");
@@ -27,7 +33,6 @@ describe("ProjectsPage filtering", () => {
     const list = within(getAllProjectsSection());
 
     expect(list.getByText(pdf.name)).toBeVisible();
-
     expect(list.queryByText(smart.name)).toBeNull();
   });
 
@@ -37,7 +42,6 @@ describe("ProjectsPage filtering", () => {
     const productionProject = projects.find(
       p => p.id === "erp-change-management"
     );
-
     const nonProductionProject = projects.find(
       p => p.id === "pdf-annotation-engine"
     );
@@ -48,12 +52,14 @@ describe("ProjectsPage filtering", () => {
 
     render(<ProjectsPage />);
 
-    await user.selectOptions(await screen.findByLabelText("Tier"), "production");
+    await user.selectOptions(
+      await screen.findByLabelText("Tier"),
+      "production"
+    );
 
     const list = within(getAllProjectsSection());
 
     expect(list.getByText(productionProject.name)).toBeVisible();
-
     expect(list.queryByText(nonProductionProject.name)).toBeNull();
   });
 
@@ -61,7 +67,6 @@ describe("ProjectsPage filtering", () => {
     const user = userEvent.setup();
 
     const pdf = projects.find(p => p.id === "pdf-annotation-engine");
-
     const smart = projects.find(p => p.id === "smart-organizer");
 
     if (!pdf || !smart) throw new Error("Seed projects missing");
@@ -79,13 +84,12 @@ describe("ProjectsPage filtering", () => {
     const list = within(getAllProjectsSection());
 
     expect(list.getByText(pdf.name)).toBeVisible();
-
     expect(list.queryByText(smart.name)).toBeNull();
   });
 });
 
 describe("ProjectsPage image gallery", () => {
-  test("renders 2–4 images when image data exists", async () => {
+  test("renders 2-4 images when image data exists", async () => {
     render(<ProjectsPage />);
 
     const pdf = projects.find(p => p.id === "pdf-annotation-engine");
@@ -104,6 +108,66 @@ describe("ProjectsPage image gallery", () => {
 
     expect(imageButtons.length).toBeGreaterThanOrEqual(2);
     expect(imageButtons.length).toBeLessThanOrEqual(4);
+  });
+
+  test("renders fallback placeholder when project has no images", async () => {
+    render(<ProjectsPage />);
+
+    const projectWithoutImages = projects.find(
+      project => !project.images || project.images.length === 0
+    );
+    if (!projectWithoutImages) {
+      throw new Error("Expected at least one seed project without images");
+    }
+
+    const openButton = await screen.findByRole("button", {
+      name: `Open project: ${projectWithoutImages.name}`,
+    });
+
+    const card = openButton.closest("div");
+    if (!card) throw new Error("Project card container missing");
+
+    expect(within(card).getByText("系統畫面準備中")).toBeVisible();
+  });
+
+  test("renders fallback placeholder when all images fail to load", async () => {
+    render(<ProjectsPage />);
+
+    const projectWithImages = projects.find(
+      project => project.id === "pdf-annotation-engine"
+    );
+    if (!projectWithImages || !projectWithImages.images) {
+      throw new Error("Expected at least one seed project with images");
+    }
+
+    const openButton = await screen.findByRole("button", {
+      name: `Open project: ${projectWithImages.name}`,
+    });
+
+    const card = openButton.closest("div");
+    if (!card) throw new Error("Project card container missing");
+
+    // Keep firing error events until the gallery flips to its fallback UI.
+    // (In JSDOM, image loading can be timing-dependent, so the initial grid
+    // may contain fewer than the source image list.)
+    for (let attempt = 0; attempt < 5; attempt += 1) {
+      const imageButtons = within(card).queryAllByRole("button", {
+        name: /Open image:/,
+      });
+
+      imageButtons.forEach(button => {
+        const img = within(button).getByRole("img");
+        fireEvent.error(img);
+      });
+
+      // Allow state updates to flush between attempts.
+      // eslint-disable-next-line no-await-in-loop
+      await Promise.resolve();
+    }
+
+    await waitFor(() => {
+      expect(within(card).getByText("系統畫面準備中")).toBeVisible();
+    });
   });
 
   test("opens and closes lightbox from a project card image", async () => {
