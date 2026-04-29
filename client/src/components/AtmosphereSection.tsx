@@ -9,15 +9,18 @@ type Highlight = {
 const highlights: Highlight[] = [
   {
     title: "ERP 系統 Web 化",
-    detail: "將 Delphi Legacy 系統逐步轉換為 Vue 3 + Go 架構，降低後續功能迭代與維運成本。",
+    detail:
+      "將 Delphi Legacy 系統逐步轉換為 Vue 3 + Go 架構，降低後續功能迭代與維運成本。",
   },
   {
     title: "效能優化",
-    detail: "將關鍵頁面查詢由 26 秒優化至 1 秒內（查詢路徑、資料結構與前端呈現同步調整）。",
+    detail:
+      "將關鍵頁面查詢由 26 秒優化至 1 秒內（查詢路徑、資料結構與前端呈現同步調整）。",
   },
   {
     title: "根因分析",
-    detail: "處理 Memory Leak、重複點擊資料異常、CR/LF 隱藏字元污染等問題，建立可追蹤與可回歸的修復流程。",
+    detail:
+      "處理 Memory Leak、重複點擊資料異常、CR/LF 隱藏字元污染等問題，建立可追蹤與可回歸的修復流程。",
   },
 ];
 
@@ -98,7 +101,8 @@ export default function AtmosphereSection() {
             工作經驗亮點
           </h2>
           <p className="font-mono text-slate-300 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
-            以企業系統與 ERP 為主軸，聚焦可維護性、效能與可靠性，讓系統能穩定演進。
+            以企業系統與 ERP
+            為主軸，聚焦可維護性、效能與可靠性，讓系統能穩定演進。
           </p>
         </div>
 

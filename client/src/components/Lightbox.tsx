@@ -50,7 +50,10 @@ export default function Lightbox({
   useEffect(() => {
     if (!isVisible) return;
     setIndex(() => {
-      const clamped = Math.max(0, Math.min(initialIndex, safeImages.length - 1));
+      const clamped = Math.max(
+        0,
+        Math.min(initialIndex, safeImages.length - 1)
+      );
       return clamped;
     });
   }, [initialIndex, isVisible, safeImages.length]);
@@ -169,10 +172,7 @@ export default function Lightbox({
             </div>
 
             <div className="border-t border-slate-700/50 bg-slate-950/60 px-4 py-3">
-              <p
-                id={captionId}
-                className="text-sm text-slate-200 text-center"
-              >
+              <p id={captionId} className="text-sm text-slate-200 text-center">
                 {caption}
               </p>
             </div>

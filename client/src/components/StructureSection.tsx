@@ -84,7 +84,8 @@ export default function StructureSection() {
           </h2>
 
           <p className="font-mono text-slate-400 text-sm max-w-2xl mx-auto leading-relaxed">
-            以 ERP 與企業系統為核心，從 Legacy 分析、前後端落地到上線穩定性，協助團隊在可維護性與交付速度之間取得平衡。
+            以 ERP 與企業系統為核心，從 Legacy
+            分析、前後端落地到上線穩定性，協助團隊在可維護性與交付速度之間取得平衡。
           </p>
         </div>
 

@@ -1,44 +1,31 @@
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+﻿import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { ChevronDown, Search, X } from "lucide-react";
 import { Link } from "wouter";
-import { projectCategoryMeta, projects, type Project } from "@/data/projects";
+import { projects, type Project } from "@/data/projects";
 import ProjectDialog from "@/components/ProjectDialog";
 import ProjectCard from "@/components/ProjectCard";
 import SEOHead from "@/components/SEOHead";
 import { profile } from "@/data/profile";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
 
-type Category = "all" | "production" | "enterprise" | "ai" | "learning";
+type TierFilter = "all" | "production" | "gold" | "silver";
 type SortBy = "tier" | "name";
 
 const tierOrder: Record<Project["tier"], number> = {
-  gold: 0,
-  silver: 1,
+  production: 0,
+  gold: 1,
+  silver: 2,
 };
 
-const categoryLabels: Record<Category, string> = {
-  all: "全部分類",
-  enterprise: "Enterprise / 系統工程",
-  production: "已上線專案 / Production Systems",
-  ai: "AI / ML",
-  learning: "Learning",
-};
-void categoryLabels;
-
-const categoryOptions: Array<{ value: Category; label: string }> = [
-  { value: "all", label: "All / \u5168\u90e8" },
-  {
-    value: "production",
-    label: "\u5df2\u4e0a\u7dda\u5c08\u6848 / Production Systems",
-  },
-  { value: "enterprise", label: "Enterprise / ERP" },
-  { value: "ai", label: "AI / ML" },
-  { value: "learning", label: "Learning" },
+const tierOptions: Array<{ value: TierFilter; label: string }> = [
+  { value: "all", label: "All / 全部" },
+  { value: "production", label: "已上線專案" },
+  { value: "gold", label: "金牌作品" },
+  { value: "silver", label: "銀牌作品" },
 ];
-
 export default function ProjectsPage() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<Category>("all");
+  const [selectedTier, setSelectedTier] = useState<TierFilter>("all");
   const [sortBy, setSortBy] = useState<SortBy>("tier");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -77,6 +64,8 @@ export default function ProjectsPage() {
   const projectStats = useMemo(() => {
     return {
       total: projects.length,
+      production: projects.filter(project => project.tier === "production")
+        .length,
       gold: projects.filter(project => project.tier === "gold").length,
       silver: projects.filter(project => project.tier === "silver").length,
     };
@@ -112,8 +101,8 @@ export default function ProjectsPage() {
 
       const matchesSearch = query.length === 0 || searchable.includes(query);
 
-      const matchesCategory =
-        selectedCategory === "all" || project.category === selectedCategory;
+      const matchesTier =
+        selectedTier === "all" || project.tier === selectedTier;
 
       const matchesTechs =
         selectedTechs.size === 0 ||
@@ -121,26 +110,21 @@ export default function ProjectsPage() {
           project.technologies.includes(tech)
         );
 
-      return matchesSearch && matchesCategory && matchesTechs;
+      return matchesSearch && matchesTier && matchesTechs;
     });
-
-    const byCategoryPriority = (a: Project, b: Project) =>
-      projectCategoryMeta[a.category].priority -
-      projectCategoryMeta[b.category].priority;
 
     if (sortBy === "tier") {
       return [...filtered].sort(
         (a, b) =>
-          byCategoryPriority(a, b) ||
-          tierOrder[a.tier] - tierOrder[b.tier] ||
-          a.name.localeCompare(b.name)
+          tierOrder[a.tier] - tierOrder[b.tier] || a.name.localeCompare(b.name)
       );
     }
 
     return [...filtered].sort(
-      (a, b) => byCategoryPriority(a, b) || a.name.localeCompare(b.name)
+      (a, b) =>
+        tierOrder[a.tier] - tierOrder[b.tier] || a.name.localeCompare(b.name)
     );
-  }, [searchQuery, selectedCategory, sortBy, selectedTechs]);
+  }, [searchQuery, selectedTier, sortBy, selectedTechs]);
 
   const getTierColor = (tier: Project["tier"]) => {
     switch (tier) {
@@ -152,54 +136,6 @@ export default function ProjectsPage() {
         return "from-slate-500/20 to-slate-600/10 border-slate-500/30";
     }
   };
-
-  const getTierBadge = (tier: string) => {
-    switch (tier) {
-      case "gold":
-        return "金牌作品";
-      case "silver":
-        return "銀牌作品";
-      // removed
-        return tier;
-      default:
-        return tier;
-    }
-  };
-
-  void getTierBadge;
-
-  const getCategoryLabel = (category: Project["category"]) => {
-    switch (category) {
-      case "enterprise":
-        return "Enterprise / 系統工程";
-      case "ai":
-        return "AI / ML";
-      case "learning":
-        return "Learning";
-      case "production":
-        return "已上線專案";
-      default:
-        return category;
-    }
-  };
-
-  const getCategoryLabelEn = (category: Project["category"]) => {
-    switch (category) {
-      case "production":
-        return "Production Systems";
-      case "enterprise":
-        return "Enterprise";
-      case "ai":
-        return "AI / ML";
-      case "learning":
-        return "Learning";
-      default:
-        return category;
-    }
-  };
-
-  void getCategoryLabel;
-  void getCategoryLabelEn;
 
   const handleProjectClick = (project: Project) => {
     if (closeTimerRef.current != null) {
@@ -243,8 +179,8 @@ export default function ProjectsPage() {
   return (
     <>
       <SEOHead
-        title={`專案｜${profile.name}`}
-        description="整理可公開的作品與案例，包含全端系統、AI 應用、文件管理、PDF 引擎與學習平台。"
+        title={`Projects | ${profile.name}`}
+        description="Portfolio projects: production systems, gold-tier work, and silver-tier experiments."
         canonicalPath="/projects"
       />
 
@@ -261,24 +197,24 @@ export default function ProjectsPage() {
                 href="/"
                 className="font-mono text-cyan-400 hover:text-cyan-300 transition-colors"
               >
-                首頁
+                擐?
               </Link>
 
-              <h1 className="font-mono text-sm text-slate-400">作品集</h1>
+              <h1 className="font-mono text-sm text-slate-400">Projects</h1>
 
               <div className="flex gap-4 items-center">
                 <Link
                   href="/resume"
                   className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
                 >
-                  履歷
+                  撅交風
                 </Link>
                 <span className="text-slate-600">|</span>
                 <Link
                   href="/biography"
                   className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
                 >
-                  自傳
+                  ?芸
                 </Link>
               </div>
             </div>
@@ -291,19 +227,32 @@ export default function ProjectsPage() {
               </p>
 
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                工程作品與實作專案
+                工程作品與實作專案{" "}
               </h2>
 
               <p className="text-slate-300 max-w-3xl leading-relaxed">
-                這裡整理我目前較適合放在求職作品集中的專案，包含全端系統、AI
-                應用、PDF
-                引擎、文件知識管理與學習平台。每個專案都著重在實作架構、資料流、測試與可維護性。
+                ?ㄐ?渡?????拙??曉瘙雿??葉??獢???函垢蝟餌絞?I
+                ??DF
+                撘???隞嗥霅恣??摮貊?撟喳????獢???典祕雿瑽????葫閰西??舐雁霅瑟扼?{" "}
               </p>
 
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8">
-                <StatCard label="全部作品" value={projectStats.total} />
-                <StatCard label="金牌作品" value={projectStats.gold} />
-                <StatCard label="銀牌作品" value={projectStats.silver} />
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                <StatCard
+                  label="\u5168\u90e8\u4f5c\u54c1"
+                  value={projectStats.total}
+                />
+                <StatCard
+                  label="\u5df2\u4e0a\u7dda\u5c08\u6848"
+                  value={projectStats.production}
+                />
+                <StatCard
+                  label="\u91d1\u724c\u4f5c\u54c1"
+                  value={projectStats.gold}
+                />
+                <StatCard
+                  label="\u9280\u724c\u4f5c\u54c1"
+                  value={projectStats.silver}
+                />
               </div>
             </section>
 
@@ -315,20 +264,20 @@ export default function ProjectsPage() {
                     value={searchQuery}
                     onChange={event => setSearchQuery(event.target.value)}
                     aria-label="Search projects"
-                    placeholder="搜尋專案名稱、技術或描述…"
+                    placeholder="Search projects..."
                     className="w-full pl-10 pr-3 py-3 bg-slate-950/40 border border-slate-700/40 rounded-lg text-slate-200 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
                   />
                 </div>
 
                 <select
-                  value={selectedCategory}
+                  value={selectedTier}
                   onChange={event =>
-                    setSelectedCategory(event.target.value as Category)
+                    setSelectedTier(event.target.value as TierFilter)
                   }
-                  aria-label="Category"
+                  aria-label="Tier"
                   className="w-full px-3 py-3 bg-slate-950/40 border border-slate-700/40 rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
                 >
-                  {categoryOptions.map(option => (
+                  {tierOptions.map(option => (
                     <option key={option.value} value={option.value}>
                       {option.label}
                     </option>
@@ -341,8 +290,8 @@ export default function ProjectsPage() {
                   aria-label="Sort"
                   className="w-full px-3 py-3 bg-slate-950/40 border border-slate-700/40 rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
                 >
-                  <option value="tier">排序：作品等級</option>
-                  <option value="name">排序：專案名稱</option>
+                  <option value="tier">Sort: Tier</option>
+                  <option value="name">Sort: Name</option>
                 </select>
               </div>
 
@@ -355,7 +304,7 @@ export default function ProjectsPage() {
                   aria-label="Technologies filter"
                   className="inline-flex items-center gap-2 text-sm text-cyan-300 hover:text-cyan-200 transition-colors"
                 >
-                  技術篩選
+                  ?銵祟??{" "}
                   <ChevronDown
                     className={`w-4 h-4 transition-transform ${
                       showTechFilter ? "rotate-180" : ""
@@ -395,7 +344,7 @@ export default function ProjectsPage() {
                           onClick={clearTechFilters}
                           className="px-3 py-1 rounded-full text-sm bg-red-500/15 border border-red-500/30 text-red-200 hover:bg-red-500/25 transition-colors inline-flex items-center gap-1"
                         >
-                          清除 <X className="w-3 h-3" />
+                          皜 <X className="w-3 h-3" />
                         </button>
                       )}
                     </div>
@@ -404,16 +353,17 @@ export default function ProjectsPage() {
               </div>
 
               <div className="mt-4 text-sm text-slate-400">
-                目前顯示 {filteredProjects.length} / {projects.length} 個專案
+                ?桀?憿舐內 {filteredProjects.length} / {projects.length}{" "}
+                ??獢?{" "}
               </div>
             </section>
 
             <section aria-label="All projects">
-              <h3 className="text-xl font-semibold mb-4">全部作品</h3>
+              <h3 className="text-xl font-semibold mb-4">?券雿?</h3>
 
               {filteredProjects.length === 0 ? (
                 <div className="rounded-lg border border-slate-700/40 bg-slate-900/20 p-8 text-center text-slate-300">
-                  沒有符合目前搜尋或篩選條件的作品。
+                  瘝?蝚血??桀????祟?豢?隞嗥?雿???{" "}
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

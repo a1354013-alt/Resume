@@ -14,6 +14,7 @@ describe("ProjectDialog links", () => {
       role: "Role",
       category: "learning",
       tier: "silver",
+      tierLabel: "銀牌作品",
       technologies: ["TypeScript"],
       metrics: "Metrics",
       featured: false,

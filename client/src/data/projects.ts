@@ -3,8 +3,9 @@ export interface Project {
   name: string;
   tagline: string;
   role: string;
-  category: "production" | "enterprise" | "ai" | "learning";
-  tier: "gold" | "silver";
+  category: "enterprise" | "ai" | "learning";
+  tier: "production" | "gold" | "silver";
+  tierLabel: string;
   technologies: string[];
   metrics: string;
   featured: boolean;
@@ -28,41 +29,6 @@ export interface ProjectImage {
   caption?: string;
 }
 
-export const projectCategoryMeta: Record<
-  Project["category"],
-  {
-    label: string;
-    label_en: string;
-    badgeColor: "green" | "cyan" | "violet" | "slate";
-    priority: number;
-  }
-> = {
-  production: {
-    label: "已上線專案",
-    label_en: "Production Systems",
-    badgeColor: "green",
-    priority: 1,
-  },
-  enterprise: {
-    label: "Enterprise",
-    label_en: "Enterprise",
-    badgeColor: "cyan",
-    priority: 2,
-  },
-  ai: {
-    label: "AI / ML",
-    label_en: "AI / ML",
-    badgeColor: "violet",
-    priority: 3,
-  },
-  learning: {
-    label: "Learning",
-    label_en: "Learning",
-    badgeColor: "slate",
-    priority: 4,
-  },
-};
-
 export const projects: Project[] = [
   {
     id: "erp-change-management",
@@ -70,8 +36,9 @@ export const projects: Project[] = [
     tagline:
       "工程變更與預算追加減管理系統，支援變更資料管理、預算調整、流程控管與狀態追蹤。",
     role: "全端工程師",
-    category: "production",
-    tier: "gold",
+    category: "enterprise",
+    tier: "production",
+    tierLabel: "已上線專案",
     technologies: ["Go", "Vue", "MySQL", "JWT", "RESTful API"],
     metrics: "完成工程變更流程 Web 化，使工程資料流程可視化並提升維護效率。",
     featured: true,
@@ -104,8 +71,9 @@ export const projects: Project[] = [
     tagline:
       "企業採購流程管理系統，支援採購申請、流程控管、權限角色與狀態管理。",
     role: "全端工程師",
-    category: "production",
-    tier: "gold",
+    category: "enterprise",
+    tier: "production",
+    tierLabel: "已上線專案",
     technologies: ["Go", "Vue", "MySQL", "JWT", "Swagger", "RESTful API"],
     metrics: "提升採購流程透明度與系統維護效率，使資料與流程更容易追蹤。",
     featured: true,
@@ -134,11 +102,11 @@ export const projects: Project[] = [
   {
     id: "erp-approval-system",
     name: "企業簽核管理系統",
-    tagline:
-      "多層簽核流程系統，支援角色權限、流程狀態與簽核追蹤管理。",
+    tagline: "多層簽核流程系統，支援角色權限、流程狀態與簽核追蹤管理。",
     role: "全端工程師",
-    category: "production",
-    tier: "gold",
+    category: "enterprise",
+    tier: "production",
+    tierLabel: "已上線專案",
     technologies: ["Go", "Vue", "MySQL", "JWT", "RESTful API"],
     metrics: "提升企業簽核流程透明度，使簽核進度與操作權限更容易控管。",
     featured: true,
@@ -156,8 +124,7 @@ export const projects: Project[] = [
         "防止重複簽核與錯誤流程操作",
         "提供流程查詢與歷程追蹤功能",
       ],
-      result:
-        "提升企業簽核流程透明度，使簽核進度與操作權限更容易控管。",
+      result: "提升企業簽核流程透明度，使簽核進度與操作權限更容易控管。",
       challenges:
         "簽核流程需嚴格限制狀態轉移，並處理併發操作與例外狀況，避免流程卡死或資料不一致。",
       nextSteps:
@@ -169,8 +136,9 @@ export const projects: Project[] = [
     name: "企業請假管理系統",
     tagline: "企業請假管理系統，支援請假申請、簽核流程與假別管理。",
     role: "全端工程師",
-    category: "production",
-    tier: "gold",
+    category: "enterprise",
+    tier: "production",
+    tierLabel: "已上線專案",
     technologies: ["Go", "Vue", "MySQL", "JWT", "RESTful API"],
     metrics: "成功建立完整請假流程管理系統，使請假流程透明化並提升管理效率。",
     featured: true,
@@ -188,8 +156,7 @@ export const projects: Project[] = [
         "建立請假狀態流轉機制",
         "支援假別管理與歷程查詢",
       ],
-      result:
-        "成功建立完整請假流程管理系統，使請假流程透明化並提升管理效率。",
+      result: "成功建立完整請假流程管理系統，使請假流程透明化並提升管理效率。",
       challenges:
         "需兼顧不同角色的操作權限、簽核路徑與假別規則，並避免狀態錯誤導致流程無法完成。",
       nextSteps:
@@ -204,6 +171,7 @@ export const projects: Project[] = [
     role: "全端工程師",
     category: "enterprise",
     tier: "gold",
+    tierLabel: "金牌作品",
     technologies: [
       "TypeScript",
       "PDF.js",
@@ -257,6 +225,7 @@ export const projects: Project[] = [
     role: "後端工程師",
     category: "enterprise",
     tier: "gold",
+    tierLabel: "金牌作品",
     technologies: [
       "Python",
       "SQLite",
@@ -306,6 +275,7 @@ export const projects: Project[] = [
     role: "全端工程師",
     category: "enterprise",
     tier: "silver",
+    tierLabel: "銀牌作品",
     technologies: [
       "FastAPI",
       "Vue 3",
@@ -368,6 +338,7 @@ export const projects: Project[] = [
     role: "全端工程師",
     category: "enterprise",
     tier: "silver",
+    tierLabel: "銀牌作品",
     technologies: [
       "FastAPI",
       "Vue 3",
@@ -408,6 +379,7 @@ export const projects: Project[] = [
     role: "全端工程師",
     category: "learning",
     tier: "silver",
+    tierLabel: "銀牌作品",
     technologies: [
       "FastAPI",
       "Vue 3",
@@ -450,6 +422,7 @@ export const projects: Project[] = [
     role: "全端工程師",
     category: "ai",
     tier: "silver",
+    tierLabel: "銀牌作品",
     technologies: [
       "React",
       "TypeScript",
@@ -489,6 +462,7 @@ export const projects: Project[] = [
     role: "AI 系統開發 / 後端工程師",
     category: "ai",
     tier: "silver",
+    tierLabel: "銀牌作品",
     technologies: [
       "Python",
       "FastAPI",

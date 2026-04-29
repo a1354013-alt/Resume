@@ -1,4 +1,4 @@
-import { projectCategoryMeta, type Project } from "@/data/projects";
+import type { Project } from "@/data/projects";
 import ProjectImageGallery from "@/components/ProjectImageGallery";
 
 interface ProjectCardProps {
@@ -18,15 +18,22 @@ export default function ProjectCard({
     <div
       className={`bg-gradient-to-br ${getTierColor(
         project.tier
-      )} border rounded-lg overflow-hidden transition-all duration-300 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/10 w-full text-left group`}
+      )} border rounded-lg overflow-hidden transition-all duration-300 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/10 w-full text-left group flex flex-col`}
     >
-      <ProjectImageGallery images={project.images} className="p-4 pb-0" />
+      <div className="p-4 pb-0">
+        <div className="h-[180px]">
+          <ProjectImageGallery
+            images={project.images}
+            heightClassName="h-[180px]"
+          />
+        </div>
+      </div>
 
       <button
         type="button"
         onClick={() => onProjectClick(project)}
         aria-label={`Open project: ${project.name}`}
-        className="p-6 w-full text-left"
+        className="p-6 w-full text-left flex-1 min-h-0 flex flex-col"
       >
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
@@ -34,15 +41,6 @@ export default function ProjectCard({
               <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-300 transition-colors">
                 {project.name}
               </h3>
-
-              <span className="flex-shrink-0 bg-[#16a34a] text-white font-semibold rounded-[6px] py-1 px-2.5">
-                <span className="flex flex-col text-xs leading-tight text-left">
-                  <span>{projectCategoryMeta[project.category].label}</span>
-                  <span className="opacity-90">
-                    {projectCategoryMeta[project.category].label_en}
-                  </span>
-                </span>
-              </span>
             </div>
 
             <p className="text-sm text-slate-300/80 mt-2 line-clamp-2">
@@ -62,7 +60,7 @@ export default function ProjectCard({
           ))}
         </div>
 
-        <div className="mt-4 pt-4 border-t border-slate-700/30 space-y-4">
+        <div className="mt-4 pt-4 border-t border-slate-700/30 space-y-4 flex-1 min-h-0">
           <div>
             <p className="text-xs text-slate-500">角色</p>
             <p className="text-sm text-cyan-300 font-semibold">
@@ -79,7 +77,7 @@ export default function ProjectCard({
 
           <div>
             <p className="text-xs text-slate-500">Highlights</p>
-            <ul className="mt-2 space-y-1">
+            <ul className="mt-2 space-y-1 max-h-[5.5rem] overflow-hidden">
               {highlights.map(highlight => (
                 <li key={highlight} className="text-sm text-slate-200">
                   - {highlight}

@@ -17,7 +17,12 @@ describe("Lightbox", () => {
     ];
 
     render(
-      <Lightbox images={images} initialIndex={0} isOpen={true} onClose={onClose} />
+      <Lightbox
+        images={images}
+        initialIndex={0}
+        isOpen={true}
+        onClose={onClose}
+      />
     );
 
     expect(screen.getByRole("dialog", { name: /lightbox/i })).toBeVisible();
@@ -33,4 +38,3 @@ describe("Lightbox", () => {
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 });
-

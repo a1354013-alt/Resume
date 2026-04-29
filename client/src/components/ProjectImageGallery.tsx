@@ -11,11 +11,13 @@ function resolveAssetUrl(src: string) {
 interface ProjectImageGalleryProps {
   images?: ProjectImage[];
   className?: string;
+  heightClassName?: string;
 }
 
 export default function ProjectImageGallery({
   images,
   className,
+  heightClassName = "h-[180px]",
 }: ProjectImageGalleryProps) {
   const safeImages = useMemo(() => {
     const list = (images ?? []).filter(image => image?.src && image?.alt);
@@ -25,16 +27,15 @@ export default function ProjectImageGallery({
   const [isOpen, setIsOpen] = useState(false);
   const [initialIndex, setInitialIndex] = useState(0);
 
-  if (safeImages.length < 2) {
-    return null;
-  }
+  if (safeImages.length === 0) return null;
 
   const count = safeImages.length;
 
   const gridClass = (() => {
-    if (count === 2) return "grid-cols-1 sm:grid-cols-2";
-    if (count === 3) return "grid-cols-1 sm:grid-cols-2 sm:grid-rows-2";
-    return "grid-cols-1 sm:grid-cols-2 sm:grid-rows-2";
+    if (count === 1) return "grid-cols-1";
+    if (count === 2) return "grid-cols-2";
+    if (count === 3) return "grid-cols-2 grid-rows-2";
+    return "grid-cols-2 grid-rows-2";
   })();
 
   const openAt = (index: number) => {
@@ -45,15 +46,11 @@ export default function ProjectImageGallery({
   return (
     <>
       <div className={className}>
-        <div className={`grid gap-2 ${gridClass}`}>
+        <div className={`grid gap-2 ${gridClass} ${heightClassName}`}>
           {safeImages.map((image, index) => {
             const isThreePrimary = count === 3 && index === 0;
             const itemClass =
-              count === 3
-                ? isThreePrimary
-                  ? "sm:row-span-2"
-                  : ""
-                : "";
+              count === 3 ? (isThreePrimary ? "row-span-2" : "") : "";
 
             return (
               <button
@@ -69,7 +66,7 @@ export default function ProjectImageGallery({
                 <img
                   src={resolveAssetUrl(image.src)}
                   alt={image.alt}
-                  className="h-40 w-full object-cover transition-transform duration-300 group-hover:scale-[1.02] group-hover:brightness-110"
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02] group-hover:brightness-110"
                   loading="lazy"
                   draggable={false}
                 />
@@ -88,4 +85,3 @@ export default function ProjectImageGallery({
     </>
   );
 }
-

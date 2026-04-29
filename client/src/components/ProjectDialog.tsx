@@ -1,4 +1,4 @@
-import {
+﻿import {
   ChevronLeft,
   ChevronRight,
   ExternalLink,
@@ -18,32 +18,6 @@ interface ProjectDialogProps {
   isOpen: boolean;
   onClose: () => void;
   onProjectChange?: (project: Project) => void;
-}
-
-function getCategoryLabel(category: Project["category"]) {
-  switch (category) {
-    case "production":
-      return "已上線專案";
-    case "enterprise":
-      return "Enterprise / ERP";
-    case "ai":
-      return "AI / ML";
-    case "learning":
-      return "Learning";
-  }
-}
-
-function getCategoryLabelEn(category: Project["category"]) {
-  switch (category) {
-    case "production":
-      return "Production Systems";
-    case "enterprise":
-      return "Enterprise";
-    case "ai":
-      return "AI / ML";
-    case "learning":
-      return "Learning";
-  }
 }
 
 export default function ProjectDialog({
@@ -104,13 +78,8 @@ export default function ProjectDialog({
           <div className="sticky top-0 bg-gradient-to-b from-slate-900 to-slate-900/80 border-b border-slate-700/30 px-6 py-4 flex items-start justify-between gap-4 backdrop-blur-sm">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
-                <span className="bg-[#16a34a] text-white font-semibold rounded-[6px] py-1 px-2.5">
-                  <span className="flex flex-col text-xs leading-tight text-left">
-                    <span>{getCategoryLabel(project.category)}</span>
-                    <span className="opacity-90">
-                      {getCategoryLabelEn(project.category)}
-                    </span>
-                  </span>
+                <span className="text-xs text-slate-400">
+                  {project.tierLabel}
                 </span>
               </div>
               <h2 id={titleId} className="text-2xl font-bold text-slate-100">
@@ -210,7 +179,7 @@ export default function ProjectDialog({
                       className="text-cyan-400 flex-shrink-0"
                       aria-hidden="true"
                     >
-                      •
+                      ??{" "}
                     </span>
                     <span>{highlight}</span>
                   </li>

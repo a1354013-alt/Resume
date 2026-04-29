@@ -35,7 +35,12 @@ export const profile: Profile = {
   contactMessage: {
     line1:
       "正在尋找全端工程、ERP 系統開發、企業系統現代化相關職缺，歡迎透過 Email、LinkedIn 或 GitHub 與我聯繫。",
-    hashtags: ["#ERP", "#LegacyRefactor", "#FullStack", "#PerformanceOptimization"],
+    hashtags: [
+      "#ERP",
+      "#LegacyRefactor",
+      "#FullStack",
+      "#PerformanceOptimization",
+    ],
   },
   footer: {
     tagline: "React + Vite + TypeScript + Tailwind CSS",

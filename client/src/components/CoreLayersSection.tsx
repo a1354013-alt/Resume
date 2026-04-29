@@ -95,7 +95,8 @@ export default function CoreLayersSection() {
             <span className="text-cyan-300">Technical Skills</span>
           </h2>
           <p className="font-mono text-slate-400 text-sm md:text-base max-w-2xl leading-relaxed">
-            將技術能力整理成「前端 / 後端 / 工程實踐」三個層次，方便快速對齊我能提供的即戰力範圍。
+            將技術能力整理成「前端 / 後端 /
+            工程實踐」三個層次，方便快速對齊我能提供的即戰力範圍。
           </p>
         </div>
 

@@ -171,7 +171,8 @@ export default function ContactSection() {
 
         <div className="text-center">
           <p className="font-mono text-sm text-slate-400 mb-4">
-            © {new Date().getFullYear()} {profile.name} · {profile.footer.tagline}
+            © {new Date().getFullYear()} {profile.name} ·{" "}
+            {profile.footer.tagline}
           </p>
           <div className="flex justify-center gap-4">
             <div className="w-1 h-1 rounded-full bg-cyan-500 animate-pulse" />
