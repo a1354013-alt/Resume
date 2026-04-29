@@ -21,11 +21,11 @@ export type Profile = {
 export const profile: Profile = {
   name: "羅揚文",
   nameEn: "Yang-Wen Luo",
-  title: "全端工程師｜企業系統現代化與整合",
+  title: "ERP Software Engineer / Full-Stack Developer",
   tagline:
-    "善於與使用者與客戶溝通需求，能將複雜問題轉化為可落地的解法；具備獨立作業能力，也能在跨部門或客戶討論中清楚表達技術方案與實作方向。",
+    "專注 ERP 系統現代化、Legacy System Refactor，以及 Vue / React / Go / Node.js 前後端整合。",
   background:
-    "具備企業 ERP 與內部系統整合經驗，熟悉從既有系統盤點、需求拆解、資料與流程梳理，到前後端落地與部署。重視可讀性、可觀測性與長期維護成本，偏好用工程化方法把問題一次解到位。",
+    "3+ 年 ERP 開發經驗、9+ 年跨領域工作經驗；曾將關鍵頁面查詢由 26 秒優化至 1 秒內，並持續推動 Delphi Legacy 系統逐步轉換為 Vue 3 + Go 架構。",
   contact: {
     email: "whois512139@gmail.com",
     github: "https://github.com/a1354013-alt",
@@ -34,8 +34,8 @@ export const profile: Profile = {
   },
   contactMessage: {
     line1:
-      "歡迎透過 Email 或 LinkedIn 聯絡我，也可以直接到 GitHub 看我的作品。",
-    hashtags: ["#ERP現代化", "#AI應用開發", "#系統整合", "#後端工程"],
+      "正在尋找全端工程、ERP 系統開發、企業系統現代化相關職缺，歡迎透過 Email、LinkedIn 或 GitHub 與我聯繫。",
+    hashtags: ["#ERP", "#LegacyRefactor", "#FullStack", "#PerformanceOptimization"],
   },
   footer: {
     tagline: "React + Vite + TypeScript + Tailwind CSS",

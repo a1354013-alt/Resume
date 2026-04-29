@@ -8,8 +8,8 @@ import FloatingNavbar from "@/components/FloatingNavbar";
 import { profile } from "@/data/profile";
 
 export default function Home() {
-  const title = `${profile.name}｜作品集`;
-  const description = `${profile.title}。${profile.tagline}`;
+  const title = `${profile.name}${profile.nameEn ? ` ${profile.nameEn}` : ""} | Portfolio`;
+  const description = `${profile.title} — ${profile.tagline}`;
 
   return (
     <>

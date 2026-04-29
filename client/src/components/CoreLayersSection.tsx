@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-interface LayerCard {
+interface SkillCard {
   title: string;
   subtitle: string;
   icon: string;
@@ -8,39 +8,27 @@ interface LayerCard {
   depth: "crust" | "mantle" | "core";
 }
 
-const layers: LayerCard[] = [
+const skills: SkillCard[] = [
   {
     title: "Frontend",
-    subtitle: "可維護的 UI 與互動",
-    icon: "🛰️",
+    subtitle: "Web UI / Client",
+    icon: "⚛️",
     depth: "crust",
-    items: [
-      "React / Vue 3：元件化、狀態管理、路由與互動細節",
-      "TypeScript：型別約束、可重構與長期維護",
-      "Tailwind CSS：一致的設計語彙與速度",
-    ],
+    items: ["React", "Vue 3", "TypeScript", "Tailwind CSS"],
   },
   {
     title: "Backend",
-    subtitle: "API 與資料一致性",
-    icon: "🧩",
+    subtitle: "API / Data",
+    icon: "🛠️",
     depth: "mantle",
-    items: [
-      "Go / Node.js：REST API、資料驗證、錯誤處理與權限",
-      "資料庫：PostgreSQL / SQL Server（schema 與效能思維）",
-      "整合：既有系統/流程盤點後，逐步拆分與落地",
-    ],
+    items: ["Go", "Node.js", "REST API", "SQL Server", "PostgreSQL"],
   },
   {
-    title: "Engineering",
-    subtitle: "讓交付能被信任",
-    icon: "⚙️",
+    title: "Engineering Practice",
+    subtitle: "Quality / Reliability",
+    icon: "🧪",
     depth: "core",
-    items: [
-      "可觀測：可追蹤的錯誤與行為（避免黑盒）",
-      "可部署：Docker / 環境變數 / 靜態資源策略",
-      "可交付：文件、腳本與最小可行測試，CI 能跑得起來",
-    ],
+    items: ["CI/CD", "Testing", "Refactor", "Performance Optimization"],
   },
 ];
 
@@ -67,10 +55,10 @@ export default function CoreLayersSection() {
             window.setTimeout(() => setVisibleCards([true, false, false]), 100)
           );
           timeoutIds.push(
-            window.setTimeout(() => setVisibleCards([true, true, false]), 350)
+            window.setTimeout(() => setVisibleCards([true, true, false]), 320)
           );
           timeoutIds.push(
-            window.setTimeout(() => setVisibleCards([true, true, true]), 600)
+            window.setTimeout(() => setVisibleCards([true, true, true]), 540)
           );
         });
       },
@@ -92,71 +80,70 @@ export default function CoreLayersSection() {
     >
       {/* Background */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_50%,rgba(0,217,255,0.10),transparent_55%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(179,0,255,0.08),transparent_55%)]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/30 via-black to-black" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_50%,rgba(0,217,255,0.08),transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(179,0,255,0.06),transparent_55%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/25 via-black to-black" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="mb-16">
+        <div className="mb-14">
           <h2
             className="text-4xl md:text-5xl font-bold mb-4"
             style={{ fontFamily: "'Orbitron', monospace" }}
           >
-            <span className="text-slate-200">能力層次</span>
-            <span className="text-cyan-300">（從表層到核心）</span>
+            <span className="text-slate-200">技術能力</span>{" "}
+            <span className="text-cyan-300">Technical Skills</span>
           </h2>
-          <p className="font-mono text-slate-400 text-lg max-w-2xl">
-            我把自己擅長的工作拆成三層：介面落地、API
-            與資料一致性、以及能被信任的交付工程。
+          <p className="font-mono text-slate-400 text-sm md:text-base max-w-2xl leading-relaxed">
+            將技術能力整理成「前端 / 後端 / 工程實踐」三個層次，方便快速對齊我能提供的即戰力範圍。
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-          {layers.map((layer, index) => {
+          {skills.map((skill, index) => {
             const depthClasses = {
               crust:
-                "bg-slate-900/30 border-slate-700/40 hover:border-slate-600/60",
+                "bg-slate-900/25 border-slate-700/35 hover:border-slate-600/55",
               mantle:
-                "bg-slate-900/40 border-slate-700/50 hover:border-slate-600/70",
-              core: "bg-slate-900/60 border-cyan-500/30 hover:border-cyan-400/60",
+                "bg-slate-900/35 border-slate-700/45 hover:border-slate-600/65",
+              core: "bg-slate-900/55 border-cyan-500/25 hover:border-cyan-400/55",
             } as const;
 
             return (
               <div
-                key={layer.depth}
+                key={skill.title}
                 className={`transition-all duration-1000 transform ${
                   visibleCards[index]
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-10"
                 }`}
-                style={{ transitionDelay: `${index * 180}ms` }}
+                style={{ transitionDelay: `${index * 160}ms` }}
               >
                 <div
-                  className={`relative h-full rounded-lg border backdrop-blur-sm ${depthClasses[layer.depth]} transition-all duration-300`}
+                  className={`relative h-full rounded-2xl border backdrop-blur-sm ${depthClasses[skill.depth]} transition-all duration-300`}
                 >
-                  <div className="p-8 pb-6 border-b border-slate-700/30">
-                    <div className="text-4xl mb-3">{layer.icon}</div>
+                  <div className="p-8 pb-6 border-b border-slate-700/25">
+                    <div className="text-4xl mb-3">{skill.icon}</div>
                     <h3
                       className="text-2xl font-bold mb-1 text-slate-100"
                       style={{ fontFamily: "'Orbitron', monospace" }}
                     >
-                      {layer.title}
+                      {skill.title}
                     </h3>
                     <p className="font-mono text-sm text-slate-400">
-                      {layer.subtitle}
+                      {skill.subtitle}
                     </p>
                   </div>
 
                   <div className="p-8">
                     <ul className="space-y-3">
-                      {layer.items.map(item => (
+                      {skill.items.map(item => (
                         <li
                           key={item}
                           className="flex items-start gap-3 text-slate-300 text-sm"
                         >
                           <span className="text-cyan-400 font-bold mt-1 flex-shrink-0">
-                            •
+                            →
                           </span>
                           <span className="font-mono leading-relaxed">
                             {item}
@@ -166,12 +153,12 @@ export default function CoreLayersSection() {
                     </ul>
                   </div>
 
-                  {layer.depth === "core" && (
+                  {skill.depth === "core" && (
                     <div
-                      className="absolute inset-0 rounded-lg pointer-events-none"
+                      className="absolute inset-0 rounded-2xl pointer-events-none"
                       style={{
                         background:
-                          "radial-gradient(circle at center, rgba(0, 217, 255, 0.10) 0%, transparent 70%)",
+                          "radial-gradient(circle at center, rgba(0, 217, 255, 0.09) 0%, transparent 70%)",
                         animation: "pulse-subtle 3s ease-in-out infinite",
                       }}
                     />
@@ -185,7 +172,7 @@ export default function CoreLayersSection() {
 
       <style>{`
         @keyframes pulse-subtle {
-          0%, 100% { opacity: 0.5; }
+          0%, 100% { opacity: 0.55; }
           50% { opacity: 1; }
         }
       `}</style>

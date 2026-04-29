@@ -1,6 +1,25 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "wouter";
 import NightSkyBackground from "@/components/NightSkyBackground";
+
+type Highlight = {
+  title: string;
+  detail: string;
+};
+
+const highlights: Highlight[] = [
+  {
+    title: "ERP 系統 Web 化",
+    detail: "將 Delphi Legacy 系統逐步轉換為 Vue 3 + Go 架構，降低後續功能迭代與維運成本。",
+  },
+  {
+    title: "效能優化",
+    detail: "將關鍵頁面查詢由 26 秒優化至 1 秒內（查詢路徑、資料結構與前端呈現同步調整）。",
+  },
+  {
+    title: "根因分析",
+    detail: "處理 Memory Leak、重複點擊資料異常、CR/LF 隱藏字元污染等問題，建立可追蹤與可回歸的修復流程。",
+  },
+];
 
 export default function AtmosphereSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -50,67 +69,62 @@ export default function AtmosphereSection() {
     <section
       id="atmosphere"
       ref={sectionRef}
-      className="relative w-full h-screen overflow-hidden bg-gradient-to-b from-black via-slate-950 to-black"
+      className="relative w-full min-h-screen overflow-hidden bg-gradient-to-b from-black via-slate-950 to-black py-24 px-4"
     >
-      {/* 原本的動態漸層背景 */}
+      {/* Background */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_40%,rgba(0,217,255,0.12),transparent_55%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(99,102,241,0.10),transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_40%,rgba(0,217,255,0.10),transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(99,102,241,0.08),transparent_55%)]" />
         <div
-          className="absolute inset-0 bg-gradient-to-b from-black/20 via-slate-950/60 to-black/90"
-          style={{ opacity: 0.6 + scrollProgress * 0.4 }}
+          className="absolute inset-0 bg-gradient-to-b from-black/10 via-slate-950/55 to-black/90"
+          style={{ opacity: 0.65 + scrollProgress * 0.35 }}
         />
       </div>
 
-      {/* 夜空效果（星星 / 雲 / 流星） */}
       <NightSkyBackground />
 
-      {/* 主內容 */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center px-4">
+      <div className="relative z-10 mx-auto w-full max-w-6xl">
         <div
-          className="text-center max-w-3xl transition-all duration-500"
+          className="text-center transition-all duration-500"
           style={{
-            opacity: 1 - scrollProgress * 0.4,
-            transform: `translateY(${scrollProgress * 24}px)`,
+            opacity: 1 - scrollProgress * 0.25,
+            transform: `translateY(${scrollProgress * 14}px)`,
           }}
         >
           <h2
             className="text-4xl md:text-5xl font-bold mb-6 glow-text"
             style={{ fontFamily: "'Orbitron', monospace" }}
           >
-            從流程到交付
+            工作經驗亮點
           </h2>
-
-          <p className="font-mono text-lg md:text-xl text-cyan-200 mb-4">
-            把需求、資料與權限拆清楚，再用可維護的工程實作落地。
+          <p className="font-mono text-slate-300 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+            以企業系統與 ERP 為主軸，聚焦可維護性、效能與可靠性，讓系統能穩定演進。
           </p>
-
-          <div className="mt-8 flex justify-center gap-3">
-            <Link
-              href="/projects"
-              className="px-5 py-3 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-200 hover:bg-cyan-500/30 transition-colors font-medium"
-            >
-              前往專案
-            </Link>
-
-            <Link
-              href="/resume"
-              className="px-5 py-3 rounded-lg bg-slate-900/40 border border-slate-700/40 text-slate-200 hover:bg-slate-900/60 transition-colors font-medium"
-            >
-              前往履歷
-            </Link>
-          </div>
         </div>
 
-        {/* 向下指示 */}
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+          {highlights.map(item => (
+            <div
+              key={item.title}
+              className="rounded-2xl border border-cyan-300/20 bg-slate-950/70 p-7 backdrop-blur shadow-lg shadow-cyan-500/5"
+            >
+              <h3 className="text-lg font-semibold text-slate-100 mb-3">
+                {item.title}
+              </h3>
+              <p className="font-mono text-sm text-slate-300 leading-relaxed">
+                {item.detail}
+              </p>
+            </div>
+          ))}
+        </div>
+
         <div
-          className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
-          style={{ opacity: Math.max(0, 1 - scrollProgress * 2) }}
+          className="mt-14 flex items-center justify-center gap-3 text-xs font-mono text-cyan-300/90"
+          style={{ opacity: Math.max(0, 1 - scrollProgress * 1.8) }}
         >
-          <div className="flex flex-col items-center gap-3">
-            <div className="w-1 h-8 bg-gradient-to-b from-cyan-400 to-transparent rounded-full animate-pulse" />
-            <span className="font-mono text-xs text-cyan-300">繼續往下</span>
-          </div>
+          <span className="inline-block h-1 w-12 rounded-full bg-gradient-to-r from-transparent via-cyan-400/70 to-transparent" />
+          <span>Scroll to continue</span>
+          <span className="inline-block h-1 w-12 rounded-full bg-gradient-to-r from-transparent via-cyan-400/70 to-transparent" />
         </div>
       </div>
     </section>

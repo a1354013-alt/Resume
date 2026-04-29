@@ -9,21 +9,18 @@ interface CapabilityCard {
 
 const capabilities: CapabilityCard[] = [
   {
-    title: "需求拆解與系統盤點",
-    description:
-      "把現況流程、角色與資料關係梳理清楚，將 Legacy/ERP 的複雜度拆成可維護的模組邊界與交付節點。",
+    title: "Legacy System Analysis",
+    description: "Delphi / ERP / 資料流程 / 商業邏輯梳理",
     icon: "/Resume/icons/icon-radar.png",
   },
   {
-    title: "模組開發與 API 設計",
-    description:
-      "以 TypeScript + React/Vue 落地 UI，搭配 Go/Node API 與資料庫，處理權限、錯誤、資料一致性與可觀測性。",
+    title: "Full-Stack Implementation",
+    description: "Vue 3 / React / TypeScript / Go / Node.js / REST API",
     icon: "/Resume/icons/icon-server-api.png",
   },
   {
-    title: "測試與穩定交付",
-    description:
-      "建立一致的腳本、CI、環境變數與最小測試；確保 build/typecheck/lint 可持續通過，方便維運與擴充。",
+    title: "Production Reliability",
+    description: "效能優化 / CI / 測試 / 錯誤追蹤 / 可維護性",
     icon: "/Resume/icons/icon-shield-check.png",
   },
 ];
@@ -75,7 +72,7 @@ export default function StructureSection() {
       ref={sectionRef}
       className="relative w-full min-h-screen bg-gradient-to-b from-black via-slate-950 to-black py-20 px-4 overflow-hidden"
     >
-      <OrbitalLines count={4} speed={30} color1="#00d9ff" color2="#b300ff" />
+      <OrbitalLines count={4} speed={32} color1="#00d9ff" color2="#b300ff" />
 
       <div className="relative z-10 max-w-6xl mx-auto">
         <div className="text-center mb-16">
@@ -83,11 +80,11 @@ export default function StructureSection() {
             className="text-4xl md:text-5xl font-bold mb-6 glow-text"
             style={{ fontFamily: "'Orbitron', monospace", color: "#00d9ff" }}
           >
-            系統開發
+            我能帶進團隊的工程能力
           </h2>
 
           <p className="font-mono text-slate-400 text-sm max-w-2xl mx-auto leading-relaxed">
-            我偏好將問題拆成「可驗證、可交付」的步驟：盤點流程、模組化拆分，並以工程化工具確保品質。
+            以 ERP 與企業系統為核心，從 Legacy 分析、前後端落地到上線穩定性，協助團隊在可維護性與交付速度之間取得平衡。
           </p>
         </div>
 
@@ -102,19 +99,19 @@ export default function StructureSection() {
               }`}
             >
               <div className="group relative h-full">
-                <div className="relative h-full overflow-hidden rounded-2xl border border-cyan-300/30 bg-slate-950/80 p-8 shadow-lg shadow-cyan-500/10 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300/80 hover:shadow-xl hover:shadow-cyan-500/20">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,217,255,0.16),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(179,0,255,0.12),transparent_35%)] opacity-80" />
+                <div className="relative h-full overflow-hidden rounded-2xl border border-cyan-300/25 bg-slate-950/80 p-8 shadow-lg shadow-cyan-500/10 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300/60 hover:shadow-xl hover:shadow-cyan-500/15">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,217,255,0.14),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(179,0,255,0.10),transparent_35%)] opacity-80" />
 
                   <div className="relative z-10">
-                    <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-2xl bg-black/60 shadow-lg shadow-cyan-500/20 ring-1 ring-cyan-300/40 transition-transform duration-300 group-hover:scale-105">
+                    <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-black/60 shadow-lg shadow-cyan-500/15 ring-1 ring-cyan-300/35 transition-transform duration-300 group-hover:scale-105">
                       <img
                         src={capability.icon}
                         alt={capability.title}
-                        className="h-20 w-20 object-contain"
+                        className="h-16 w-16 object-contain"
                       />
                     </div>
 
-                    <h3 className="mb-4 text-lg font-bold leading-tight text-slate-100">
+                    <h3 className="mb-3 text-lg font-bold leading-tight text-slate-100">
                       {capability.title}
                     </h3>
 

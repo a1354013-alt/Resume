@@ -44,7 +44,6 @@ export default function ContactSection() {
       const isInSection = e.clientY >= rect.top && e.clientY <= rect.bottom;
       if (!isInSection) return;
 
-      // Keep this effect visually subtle; avoid high-frequency React state churn.
       if (Math.random() > 0.95) {
         const id = rippleIdRef.current++;
         const x = e.clientX - rect.left;
@@ -100,10 +99,8 @@ export default function ContactSection() {
           }}
         >
           <div
-            className="absolute inset-0 rounded-full border border-cyan-400/50"
-            style={{
-              animation: "ripple 1s ease-out forwards",
-            }}
+            className="absolute inset-0 rounded-full border border-cyan-400/45"
+            style={{ animation: "ripple 1s ease-out forwards" }}
           />
         </div>
       ))}
@@ -118,39 +115,19 @@ export default function ContactSection() {
       />
 
       <div className="relative z-10 max-w-4xl mx-auto h-full flex flex-col items-center justify-center">
-        {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-10">
           <h2
             className="text-5xl md:text-6xl font-bold mb-4 glow-text"
             style={{ fontFamily: "'Orbitron', monospace" }}
           >
-            聯絡 | Contact
+            聯絡方式 <span className="text-slate-300">Contact</span>
           </h2>
-          <p className="font-mono text-cyan-400 text-lg">
-            把想法變成可交付的成品。
-          </p>
-        </div>
-
-        {/* Message */}
-        <div className="text-center max-w-2xl mb-16">
-          <p className="font-mono text-indigo-200 text-lg mb-6 leading-relaxed">
+          <p className="font-mono text-slate-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
             {profile.contactMessage.line1}
           </p>
-
-          <div className="flex flex-wrap justify-center gap-3">
-            {profile.contactMessage.hashtags.map(tag => (
-              <span
-                key={tag}
-                className="font-mono text-sm text-cyan-300 border border-cyan-500/30 rounded-full px-4 py-2 bg-cyan-500/5"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
         </div>
 
-        {/* Links */}
-        <div className="flex flex-wrap justify-center gap-8 mb-16">
+        <div className="flex flex-wrap justify-center gap-8 mb-14">
           {contactLinks.map(link => {
             const isExternal = /^https?:\/\//i.test(link.url);
             const target = isExternal ? "_blank" : undefined;
@@ -166,9 +143,9 @@ export default function ContactSection() {
                 referrerPolicy={referrerPolicy}
                 className="group relative block transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
               >
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-cyan-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl -z-10" />
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-cyan-500/18 to-purple-500/18 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl -z-10" />
 
-                <div className="flex flex-col items-center justify-center gap-3 w-full max-w-xs min-w-[12rem] px-6 py-6 border border-cyan-500/20 rounded-3xl bg-slate-950/90 text-slate-100 shadow-sm transition-all duration-300 hover:border-cyan-400/60 hover:bg-slate-900/95 hover:shadow-cyan-500/10">
+                <div className="flex flex-col items-center justify-center gap-3 w-full max-w-xs min-w-[12rem] px-6 py-6 border border-cyan-500/20 rounded-3xl bg-slate-950/90 text-slate-100 shadow-sm transition-all duration-300 hover:border-cyan-400/55 hover:bg-slate-900/95 hover:shadow-cyan-500/10">
                   <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-slate-900/70">
                     {link.icon}
                   </div>
@@ -181,11 +158,20 @@ export default function ContactSection() {
           })}
         </div>
 
-        {/* Footer */}
+        <div className="flex flex-wrap justify-center gap-3 mb-14">
+          {profile.contactMessage.hashtags.map(tag => (
+            <span
+              key={tag}
+              className="font-mono text-sm text-cyan-300 border border-cyan-500/25 rounded-full px-4 py-2 bg-cyan-500/5"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
         <div className="text-center">
           <p className="font-mono text-sm text-slate-400 mb-4">
-            © {new Date().getFullYear()} {profile.name} ·{" "}
-            {profile.footer.tagline}
+            © {new Date().getFullYear()} {profile.name} · {profile.footer.tagline}
           </p>
           <div className="flex justify-center gap-4">
             <div className="w-1 h-1 rounded-full bg-cyan-500 animate-pulse" />
