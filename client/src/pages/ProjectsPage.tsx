@@ -236,19 +236,19 @@ export default function ProjectsPage() {
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
                 <StatCard
-                  label="\u5168\u90e8\u4f5c\u54c1"
+                  label="作品數量"
                   value={projectStats.total}
                 />
                 <StatCard
-                  label="\u5df2\u4e0a\u7dda\u5c08\u6848"
+                  label="已上線專案"
                   value={projectStats.production}
                 />
                 <StatCard
-                  label="\u91d1\u724c\u4f5c\u54c1"
+                  label="金牌作品"
                   value={projectStats.gold}
                 />
                 <StatCard
-                  label="\u9280\u724c\u4f5c\u54c1"
+                  label="銀牌作品"
                   value={projectStats.silver}
                 />
               </div>
