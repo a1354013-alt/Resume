@@ -17,14 +17,28 @@ interface ProjectDialogProps {
   project: Project | null;
   isOpen: boolean;
   onClose: () => void;
-  getTierBadge: (tier: string) => string;
   onProjectChange?: (project: Project) => void;
 }
 
 function getCategoryLabel(category: Project["category"]) {
   switch (category) {
+    case "production":
+      return "已上線專案";
     case "enterprise":
       return "Enterprise / ERP";
+    case "ai":
+      return "AI / ML";
+    case "learning":
+      return "Learning";
+  }
+}
+
+function getCategoryLabelEn(category: Project["category"]) {
+  switch (category) {
+    case "production":
+      return "Production Systems";
+    case "enterprise":
+      return "Enterprise";
     case "ai":
       return "AI / ML";
     case "learning":
@@ -36,7 +50,6 @@ export default function ProjectDialog({
   project,
   isOpen,
   onClose,
-  getTierBadge,
   onProjectChange,
 }: ProjectDialogProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -91,11 +104,13 @@ export default function ProjectDialog({
           <div className="sticky top-0 bg-gradient-to-b from-slate-900 to-slate-900/80 border-b border-slate-700/30 px-6 py-4 flex items-start justify-between gap-4 backdrop-blur-sm">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
-                <span className="text-sm font-semibold px-2 py-1 rounded bg-slate-800/50 text-slate-300">
-                  {getTierBadge(project.tier)}
-                </span>
-                <span className="text-xs text-slate-500">
-                  {getCategoryLabel(project.category)}
+                <span className="bg-[#16a34a] text-white font-semibold rounded-[6px] py-1 px-2.5">
+                  <span className="flex flex-col text-xs leading-tight text-left">
+                    <span>{getCategoryLabel(project.category)}</span>
+                    <span className="opacity-90">
+                      {getCategoryLabelEn(project.category)}
+                    </span>
+                  </span>
                 </span>
               </div>
               <h2 id={titleId} className="text-2xl font-bold text-slate-100">

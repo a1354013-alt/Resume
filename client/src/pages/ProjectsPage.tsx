@@ -1,28 +1,40 @@
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { ChevronDown, Search, X } from "lucide-react";
 import { Link } from "wouter";
-import { projects, type Project } from "@/data/projects";
+import { projectCategoryMeta, projects, type Project } from "@/data/projects";
 import ProjectDialog from "@/components/ProjectDialog";
 import ProjectCard from "@/components/ProjectCard";
 import SEOHead from "@/components/SEOHead";
 import { profile } from "@/data/profile";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
 
-type Category = "all" | "enterprise" | "ai" | "learning";
+type Category = "all" | "production" | "enterprise" | "ai" | "learning";
 type SortBy = "tier" | "name";
 
 const tierOrder: Record<Project["tier"], number> = {
   gold: 0,
   silver: 1,
-  bronze: 2,
 };
 
 const categoryLabels: Record<Category, string> = {
   all: "全部分類",
   enterprise: "Enterprise / 系統工程",
+  production: "已上線專案 / Production Systems",
   ai: "AI / ML",
   learning: "Learning",
 };
+void categoryLabels;
+
+const categoryOptions: Array<{ value: Category; label: string }> = [
+  { value: "all", label: "All / \u5168\u90e8" },
+  {
+    value: "production",
+    label: "\u5df2\u4e0a\u7dda\u5c08\u6848 / Production Systems",
+  },
+  { value: "enterprise", label: "Enterprise / ERP" },
+  { value: "ai", label: "AI / ML" },
+  { value: "learning", label: "Learning" },
+];
 
 export default function ProjectsPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -67,7 +79,6 @@ export default function ProjectsPage() {
       total: projects.length,
       gold: projects.filter(project => project.tier === "gold").length,
       silver: projects.filter(project => project.tier === "silver").length,
-      bronze: projects.filter(project => project.tier === "bronze").length,
     };
   }, []);
 
@@ -113,14 +124,22 @@ export default function ProjectsPage() {
       return matchesSearch && matchesCategory && matchesTechs;
     });
 
+    const byCategoryPriority = (a: Project, b: Project) =>
+      projectCategoryMeta[a.category].priority -
+      projectCategoryMeta[b.category].priority;
+
     if (sortBy === "tier") {
       return [...filtered].sort(
         (a, b) =>
-          tierOrder[a.tier] - tierOrder[b.tier] || a.name.localeCompare(b.name)
+          byCategoryPriority(a, b) ||
+          tierOrder[a.tier] - tierOrder[b.tier] ||
+          a.name.localeCompare(b.name)
       );
     }
 
-    return [...filtered].sort((a, b) => a.name.localeCompare(b.name));
+    return [...filtered].sort(
+      (a, b) => byCategoryPriority(a, b) || a.name.localeCompare(b.name)
+    );
   }, [searchQuery, selectedCategory, sortBy, selectedTechs]);
 
   const getTierColor = (tier: Project["tier"]) => {
@@ -129,8 +148,6 @@ export default function ProjectsPage() {
         return "from-yellow-500/20 to-yellow-600/10 border-yellow-500/30";
       case "silver":
         return "from-slate-400/20 to-slate-500/10 border-slate-400/30";
-      case "bronze":
-        return "from-orange-500/20 to-orange-600/10 border-orange-500/30";
       default:
         return "from-slate-500/20 to-slate-600/10 border-slate-500/30";
     }
@@ -142,12 +159,14 @@ export default function ProjectsPage() {
         return "金牌作品";
       case "silver":
         return "銀牌作品";
-      case "bronze":
-        return "銅牌作品";
+      // removed
+        return tier;
       default:
         return tier;
     }
   };
+
+  void getTierBadge;
 
   const getCategoryLabel = (category: Project["category"]) => {
     switch (category) {
@@ -157,10 +176,30 @@ export default function ProjectsPage() {
         return "AI / ML";
       case "learning":
         return "Learning";
+      case "production":
+        return "已上線專案";
       default:
         return category;
     }
   };
+
+  const getCategoryLabelEn = (category: Project["category"]) => {
+    switch (category) {
+      case "production":
+        return "Production Systems";
+      case "enterprise":
+        return "Enterprise";
+      case "ai":
+        return "AI / ML";
+      case "learning":
+        return "Learning";
+      default:
+        return category;
+    }
+  };
+
+  void getCategoryLabel;
+  void getCategoryLabelEn;
 
   const handleProjectClick = (project: Project) => {
     if (closeTimerRef.current != null) {
@@ -261,11 +300,10 @@ export default function ProjectsPage() {
                 引擎、文件知識管理與學習平台。每個專案都著重在實作架構、資料流、測試與可維護性。
               </p>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8">
                 <StatCard label="全部作品" value={projectStats.total} />
                 <StatCard label="金牌作品" value={projectStats.gold} />
                 <StatCard label="銀牌作品" value={projectStats.silver} />
-                <StatCard label="銅牌作品" value={projectStats.bronze} />
               </div>
             </section>
 
@@ -290,9 +328,9 @@ export default function ProjectsPage() {
                   aria-label="Category"
                   className="w-full px-3 py-3 bg-slate-950/40 border border-slate-700/40 rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
                 >
-                  {Object.entries(categoryLabels).map(([value, label]) => (
-                    <option key={value} value={value}>
-                      {label}
+                  {categoryOptions.map(option => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
                     </option>
                   ))}
                 </select>
@@ -384,8 +422,6 @@ export default function ProjectsPage() {
                       key={project.id}
                       project={project}
                       getTierColor={getTierColor}
-                      getTierBadge={getTierBadge}
-                      getCategoryLabel={getCategoryLabel}
                       onProjectClick={handleProjectClick}
                     />
                   ))}
@@ -398,7 +434,6 @@ export default function ProjectsPage() {
             project={selectedProject}
             isOpen={isDialogOpen}
             onClose={handleCloseDialog}
-            getTierBadge={getTierBadge}
             onProjectChange={setSelectedProject}
           />
         </div>

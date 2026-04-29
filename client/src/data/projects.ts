@@ -3,8 +3,8 @@ export interface Project {
   name: string;
   tagline: string;
   role: string;
-  category: "enterprise" | "ai" | "learning";
-  tier: "gold" | "silver" | "bronze";
+  category: "production" | "enterprise" | "ai" | "learning";
+  tier: "gold" | "silver";
   technologies: string[];
   metrics: string;
   featured: boolean;
@@ -28,7 +28,174 @@ export interface ProjectImage {
   caption?: string;
 }
 
+export const projectCategoryMeta: Record<
+  Project["category"],
+  {
+    label: string;
+    label_en: string;
+    badgeColor: "green" | "cyan" | "violet" | "slate";
+    priority: number;
+  }
+> = {
+  production: {
+    label: "已上線專案",
+    label_en: "Production Systems",
+    badgeColor: "green",
+    priority: 1,
+  },
+  enterprise: {
+    label: "Enterprise",
+    label_en: "Enterprise",
+    badgeColor: "cyan",
+    priority: 2,
+  },
+  ai: {
+    label: "AI / ML",
+    label_en: "AI / ML",
+    badgeColor: "violet",
+    priority: 3,
+  },
+  learning: {
+    label: "Learning",
+    label_en: "Learning",
+    badgeColor: "slate",
+    priority: 4,
+  },
+};
+
 export const projects: Project[] = [
+  {
+    id: "erp-change-management",
+    name: "工程變更追加減管理系統",
+    tagline:
+      "工程變更與預算追加減管理系統，支援變更資料管理、預算調整、流程控管與狀態追蹤。",
+    role: "全端工程師",
+    category: "production",
+    tier: "gold",
+    technologies: ["Go", "Vue", "MySQL", "JWT", "RESTful API"],
+    metrics: "完成工程變更流程 Web 化，使工程資料流程可視化並提升維護效率。",
+    featured: true,
+    details: {
+      problem:
+        "工程變更與追加減資料量大且流程複雜，若以人工或分散工具管理，容易造成狀態不一致、追蹤困難與維護成本升高。",
+      solution:
+        "建置 Web 化工程變更管理系統，整合資料管理、預算調整與流程狀態追蹤，並以角色權限與資料驗證確保流程一致性。",
+      contribution:
+        "負責前後端整合與核心流程設計，包含 RESTful API、JWT 驗證、角色權限、資料驗證與流程狀態控制。",
+      highlights: [
+        "建立工程變更與追加減流程管理",
+        "實作多階段流程狀態控制",
+        "支援角色權限管理",
+        "建立預算資料調整與資料驗證機制",
+        "支援大量工程資料操作與流程控管",
+        "強化資料一致性與版本控制",
+      ],
+      result:
+        "完成工程變更流程 Web 化，使複雜工程資料流程可視化並提升維護效率。",
+      challenges:
+        "需在高資料量情境下維持流程狀態一致性，並避免併發更新造成版本衝突與資料不一致。",
+      nextSteps:
+        "導入更完整的歷程稽核與報表模組，提升跨部門查詢效率與追蹤能力。",
+    },
+  },
+  {
+    id: "erp-procurement-system",
+    name: "企業採購管理系統",
+    tagline:
+      "企業採購流程管理系統，支援採購申請、流程控管、權限角色與狀態管理。",
+    role: "全端工程師",
+    category: "production",
+    tier: "gold",
+    technologies: ["Go", "Vue", "MySQL", "JWT", "Swagger", "RESTful API"],
+    metrics: "提升採購流程透明度與系統維護效率，使資料與流程更容易追蹤。",
+    featured: true,
+    details: {
+      problem:
+        "採購流程涉及多角色、多階段狀態與大量表單資料，若缺乏一致的流程控管與權限管理，易造成追蹤困難與操作風險。",
+      solution:
+        "建置採購流程管理系統，提供 Web 化操作介面與模組化資料模型，並以 JWT 驗證、角色權限與流程狀態機制確保流程可控。",
+      contribution:
+        "負責前後端功能開發與 API 設計，整合 Swagger 文件，強化表單驗證與錯誤處理，提升可維護性與交付品質。",
+      highlights: [
+        "建立採購流程 Web 化操作介面",
+        "設計 RESTful API 與模組化資料模型",
+        "實作 JWT 登入驗證與角色權限控管",
+        "建立流程狀態控制機制",
+        "整合 Swagger API 文件",
+        "強化表單驗證與錯誤處理",
+      ],
+      result: "提升採購流程透明度與系統維護效率，使資料與流程更容易追蹤。",
+      challenges:
+        "流程狀態與權限交錯複雜，需避免越權操作與錯誤流轉，並維持前後端規則一致。",
+      nextSteps:
+        "擴充採購分析報表與通知機制，並將常用流程抽象為可配置的流程模板。",
+    },
+  },
+  {
+    id: "erp-approval-system",
+    name: "企業簽核管理系統",
+    tagline:
+      "多層簽核流程系統，支援角色權限、流程狀態與簽核追蹤管理。",
+    role: "全端工程師",
+    category: "production",
+    tier: "gold",
+    technologies: ["Go", "Vue", "MySQL", "JWT", "RESTful API"],
+    metrics: "提升企業簽核流程透明度，使簽核進度與操作權限更容易控管。",
+    featured: true,
+    details: {
+      problem:
+        "企業簽核流程常見多層級與多角色參與，若無清晰的狀態流轉與歷程追蹤，容易發生重複簽核、越權操作或進度不透明。",
+      solution:
+        "建置多層簽核系統，透過角色權限、簽核狀態流轉與歷程追蹤，讓流程可視化並降低錯誤操作風險。",
+      contribution:
+        "設計簽核狀態機制與權限控管（admin/manager/user），並落實重複簽核防護與流程查詢/追蹤功能。",
+      highlights: [
+        "實作多層簽核流程",
+        "支援 admin / manager / user 權限控管",
+        "建立簽核狀態流轉機制",
+        "防止重複簽核與錯誤流程操作",
+        "提供流程查詢與歷程追蹤功能",
+      ],
+      result:
+        "提升企業簽核流程透明度，使簽核進度與操作權限更容易控管。",
+      challenges:
+        "簽核流程需嚴格限制狀態轉移，並處理併發操作與例外狀況，避免流程卡死或資料不一致。",
+      nextSteps:
+        "加入簽核規則配置與通知（Email/IM），並擴充跨系統整合的簽核入口。",
+    },
+  },
+  {
+    id: "erp-leave-system",
+    name: "企業請假管理系統",
+    tagline: "企業請假管理系統，支援請假申請、簽核流程與假別管理。",
+    role: "全端工程師",
+    category: "production",
+    tier: "gold",
+    technologies: ["Go", "Vue", "MySQL", "JWT", "RESTful API"],
+    metrics: "成功建立完整請假流程管理系統，使請假流程透明化並提升管理效率。",
+    featured: true,
+    details: {
+      problem:
+        "請假申請涉及假別規則、簽核層級與狀態追蹤，若缺乏一致流程與權限控管，容易造成管理負擔與資料難以追溯。",
+      solution:
+        "建置請假管理系統，整合請假申請、假別管理與多層簽核流程，並以角色權限與狀態機制確保流程一致與可追蹤。",
+      contribution:
+        "負責前後端功能開發、流程狀態設計與權限控管，並建立假別管理與歷程查詢機制。",
+      highlights: [
+        "建立請假申請與簽核流程",
+        "支援多層簽核流程",
+        "實作角色權限管理",
+        "建立請假狀態流轉機制",
+        "支援假別管理與歷程查詢",
+      ],
+      result:
+        "成功建立完整請假流程管理系統，使請假流程透明化並提升管理效率。",
+      challenges:
+        "需兼顧不同角色的操作權限、簽核路徑與假別規則，並避免狀態錯誤導致流程無法完成。",
+      nextSteps:
+        "擴充行事曆整合與報表匯出，並加入更細緻的假別規則與自動化審核條件。",
+    },
+  },
   {
     id: "pdf-annotation-engine",
     name: "PDF 註記與渲染引擎",

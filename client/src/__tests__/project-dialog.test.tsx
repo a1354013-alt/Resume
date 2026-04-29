@@ -13,7 +13,7 @@ describe("ProjectDialog links", () => {
       tagline: "Tagline",
       role: "Role",
       category: "learning",
-      tier: "bronze",
+      tier: "silver",
       technologies: ["TypeScript"],
       metrics: "Metrics",
       featured: false,
@@ -33,7 +33,6 @@ describe("ProjectDialog links", () => {
         project={project}
         isOpen={true}
         onClose={() => undefined}
-        getTierBadge={() => "Tier"}
       />
     );
 
