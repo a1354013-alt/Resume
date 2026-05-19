@@ -48,8 +48,16 @@ export const projects: Project[] = [
         alt: "工程變更追加減管理系統 - 總覽畫面",
       },
       {
-        src: "/images/projects/erp-change-management/workflow.png",
-        alt: "工程變更追加減管理系統 - 變更流程畫面",
+        src: "/images/projects/erp-change-management/workflow1.png",
+        alt: "工程變更追加減管理系統 - 變更單查詢畫面",
+      },
+      {
+        src: "/images/projects/erp-change-management/workflow2.png",
+        alt: "工程變更追加減管理系統 - 變更單輸入畫面",
+      },
+      {
+        src: "/images/projects/erp-change-management/approval.png",
+        alt: "工程變更追加減管理系統 - 變更轉入採發畫面",
       },
     ],
     details: {
@@ -77,10 +85,10 @@ export const projects: Project[] = [
   },
   {
     id: "erp-procurement-system",
-    name: "企業採購管理系統",
+    name: "預算採購請款系統",
     tagline:
-      "企業採購流程管理系統，支援採購申請、流程控管、權限角色與狀態管理。",
-    role: "全端工程師",
+      "企業採購流程管理系統，預算管理、採購申請、請款作業、權限角色與狀態管理。",
+    role: "前端工程師",
     category: "enterprise",
     tier: "production",
     tierLabel: "已上線專案",
@@ -90,11 +98,19 @@ export const projects: Project[] = [
     images: [
       {
         src: "/images/projects/erp-procurement-system/overview.png",
-        alt: "企業採購管理系統 - 總覽畫面",
+        alt: "預算採購請款系統 - 總覽畫面",
       },
       {
-        src: "/images/projects/erp-procurement-system/approval.png",
-        alt: "企業採購管理系統 - 審核簽核畫面",
+        src: "/images/projects/erp-procurement-system/budget.png",
+        alt: "預算採購請款系統 - 預算管理畫面",
+      },
+       {
+        src: "/images/projects/erp-procurement-system/contract.png",
+        alt: "預算採購請款系統 - 合約畫面",
+      },
+       {
+        src: "/images/projects/erp-procurement-system/payment.png",
+        alt: "預算採購請款系統 - 請款畫面",
       },
     ],
     details: {
@@ -180,6 +196,14 @@ export const projects: Project[] = [
       {
         src: "/images/projects/erp-leave-system/calendar.png",
         alt: "企業請假管理系統 - 行事曆/假單畫面",
+      },
+       {
+        src: "/images/projects/erp-leave-system/calendar2.png",
+        alt: "企業請假管理系統 - 行事曆/假單畫面",
+      },
+        {
+        src: "/images/projects/erp-leave-system/calendar3.png",
+        alt: "企業請假管理系統 - 員工整月輪休假建檔",
       },
     ],
     details: {
