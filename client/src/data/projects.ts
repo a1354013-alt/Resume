@@ -480,44 +480,74 @@ export const projects: Project[] = [
     },
   },
   {
-    id: "covid-cough-detection",
-    name: "COVID-19 咳嗽聲音偵測系統",
-    tagline: "基於 AI 的聲音分析平台，支援音訊上傳、驗證與模型推論。",
-    role: "全端工程師",
-    category: "ai",
-    tier: "silver",
-    tierLabel: "銀牌作品",
-    technologies: [
-      "React",
-      "TypeScript",
-      "Node.js",
-      "Python",
-      "GitHub Actions",
-    ],
-    metrics:
-      "完成端到端 AI 音訊分析流程，包含上傳驗證、推論處理、結果回傳與 CI 測試",
-    featured: false,
-    details: {
-      problem:
-        "需要建立穩定的音訊驗證與推論流程，以確保模型輸入品質與結果可靠性。",
-      solution:
-        "設計完整音訊處理平台，支援上傳、格式驗證、大小檢查、推論流程與結果顯示。",
-      contribution:
-        "負責前後端流程、音訊驗證 middleware、推論串接、API 測試與 CI 驗證。",
-      highlights: [
-        "安全音訊上傳 API",
-        "音訊格式、大小與長度檢查",
-        "模型推論流程整合",
-        "Rate limit 與安全驗證",
-        "建立 contract-based API 測試與 smoke test",
-      ],
-      result: "建立可擴充的 AI 音訊推論平台。",
-      challenges: "需確保音訊前處理與模型推論流程一致，避免無效輸入影響結果。",
-      nextSteps: "規劃加入更多資料集、模型優化與推論效能改善。",
-      githubUrl:
-        "https://github.com/a1354013-alt/covid_cough_detection_complete_with_dataset",
+  id: "legacy-lens",
+  name: "Legacy Lens — 遺留系統理解與重構輔助平台",
+  tagline:
+    "針對 Delphi / ERP 遺留系統設計的程式碼分析平台，協助工程師快速理解專案結構、資料流、依賴關係與潛在維護風險。",
+  role: "全端工程師 / 系統設計",
+  category: "enterprise",
+  tier: "gold",
+  tierLabel: "銀牌作品",
+  technologies: [
+    "TypeScript",
+    "React",
+    "Node.js",
+    "MySQL",
+    "Drizzle ORM",
+    "Docker",
+    "Vitest",
+    "GitHub Actions",
+  ],
+  metrics:
+    "建立從專案上傳、背景分析、結果保存、風險盤點到 CI 驗證的完整工程分析流程",
+  featured: true,
+  images: [
+    {
+      src: "/images/projects/legacy-lens/overview.png",
+      alt: "Legacy Lens 專案總覽畫面",
     },
+    {
+      src: "/images/projects/legacy-lens/upload.png",
+      alt: "Legacy Lens Delphi 專案上傳與建立流程",
+    },
+    {
+      src: "/images/projects/legacy-lens/analysis-result.png",
+      alt: "Legacy Lens 分析結果與專案摘要",
+    },
+    {
+      src: "/images/projects/legacy-lens/dependencies.png",
+      alt: "Legacy Lens 依賴關係與程式結構分析",
+    },
+    {
+      src: "/images/projects/legacy-lens/job-logs.png",
+      alt: "Legacy Lens 背景分析任務追蹤",
+    },
+  ],
+  details: {
+    problem:
+      "企業 ERP 與 Delphi 遺留系統通常累積多年程式碼，模組關係、資料流與畫面邏輯不容易追蹤，新工程師接手時需要大量時間閱讀程式，且修改時容易牽動未知相依功能。",
+    solution:
+      "設計 Legacy Lens 作為遺留系統理解平台，支援上傳專案檔案，透過背景任務解析 PAS / DFM 等程式檔，整理專案摘要、模組資訊、依賴關係、風險清單與改善建議，協助工程師更快掌握系統結構。",
+    contribution:
+      "負責前後端架構設計、專案上傳流程、分析任務狀態管理、資料模型設計、分析結果儲存、錯誤碼設計、前端結果頁面與 CI 測試流程。並針對分析失敗、資料庫保存失敗與背景任務 timeout 建立可追蹤的錯誤處理機制。",
+    highlights: [
+      "支援 Delphi PAS / DFM 專案檔案解析",
+      "建立專案上傳、背景分析與結果保存流程",
+      "整理模組摘要、依賴關係、風險清單與改善建議",
+      "設計分析任務 lifecycle 與階段化錯誤碼",
+      "支援分析失敗時的錯誤訊息保存與前端顯示",
+      "建立 Vitest、lint、build、docker smoke test 與 GitHub Actions CI 驗證流程",
+      "前端採用 100vh 工作台式版面，提升工程工具使用體驗",
+    ],
+    result:
+      "完成一套接近實務情境的遺留系統分析平台原型，可用於展示企業系統維護、程式理解、自動化分析與前後端工程整合能力。",
+    challenges:
+      "需處理遺留程式格式不一致、單檔解析失敗、背景任務 timeout、資料庫保存失敗與前後端 API 契約同步問題，並避免單一錯誤導致整個分析流程中斷。",
+    nextSteps:
+      "規劃加入更完整的 Delphi 語法解析、DFM 視覺化、資料表關聯推測、Excel 匯入分析、重構建議分級與專案分析報告匯出功能。",
+    githubUrl: "https://github.com/a1354013-alt/legacy-lens",
   },
+},
   {
     id: "ai-video-subtitle-generator",
     name: "AI 影片字幕生成系統",
