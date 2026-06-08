@@ -3,9 +3,9 @@
 A personal portfolio website built as a single-page application (SPA), including a home narrative, project list, resume page, biography page, and 404 page.  
 The goal of this project is to be deployment-ready with a consistent engineering workflow: style check, typecheck, test, build, and CI.
 
-## Demo
+## Live Demo
 
-- Live demo: Not publicly deployed yet. Add the actual deployment URL after release.
+[View Portfolio](https://a1354013-alt.github.io/Resume/)
 
 ## Screenshots
 

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "license": "MIT",
-  "description": "羅揚文（Yang-Wen Luo）作品集網站（Vite + React + TypeScript + Tailwind CSS）",
+  "description": "Yang-Wen Luo's personal portfolio website built with Vite, React, TypeScript, and Tailwind CSS.",
   "engines": {
     "node": "^20.19.0 || >=22.12.0",
     "pnpm": "10.4.1"
