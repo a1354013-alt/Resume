@@ -27,7 +27,7 @@ export default function HeroSection() {
       />
 
       {/* Content */}
-      <div className="relative z-10 flex min-h-[100svh] items-center px-4 py-24">
+      <div className="relative z-10 flex items-center px-4 py-20">
         <div
           className={`mx-auto w-full max-w-5xl transition-all duration-1000 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
@@ -36,7 +36,7 @@ export default function HeroSection() {
           <div className="grid grid-cols-1 gap-10 md:grid-cols-[1.2fr,0.8fr] md:items-center">
             <div>
               <h1
-                className="text-4xl md:text-6xl font-bold glow-text text-cyan-200 leading-tight"
+                className="text-3xl sm:text-4xl md:text-6xl font-bold glow-text text-cyan-200 leading-tight"
                 style={{ fontFamily: "'Orbitron', monospace" }}
               >
                 {profile.name}{" "}
@@ -61,7 +61,7 @@ export default function HeroSection() {
                 </p>
               </div>
 
-              <div className="mt-10 flex flex-wrap gap-3">
+              <div className="mt-8 flex flex-col sm:flex-row gap-3">
                 <Link
                   href="/resume"
                   className="px-5 py-3 rounded-lg bg-cyan-500/20 border border-cyan-400/40 text-cyan-100 hover:bg-cyan-500/30 transition-colors font-medium"

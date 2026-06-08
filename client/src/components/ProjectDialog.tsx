@@ -109,7 +109,7 @@ export default function ProjectDialog({
           aria-modal="true"
           aria-labelledby={titleId}
           tabIndex={-1}
-          className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-lg border border-slate-700/50 bg-gradient-to-br from-slate-900 to-slate-950 shadow-2xl animate-in fade-in zoom-in-95 duration-300"
+          className="w-full max-w-2xl sm:mx-auto sm:max-w-2xl overflow-y-auto rounded-none sm:rounded-lg border border-slate-700/50 bg-gradient-to-br from-slate-900 to-slate-950 shadow-2xl animate-in fade-in zoom-in-95 duration-300 max-h-[90svh] h-[90svh] sm:max-h-[90vh]"
         >
           <div className="sticky top-0 flex items-start justify-between gap-4 border-b border-slate-700/30 bg-gradient-to-b from-slate-900 to-slate-900/80 px-6 py-4 backdrop-blur-sm">
             <div className="flex-1">
@@ -136,7 +136,7 @@ export default function ProjectDialog({
             </button>
           </div>
 
-          <div className="space-y-8 px-6 py-6">
+          <div className="space-y-8 px-4 py-6 sm:px-6">
             {project.images && project.images.length >= 2 && (
               <div>
                 <h3 className="mb-3 text-sm font-semibold text-cyan-400">
@@ -158,7 +158,7 @@ export default function ProjectDialog({
                 {project.technologies.map(tech => (
                   <span
                     key={tech}
-                    className="rounded-full border border-slate-700/50 bg-slate-800/50 px-3 py-1 text-xs text-slate-300"
+                    className="rounded-full border border-slate-700/50 bg-slate-800/50 px-3 py-1 text-xs text-slate-300 break-words"
                   >
                     {tech}
                   </span>
@@ -286,7 +286,7 @@ export default function ProjectDialog({
                 </div>
               )}
 
-              <div className="flex justify-between gap-3">
+              <div className="flex flex-col sm:flex-row justify-between gap-3">
                 <button
                   onClick={handlePrevProject}
                   className="flex items-center gap-2 rounded-lg border border-slate-700/50 bg-slate-800/50 px-4 py-2 text-sm text-slate-200 transition-colors hover:border-slate-600/50 hover:bg-slate-800"

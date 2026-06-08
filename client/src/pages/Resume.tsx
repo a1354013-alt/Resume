@@ -122,7 +122,7 @@ export default function Resume() {
                 </p>
 
                 <h2
-                  className="text-5xl font-bold text-cyan-400"
+                  className="text-3xl sm:text-4xl md:text-5xl font-bold text-cyan-400"
                   style={{ fontFamily: "'Orbitron', monospace" }}
                 >
                   {profile.name}
@@ -322,7 +322,7 @@ export default function Resume() {
                           <p className="text-sm text-slate-400">{job.role}</p>
                         </div>
 
-                        <div className="text-left md:text-right text-sm text-slate-400 shrink-0">
+                        <div className="text-left md:text-right text-sm text-slate-400 md:shrink-0">
                           <p>{job.period}</p>
                           {job.duration && <p>{job.duration}</p>}
                         </div>

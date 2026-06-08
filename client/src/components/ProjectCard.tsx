@@ -16,12 +16,12 @@ export default function ProjectCard({
 
   return (
     <div
-      className={`group flex min-h-[520px] max-h-[520px] w-full flex-col overflow-hidden rounded-lg border bg-gradient-to-br text-left transition-all duration-300 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/10 md:min-h-[560px] md:max-h-[560px] ${getTierColor(
+      className={`group flex w-full flex-col overflow-hidden rounded-lg border bg-gradient-to-br text-left transition-all duration-300 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/10 md:min-h-[520px] md:max-h-[520px] ${getTierColor(
         project.tier
       )}`}
     >
       <div className="p-4 pb-0">
-        <div className="relative h-[140px]">
+        <div className="relative h-[120px] sm:h-[140px]">
           <ProjectImageGallery
             images={project.images}
             projectName={project.name}

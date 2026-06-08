@@ -16,6 +16,18 @@ export default function ParticleBackground({
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    const prefersReduced =
+      typeof window !== "undefined" &&
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // reduce particle count on small screens
+    const effectiveCount = (() => {
+      if (prefersReduced) return 0;
+      if (window.innerWidth < 420) return Math.min(15, particleCount);
+      if (window.innerWidth < 768) return Math.min(30, particleCount);
+      return particleCount;
+    })();
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -74,27 +86,29 @@ export default function ParticleBackground({
     }
 
     const particles: Particle[] = [];
-    for (let i = 0; i < particleCount; i++) {
+    for (let i = 0; i < effectiveCount; i++) {
       particles.push(new Particle());
     }
 
     // Animation loop
     let rafId: number | null = null;
-    const animate = () => {
-      if (!ctx) return;
-      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
-      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+    if (!prefersReduced) {
+      const animate = () => {
+        if (!ctx) return;
+        ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+        ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
-      particles.forEach(particle => {
-        particle.update();
-        particle.draw();
-      });
+        particles.forEach(particle => {
+          particle.update();
+          particle.draw();
+        });
 
-      ctx.globalAlpha = 1;
-      rafId = requestAnimationFrame(animate);
-    };
+        ctx.globalAlpha = 1;
+        rafId = requestAnimationFrame(animate);
+      };
 
-    animate();
+      animate();
+    }
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);

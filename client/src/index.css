@@ -95,6 +95,13 @@
     @apply bg-background text-foreground;
     font-family: var(--font-sans);
   }
+
+  /* Prevent horizontal overflow on mobile */
+  html,
+  body,
+  #root {
+    overflow-x: hidden;
+  }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
   [type="button"]:not(:disabled),
@@ -211,6 +218,13 @@
       rgba(0, 217, 255, 0.8),
       rgba(0, 217, 255, 0)
     );
+  }
+
+  /* Ensure images do not cause overflow */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
   }
 
   /* Scroll-driven animation support */
