@@ -228,7 +228,8 @@ export default function ProjectsPage() {
               </h2>
 
               <p className="max-w-3xl leading-relaxed text-slate-300">
-                這裡整理我在企業系統、AI 工具、PDF 工程、資料處理與前後端整合上的實作成果。每個專案都以問題、解法、技術選型與實際成果呈現，強調可維護、可驗證與可交付的工程能力。
+                這裡整理我在企業系統、AI 工具、PDF
+                工程、資料處理與前後端整合上的實作成果。每個專案都以問題、解法、技術選型與實際成果呈現，強調可維護、可驗證與可交付的工程能力。
               </p>
 
               <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">

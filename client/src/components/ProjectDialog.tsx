@@ -217,7 +217,10 @@ export default function ProjectDialog({
               <ul className="space-y-2">
                 {project.details.highlights.map((highlight, idx) => (
                   <li key={idx} className="flex gap-3 text-sm text-slate-300">
-                    <span className="flex-shrink-0 text-cyan-400" aria-hidden="true">
+                    <span
+                      className="flex-shrink-0 text-cyan-400"
+                      aria-hidden="true"
+                    >
                       {text.bullet}
                     </span>
                     <span>{highlight}</span>

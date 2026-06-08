@@ -71,7 +71,9 @@ export default function ProjectCard({
         <div className="mt-4 flex min-h-0 flex-1 flex-col space-y-4 overflow-hidden border-t border-slate-700/30 pt-4">
           <div>
             <p className="text-xs text-slate-500">角色</p>
-            <p className="text-sm font-semibold text-cyan-300">{project.role}</p>
+            <p className="text-sm font-semibold text-cyan-300">
+              {project.role}
+            </p>
           </div>
 
           <div>
