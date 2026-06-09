@@ -214,7 +214,6 @@ export default function Resume() {
                       "協助系統導入與使用者教育訓練。",
                       "重新設計查詢流程，將關鍵頁面由 26 秒優化至 1 秒內。",
                     ],
-                    linkText: "展開經歷亮點",
                   },
                   {
                     logoClass: "bg-green-500 text-white",
@@ -230,7 +229,6 @@ export default function Resume() {
                       "與印刷廠聯絡，處理估價、打樣與輸出流程。",
                       "協助維護與修改公司網站內容。",
                     ],
-                    linkText: "展開經歷亮點",
                   },
                   {
                     logoClass: "bg-green-500 text-white",
@@ -244,7 +242,6 @@ export default function Resume() {
                       "設計製作平面文宣、海報、DM、廣告、型錄等素材。",
                       "協助網站工程師製作與維護網站。",
                     ],
-                    linkText: "展開經歷亮點",
                   },
                   {
                     logoClass: "bg-blue-600 text-white",
@@ -260,7 +257,6 @@ export default function Resume() {
                       "熟悉 Adobe Illustrator、Adobe Photoshop 等設計工具。",
                       "協助處理主管交辦事項。",
                     ],
-                    linkText: "展開經歷亮點",
                   },
                   {
                     logoClass: "bg-cyan-600 text-white",
@@ -274,7 +270,6 @@ export default function Resume() {
                       "協助學生理解課程操作流程。",
                       "培養技術說明、問題引導與現場支援能力。",
                     ],
-                    linkText: "展開經歷亮點",
                   },
                   {
                     logo: "製",
@@ -289,7 +284,6 @@ export default function Resume() {
                       "理解傳統製造業現場流程與作業限制。",
                       "培養從實務操作角度思考系統設計的能力。",
                     ],
-                    linkText: "展開經歷亮點",
                   },
                 ].map((job, index, list) => (
                   <div
@@ -335,13 +329,6 @@ export default function Resume() {
                           </li>
                         ))}
                       </ol>
-
-                      <button
-                        type="button"
-                        className="mt-4 text-sm font-semibold text-cyan-300 hover:text-cyan-200 transition-colors"
-                      >
-                        {job.linkText}
-                      </button>
                     </div>
                   </div>
                 ))}

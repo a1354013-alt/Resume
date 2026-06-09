@@ -487,7 +487,7 @@ export const projects: Project[] = [
     role: "全端工程師 / 系統設計",
     category: "enterprise",
     tier: "gold",
-    tierLabel: "銀牌作品",
+    tierLabel: "金牌作品",
     technologies: [
       "TypeScript",
       "React",

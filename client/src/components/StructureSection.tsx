@@ -7,21 +7,27 @@ interface CapabilityCard {
   icon: string;
 }
 
+function resolveAssetUrl(src: string) {
+  const baseUrl = (import.meta.env.BASE_URL || "/").replace(/\/+$/, "");
+  if (src.startsWith("/")) return `${baseUrl}${src}`;
+  return src;
+}
+
 const capabilities: CapabilityCard[] = [
   {
     title: "Legacy System Analysis",
     description: "Delphi / ERP / 資料流程 / 商業邏輯梳理",
-    icon: "/Resume/icons/icon-radar.png",
+    icon: "/icons/icon-radar.png",
   },
   {
     title: "Full-Stack Implementation",
     description: "Vue 3 / React / TypeScript / Go / Node.js / REST API",
-    icon: "/Resume/icons/icon-server-api.png",
+    icon: "/icons/icon-server-api.png",
   },
   {
     title: "Production Reliability",
     description: "效能優化 / CI / 測試 / 錯誤追蹤 / 可維護性",
-    icon: "/Resume/icons/icon-shield-check.png",
+    icon: "/icons/icon-shield-check.png",
   },
 ];
 
@@ -106,7 +112,7 @@ export default function StructureSection() {
                   <div className="relative z-10">
                     <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-black/60 shadow-lg shadow-cyan-500/15 ring-1 ring-cyan-300/35 transition-transform duration-300 group-hover:scale-105">
                       <img
-                        src={capability.icon}
+                        src={resolveAssetUrl(capability.icon)}
                         alt={capability.title}
                         className="h-16 w-16 object-contain"
                       />
