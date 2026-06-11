@@ -7,10 +7,13 @@ The goal of this project is to be deployment-ready with a consistent engineering
 
 [View Portfolio](https://a1354013-alt.github.io/Resume/)
 
-## Screenshots
+## Screenshots and Project Images
 
-This repository does not currently include real screenshots. Recommended location: `docs/screenshots/`.
-Use the following filenames to keep the documentation easy to maintain:
+Project images are stored under `client/public/images/projects/` and are referenced from `client/src/data/projects.ts`.
+Some screenshots are still placeholders and should be replaced before final public promotion.
+
+Recommended documentation screenshot location: `docs/screenshots/`.
+Use the following filenames to keep future documentation easy to maintain:
 
 - Home (`docs/screenshots/home.png`)
 - Projects (`docs/screenshots/projects.png`)
@@ -162,11 +165,12 @@ See `.env.example`:
 ## Known Limitations
 
 - The project currently includes unit and interaction tests only. It does not include E2E tests with Playwright or Cypress.
-- The "featured projects" section on the Projects page does not currently update with search or filter changes. This is acceptable functionally, but it may not match user expectations.
-- The project does not use SSR or SSG. It is a pure SPA.
+- Some project screenshots are still placeholders and should be replaced before final public promotion.
+- The project does not use SSR or SSG. It is a pure SPA, so social preview crawlers may only read the default metadata from `client/index.html`.
 
 ## Roadmap (Optional)
 
 - Add E2E tests covering key routes and the Project dialog open/close flow
-- Add the actual demo link and screenshots
+- Replace remaining placeholder screenshots with real project images or architecture diagrams
+- Add an asset integrity check after the final screenshots are committed
 - Add a minimal ESLint setup if the project later grows into more team-based collaboration

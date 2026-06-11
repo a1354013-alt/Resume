@@ -37,6 +37,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+
+# This project uses pnpm-lock.yaml only
+package-lock.json
 lerna-debug.log*
 
 # Runtime data
