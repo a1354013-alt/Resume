@@ -64,7 +64,24 @@
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div
+        class="loading-screen"
+        role="status"
+        aria-live="polite"
+        aria-label="Loading portfolio..."
+      >
+        <div class="loading-screen__orbital" aria-hidden="true">
+          <span class="loading-screen__ring loading-screen__ring--outer"></span>
+          <span
+            class="loading-screen__ring loading-screen__ring--middle"
+          ></span>
+          <span class="loading-screen__ring loading-screen__ring--inner"></span>
+          <span class="loading-screen__core"></span>
+        </div>
+        <p class="loading-screen__text">Loading portfolio...</p>
+      </div>
+    </div>
     <script type="module" src="./src/main.tsx"></script>
   </body>
 </html>
