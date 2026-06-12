@@ -78,11 +78,44 @@ export default function CoreLayersSection() {
       ref={sectionRef}
       className="scroll-mt-24 relative w-full min-h-screen bg-black py-24 px-4 overflow-hidden"
     >
-      {/* Background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_50%,rgba(0,217,255,0.08),transparent_55%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(179,0,255,0.06),transparent_55%)]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/25 via-black to-black" />
+      {/* Cyber night glow background */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute inset-0 opacity-95"
+          style={{
+            background:
+              "radial-gradient(circle at 82% 30%, rgba(34, 211, 238, 0.13), transparent 27rem), radial-gradient(circle at 10% 20%, rgba(168, 85, 247, 0.1), transparent 24rem), radial-gradient(circle at 50% 76%, rgba(14, 165, 233, 0.055), transparent 34rem), linear-gradient(135deg, rgba(5, 1, 12, 0.72) 0%, rgba(2, 6, 23, 0.82) 48%, rgba(3, 7, 18, 0.72) 100%)",
+            maskImage:
+              "linear-gradient(to bottom, transparent 0%, black 18%, black 76%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, transparent 0%, black 18%, black 76%, transparent 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-35"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(34, 211, 238, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 211, 238, 0.04) 1px, transparent 1px)",
+            backgroundSize: "72px 72px",
+            maskImage:
+              "linear-gradient(to bottom, transparent 8%, black 28%, black 64%, transparent 88%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, transparent 8%, black 28%, black 64%, transparent 88%)",
+          }}
+        />
+        <div
+          className="absolute -left-[12%] -right-[12%] -bottom-[22%] h-[48%] blur-3xl opacity-75"
+          style={{
+            background:
+              "radial-gradient(circle at 20% 68%, rgba(34, 211, 238, 0.11), transparent 18rem), radial-gradient(circle at 72% 72%, rgba(168, 85, 247, 0.075), transparent 21rem)",
+            maskImage:
+              "linear-gradient(to bottom, transparent 0%, black 24%, black 62%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, transparent 0%, black 24%, black 62%, transparent 100%)",
+          }}
+        />
+        <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-black via-black/75 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-black via-black/80 to-transparent" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
