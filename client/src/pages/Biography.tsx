@@ -192,7 +192,7 @@ export default function Biography() {
             </div>
           </nav>
 
-          <div className="max-w-4xl mx-auto px-6 py-12 sm:py-16 space-y-12 sm:space-y-16">
+          <div className="mx-auto max-w-4xl px-6 pb-10 pt-12 sm:pt-16">
             <header id="biography-intro" className="scroll-mt-24 space-y-6">
               <h2
                 className="text-4xl md:text-5xl font-bold text-cyan-400"
@@ -205,93 +205,100 @@ export default function Biography() {
                 系統開發工程師，擅長從第一線使用情境出發，將遺留系統的業務邏輯清楚翻譯為可維護、可擴充的解法。
               </p>
             </header>
+          </div>
 
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 pb-16 xl:grid-cols-[180px_minmax(0,1fr)]">
             <PageAnchorNav anchors={biographyAnchors} />
 
-            <div className="space-y-10 sm:space-y-12">
-              {sections.map(section => (
-                <section
-                  id={section.id}
-                  key={section.title}
-                  className="scroll-mt-24 bg-slate-900/20 border border-slate-700/40 rounded-2xl p-6 sm:p-8 space-y-6"
-                >
-                  <div className="space-y-2">
-                    <h3 className="text-2xl font-bold text-cyan-300">
-                      {section.title}
-                    </h3>
-                    {section.subtitle ? (
-                      <p className="text-slate-400 text-sm">
-                        {section.subtitle}
-                      </p>
-                    ) : null}
-                  </div>
+            <main className="min-w-0 space-y-10 sm:space-y-12 xl:max-w-4xl">
+              <div className="space-y-10 sm:space-y-12">
+                {sections.map(section => (
+                  <section
+                    id={section.id}
+                    key={section.title}
+                    className="scroll-mt-24 bg-slate-900/20 border border-slate-700/40 rounded-2xl p-6 sm:p-8 space-y-6"
+                  >
+                    <div className="space-y-2">
+                      <h3 className="text-2xl font-bold text-cyan-300">
+                        {section.title}
+                      </h3>
+                      {section.subtitle ? (
+                        <p className="text-slate-400 text-sm">
+                          {section.subtitle}
+                        </p>
+                      ) : null}
+                    </div>
 
-                  <div className="space-y-4 text-slate-300 leading-relaxed">
-                    {section.paragraphs.map(paragraph => (
-                      <p key={paragraph}>{paragraph}</p>
+                    <div className="space-y-4 text-slate-300 leading-relaxed">
+                      {section.paragraphs.map(paragraph => (
+                        <p key={paragraph}>{paragraph}</p>
+                      ))}
+                    </div>
+
+                    {section.bullets?.map(group => (
+                      <div
+                        key={group.label}
+                        className="bg-slate-950/40 border border-slate-700/40 rounded-xl p-5 space-y-3"
+                      >
+                        <p className="text-slate-200 font-medium">
+                          {group.label}
+                        </p>
+                        <ul className="list-disc pl-5 space-y-2 text-slate-300">
+                          {group.items.map(item => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
                     ))}
-                  </div>
 
-                  {section.bullets?.map(group => (
-                    <div
-                      key={group.label}
-                      className="bg-slate-950/40 border border-slate-700/40 rounded-xl p-5 space-y-3"
-                    >
-                      <p className="text-slate-200 font-medium">
-                        {group.label}
-                      </p>
-                      <ul className="list-disc pl-5 space-y-2 text-slate-300">
-                        {group.items.map(item => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-
-                  {section.callout ? (
-                    <div className="bg-cyan-500/10 border border-cyan-500/25 rounded-xl p-5 space-y-2">
-                      <p className="text-cyan-200 font-medium">
-                        {section.callout.title}
-                      </p>
-                      <p className="text-slate-200 leading-relaxed">
-                        {section.callout.body}
-                      </p>
-                    </div>
-                  ) : null}
-                </section>
-              ))}
-            </div>
-
-            <section id="biography-contact" className="scroll-mt-24 space-y-4">
-              <h3 className="text-2xl font-bold text-cyan-300">Contact</h3>
-
-              <div className="flex flex-wrap gap-3">
-                <a
-                  className="px-4 py-2 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-200 hover:bg-cyan-500/30 transition-colors"
-                  href={`mailto:${profile.contact.email}`}
-                >
-                  Email
-                </a>
-                <a
-                  className="px-4 py-2 rounded-lg bg-slate-800/40 border border-slate-700/40 text-slate-200 hover:bg-slate-800/60 transition-colors"
-                  href={profile.contact.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  LinkedIn
-                </a>
-                <a
-                  className="px-4 py-2 rounded-lg bg-slate-800/40 border border-slate-700/40 text-slate-200 hover:bg-slate-800/60 transition-colors"
-                  href={profile.contact.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  GitHub
-                </a>
+                    {section.callout ? (
+                      <div className="bg-cyan-500/10 border border-cyan-500/25 rounded-xl p-5 space-y-2">
+                        <p className="text-cyan-200 font-medium">
+                          {section.callout.title}
+                        </p>
+                        <p className="text-slate-200 leading-relaxed">
+                          {section.callout.body}
+                        </p>
+                      </div>
+                    ) : null}
+                  </section>
+                ))}
               </div>
-            </section>
 
-            <div className="h-8" />
+              <section
+                id="biography-contact"
+                className="scroll-mt-24 space-y-4"
+              >
+                <h3 className="text-2xl font-bold text-cyan-300">Contact</h3>
+
+                <div className="flex flex-wrap gap-3">
+                  <a
+                    className="px-4 py-2 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-200 hover:bg-cyan-500/30 transition-colors"
+                    href={`mailto:${profile.contact.email}`}
+                  >
+                    Email
+                  </a>
+                  <a
+                    className="px-4 py-2 rounded-lg bg-slate-800/40 border border-slate-700/40 text-slate-200 hover:bg-slate-800/60 transition-colors"
+                    href={profile.contact.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    LinkedIn
+                  </a>
+                  <a
+                    className="px-4 py-2 rounded-lg bg-slate-800/40 border border-slate-700/40 text-slate-200 hover:bg-slate-800/60 transition-colors"
+                    href={profile.contact.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    GitHub
+                  </a>
+                </div>
+              </section>
+
+              <div className="h-8" />
+            </main>
           </div>
 
           <ScrollToTopButton onClick={scrollToTop} />

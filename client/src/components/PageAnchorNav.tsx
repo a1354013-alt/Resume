@@ -10,10 +10,14 @@ interface PageAnchorNavProps {
   className?: string;
 }
 
-function getInitialActiveId(anchors: PageAnchor[]) {
-  if (typeof window === "undefined") return anchors[0]?.id ?? "";
+function getHashId() {
+  if (typeof window === "undefined") return "";
 
-  const hashId = decodeURIComponent(window.location.hash.replace("#", ""));
+  return decodeURIComponent(window.location.hash.replace(/^#/, ""));
+}
+
+function getInitialActiveId(anchors: PageAnchor[]) {
+  const hashId = getHashId();
   return anchors.some(anchor => anchor.id === hashId)
     ? hashId
     : (anchors[0]?.id ?? "");
@@ -31,7 +35,7 @@ export default function PageAnchorNav({
 
   useEffect(() => {
     const updateFromHash = () => {
-      const hashId = decodeURIComponent(window.location.hash.replace("#", ""));
+      const hashId = getHashId();
 
       if (anchors.some(anchor => anchor.id === hashId)) {
         setActiveId(hashId);
@@ -76,69 +80,82 @@ export default function PageAnchorNav({
 
   if (anchors.length === 0) return null;
 
+  const scrollToAnchor = (id: string) => {
+    const target = document.getElementById(id);
+    if (!target) return;
+
+    const nextUrl = `${window.location.pathname}${window.location.search}#${encodeURIComponent(id)}`;
+
+    window.history.replaceState(null, "", nextUrl);
+    setActiveId(id);
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const renderButton = (anchor: PageAnchor, variant: "side" | "top") => {
+    const isActive = anchor.id === activeId;
+
+    if (variant === "side") {
+      return (
+        <button
+          key={anchor.id}
+          type="button"
+          aria-current={isActive ? "location" : undefined}
+          onClick={() => scrollToAnchor(anchor.id)}
+          className={`group flex w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 ${
+            isActive
+              ? "border-cyan-400/25 bg-cyan-400/10 text-cyan-100 shadow-[inset_3px_0_0_rgba(34,211,238,0.9)]"
+              : "border-transparent text-slate-400 hover:bg-slate-900/70 hover:text-cyan-200"
+          }`}
+        >
+          <span
+            aria-hidden="true"
+            className={`h-2 w-2 shrink-0 rounded-full transition-colors ${
+              isActive
+                ? "bg-cyan-300 shadow-[0_0_12px_rgba(34,211,238,0.65)]"
+                : "bg-slate-600 group-hover:bg-cyan-400"
+            }`}
+          />
+          <span className="truncate">{anchor.label}</span>
+        </button>
+      );
+    }
+
+    return (
+      <button
+        key={anchor.id}
+        type="button"
+        aria-current={isActive ? "location" : undefined}
+        onClick={() => scrollToAnchor(anchor.id)}
+        className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-xs font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 ${
+          isActive
+            ? "border-cyan-400/40 bg-cyan-400/15 text-cyan-100"
+            : "border-slate-700/45 bg-slate-900/45 text-slate-300 hover:border-cyan-500/40 hover:text-cyan-200"
+        }`}
+      >
+        {anchor.label}
+      </button>
+    );
+  };
+
   return (
     <>
       <nav
         aria-label="頁面段落"
-        className={`pointer-events-none fixed left-4 top-28 z-40 hidden 2xl:block ${className}`}
+        className={`sticky top-24 hidden max-h-[calc(100vh-7rem)] overflow-y-auto xl:block ${className}`}
       >
-        <div className="pointer-events-auto w-40 rounded-2xl border border-slate-700/35 bg-slate-950/75 p-2 shadow-2xl shadow-black/30 backdrop-blur-xl">
+        <div className="w-44 rounded-2xl border border-cyan-500/10 bg-slate-950/55 p-2 shadow-xl shadow-black/20 backdrop-blur-xl">
           <div className="space-y-1">
-            {anchors.map(anchor => {
-              const isActive = anchor.id === activeId;
-
-              return (
-                <a
-                  key={anchor.id}
-                  href={`#${anchor.id}`}
-                  aria-current={isActive ? "location" : undefined}
-                  onClick={() => setActiveId(anchor.id)}
-                  className={`group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 ${
-                    isActive
-                      ? "bg-white text-slate-950 shadow-lg shadow-cyan-950/10"
-                      : "text-slate-300 hover:bg-slate-900/80 hover:text-cyan-200"
-                  }`}
-                >
-                  <span
-                    aria-hidden="true"
-                    className={`h-2 w-2 shrink-0 rounded-full transition-colors ${
-                      isActive
-                        ? "bg-cyan-500"
-                        : "bg-slate-600 group-hover:bg-cyan-400"
-                    }`}
-                  />
-                  <span className="truncate">{anchor.label}</span>
-                </a>
-              );
-            })}
+            {anchors.map(anchor => renderButton(anchor, "side"))}
           </div>
         </div>
       </nav>
 
       <nav
         aria-label="頁面段落"
-        className="sticky top-[57px] z-40 overflow-x-auto border-y border-cyan-500/10 bg-slate-950/75 px-4 py-2 backdrop-blur-xl 2xl:hidden"
+        className="sticky top-[57px] z-40 overflow-x-auto rounded-2xl border border-cyan-500/10 bg-slate-950/80 px-3 py-2 backdrop-blur-xl xl:hidden"
       >
         <div className="flex w-max gap-2">
-          {anchors.map(anchor => {
-            const isActive = anchor.id === activeId;
-
-            return (
-              <a
-                key={anchor.id}
-                href={`#${anchor.id}`}
-                aria-current={isActive ? "location" : undefined}
-                onClick={() => setActiveId(anchor.id)}
-                className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-xs font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 ${
-                  isActive
-                    ? "border-white bg-white text-slate-950"
-                    : "border-slate-700/45 bg-slate-900/45 text-slate-300 hover:border-cyan-500/40 hover:text-cyan-200"
-                }`}
-              >
-                {anchor.label}
-              </a>
-            );
-          })}
+          {anchors.map(anchor => renderButton(anchor, "top"))}
         </div>
       </nav>
     </>

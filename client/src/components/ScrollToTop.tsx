@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "wouter";
 
 function scrollToCurrentHash() {
-  const hash = window.location.hash.replace(/^#/, "");
+  const hash = decodeURIComponent(window.location.hash.replace(/^#/, ""));
   if (!hash) return false;
 
   const target = document.getElementById(hash);

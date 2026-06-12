@@ -226,154 +226,159 @@ export default function ProjectsPage() {
             </div>
           </nav>
 
-          <main className="mx-auto max-w-6xl px-4 py-12">
-            <section id="projects-overview" className="mb-10 scroll-mt-24">
-              <p className="mb-3 font-mono text-sm text-cyan-300">精選作品</p>
-
-              <h2 className="mb-4 text-3xl font-bold md:text-4xl">
-                工程作品與實作專案
-              </h2>
-
-              <p className="max-w-3xl leading-relaxed text-slate-300">
-                這裡整理我在企業系統、AI 工具、PDF
-                工程、資料處理與前後端整合上的實作成果。每個專案都以問題、解法、技術選型與實際成果呈現，強調可維護、可驗證與可交付的工程能力。
-              </p>
-
-              <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
-                <StatCard label="作品數量" value={projectStats.total} />
-                <StatCard label="已上線專案" value={projectStats.production} />
-                <StatCard label="金牌作品" value={projectStats.gold} />
-                <StatCard label="銀牌作品" value={projectStats.silver} />
-              </div>
-            </section>
-
+          <main className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 py-12 xl:grid-cols-[180px_minmax(0,1fr)]">
             <PageAnchorNav anchors={projectAnchors} />
 
-            <section id="projects-filter" className="mb-10 scroll-mt-24">
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                <div className="relative">
-                  <Search className="absolute left-3 top-3.5 h-4 w-4 text-slate-400" />
-                  <input
-                    value={searchQuery}
-                    onChange={event => setSearchQuery(event.target.value)}
-                    aria-label="Search projects"
-                    placeholder="搜尋專案名稱、技術或描述..."
-                    className="w-full rounded-lg border border-slate-700/40 bg-slate-950/40 py-3 pl-10 pr-3 text-slate-200 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
+            <div className="min-w-0">
+              <section id="projects-overview" className="mb-10 scroll-mt-24">
+                <p className="mb-3 font-mono text-sm text-cyan-300">精選作品</p>
+
+                <h2 className="mb-4 text-3xl font-bold md:text-4xl">
+                  工程作品與實作專案
+                </h2>
+
+                <p className="max-w-3xl leading-relaxed text-slate-300">
+                  這裡整理我在企業系統、AI 工具、PDF
+                  工程、資料處理與前後端整合上的實作成果。每個專案都以問題、解法、技術選型與實際成果呈現，強調可維護、可驗證與可交付的工程能力。
+                </p>
+
+                <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
+                  <StatCard label="作品數量" value={projectStats.total} />
+                  <StatCard
+                    label="已上線專案"
+                    value={projectStats.production}
                   />
+                  <StatCard label="金牌作品" value={projectStats.gold} />
+                  <StatCard label="銀牌作品" value={projectStats.silver} />
+                </div>
+              </section>
+
+              <section id="projects-filter" className="mb-10 scroll-mt-24">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-3.5 h-4 w-4 text-slate-400" />
+                    <input
+                      value={searchQuery}
+                      onChange={event => setSearchQuery(event.target.value)}
+                      aria-label="Search projects"
+                      placeholder="搜尋專案名稱、技術或描述..."
+                      className="w-full rounded-lg border border-slate-700/40 bg-slate-950/40 py-3 pl-10 pr-3 text-slate-200 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
+                    />
+                  </div>
+
+                  <select
+                    value={selectedTier}
+                    onChange={event =>
+                      setSelectedTier(event.target.value as TierFilter)
+                    }
+                    aria-label="Tier"
+                    className="w-full rounded-lg border border-slate-700/40 bg-slate-950/40 px-3 py-3 text-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
+                  >
+                    {tierOptions.map(option => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+
+                  <select
+                    value={sortBy}
+                    onChange={event => setSortBy(event.target.value as SortBy)}
+                    aria-label="Sort"
+                    className="w-full rounded-lg border border-slate-700/40 bg-slate-950/40 px-3 py-3 text-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
+                  >
+                    <option value="tier">排序：作品等級</option>
+                    <option value="name">排序：名稱</option>
+                  </select>
                 </div>
 
-                <select
-                  value={selectedTier}
-                  onChange={event =>
-                    setSelectedTier(event.target.value as TierFilter)
-                  }
-                  aria-label="Tier"
-                  className="w-full rounded-lg border border-slate-700/40 bg-slate-950/40 px-3 py-3 text-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
-                >
-                  {tierOptions.map(option => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-
-                <select
-                  value={sortBy}
-                  onChange={event => setSortBy(event.target.value as SortBy)}
-                  aria-label="Sort"
-                  className="w-full rounded-lg border border-slate-700/40 bg-slate-950/40 px-3 py-3 text-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
-                >
-                  <option value="tier">排序：作品等級</option>
-                  <option value="name">排序：名稱</option>
-                </select>
-              </div>
-
-              <div className="mt-4" ref={techFilterRef}>
-                <button
-                  type="button"
-                  onClick={() => setShowTechFilter(value => !value)}
-                  aria-expanded={showTechFilter}
-                  aria-controls={techFilterPanelId}
-                  aria-label="Technologies filter"
-                  className="inline-flex items-center gap-2 text-sm text-cyan-300 transition-colors hover:text-cyan-200"
-                >
-                  技術篩選
-                  <ChevronDown
-                    className={`h-4 w-4 transition-transform ${
-                      showTechFilter ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-
-                {showTechFilter && (
-                  <div
-                    id={techFilterPanelId}
-                    className="mt-3 rounded-lg border border-slate-700/40 bg-slate-950/30 p-4"
+                <div className="mt-4" ref={techFilterRef}>
+                  <button
+                    type="button"
+                    onClick={() => setShowTechFilter(value => !value)}
+                    aria-expanded={showTechFilter}
+                    aria-controls={techFilterPanelId}
+                    aria-label="Technologies filter"
+                    className="inline-flex items-center gap-2 text-sm text-cyan-300 transition-colors hover:text-cyan-200"
                   >
-                    <div className="flex flex-wrap gap-2">
-                      {allTechnologies.map(tech => {
-                        const active = selectedTechs.has(tech);
+                    技術篩選
+                    <ChevronDown
+                      className={`h-4 w-4 transition-transform ${
+                        showTechFilter ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
 
-                        return (
+                  {showTechFilter && (
+                    <div
+                      id={techFilterPanelId}
+                      className="mt-3 rounded-lg border border-slate-700/40 bg-slate-950/30 p-4"
+                    >
+                      <div className="flex flex-wrap gap-2">
+                        {allTechnologies.map(tech => {
+                          const active = selectedTechs.has(tech);
+
+                          return (
+                            <button
+                              key={tech}
+                              type="button"
+                              onClick={() => toggleTech(tech)}
+                              aria-pressed={active}
+                              className={`rounded-full border px-3 py-1 text-sm transition-colors ${
+                                active
+                                  ? "border-cyan-500/40 bg-cyan-500/20 text-cyan-200"
+                                  : "border-slate-700/40 bg-slate-900/30 text-slate-300 hover:border-slate-600/60"
+                              }`}
+                            >
+                              {tech}
+                            </button>
+                          );
+                        })}
+
+                        {selectedTechs.size > 0 && (
                           <button
-                            key={tech}
                             type="button"
-                            onClick={() => toggleTech(tech)}
-                            aria-pressed={active}
-                            className={`rounded-full border px-3 py-1 text-sm transition-colors ${
-                              active
-                                ? "border-cyan-500/40 bg-cyan-500/20 text-cyan-200"
-                                : "border-slate-700/40 bg-slate-900/30 text-slate-300 hover:border-slate-600/60"
-                            }`}
+                            onClick={clearTechFilters}
+                            className="inline-flex items-center gap-1 rounded-full border border-red-500/30 bg-red-500/15 px-3 py-1 text-sm text-red-200 transition-colors hover:bg-red-500/25"
                           >
-                            {tech}
+                            清除 <X className="h-3 w-3" />
                           </button>
-                        );
-                      })}
-
-                      {selectedTechs.size > 0 && (
-                        <button
-                          type="button"
-                          onClick={clearTechFilters}
-                          className="inline-flex items-center gap-1 rounded-full border border-red-500/30 bg-red-500/15 px-3 py-1 text-sm text-red-200 transition-colors hover:bg-red-500/25"
-                        >
-                          清除 <X className="h-3 w-3" />
-                        </button>
-                      )}
+                        )}
+                      </div>
                     </div>
+                  )}
+                </div>
+
+                <div className="mt-4 text-sm text-slate-400">
+                  目前顯示 {filteredProjects.length} / {projects.length} 個專案
+                </div>
+              </section>
+
+              <section
+                id="projects-list"
+                aria-label="All projects"
+                className="scroll-mt-24"
+              >
+                <h3 className="mb-4 text-xl font-semibold">全部作品</h3>
+
+                {filteredProjects.length === 0 ? (
+                  <div className="rounded-lg border border-slate-700/40 bg-slate-900/20 p-8 text-center text-slate-300">
+                    找不到符合條件的專案，請調整搜尋或篩選條件。
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                    {filteredProjects.map(project => (
+                      <ProjectCard
+                        key={project.id}
+                        project={project}
+                        getTierColor={getTierColor}
+                        onProjectClick={handleProjectClick}
+                      />
+                    ))}
                   </div>
                 )}
-              </div>
-
-              <div className="mt-4 text-sm text-slate-400">
-                目前顯示 {filteredProjects.length} / {projects.length} 個專案
-              </div>
-            </section>
-
-            <section
-              id="projects-list"
-              aria-label="All projects"
-              className="scroll-mt-24"
-            >
-              <h3 className="mb-4 text-xl font-semibold">全部作品</h3>
-
-              {filteredProjects.length === 0 ? (
-                <div className="rounded-lg border border-slate-700/40 bg-slate-900/20 p-8 text-center text-slate-300">
-                  找不到符合條件的專案，請調整搜尋或篩選條件。
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                  {filteredProjects.map(project => (
-                    <ProjectCard
-                      key={project.id}
-                      project={project}
-                      getTierColor={getTierColor}
-                      onProjectClick={handleProjectClick}
-                    />
-                  ))}
-                </div>
-              )}
-            </section>
+              </section>
+            </div>
           </main>
 
           <ProjectDialog
