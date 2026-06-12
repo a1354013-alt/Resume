@@ -5,6 +5,7 @@ import SEOHead from "@/components/SEOHead";
 import { profile } from "@/data/profile";
 import StarFieldBackground from "@/components/StarFieldBackground";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
+import PageAnchorNav, { type PageAnchor } from "@/components/PageAnchorNav";
 
 function ResumeLink({
   href,
@@ -31,9 +32,20 @@ function ResumeLink({
   );
 }
 
-function Section({ title, children }: { title: string; children: ReactNode }) {
+function Section({
+  id,
+  title,
+  children,
+}: {
+  id: string;
+  title: string;
+  children: ReactNode;
+}) {
   return (
-    <section className="space-y-5 rounded-2xl bg-slate-950/45 border border-cyan-500/10 p-6 shadow-lg shadow-cyan-950/10">
+    <section
+      id={id}
+      className="scroll-mt-24 space-y-5 rounded-2xl bg-slate-950/45 border border-cyan-500/10 p-6 shadow-lg shadow-cyan-950/10"
+    >
       <h3 className="text-2xl font-bold text-cyan-300">{title}</h3>
       {children}
     </section>
@@ -52,6 +64,54 @@ function BulletList({ items }: { items: string[] }) {
     </ul>
   );
 }
+
+const resumeAnchors: PageAnchor[] = [
+  { id: "summary", label: "個人摘要" },
+  { id: "skills", label: "核心能力" },
+  { id: "experience", label: "工作經驗" },
+  { id: "achievements", label: "技術成果" },
+  { id: "web-modernization", label: "Web 化" },
+  { id: "education", label: "教育背景" },
+  { id: "certifications", label: "證照" },
+  { id: "ai-learning", label: "AI 進修" },
+  { id: "portfolio", label: "專案作品" },
+];
+
+const certificationGroups = [
+  {
+    category: "資訊工程與 AI",
+    items: [
+      "電腦軟體應用乙級技術士",
+      "網頁設計丙級技術士",
+      "iPAS 經濟部AI應用規劃師 初級",
+      "Gemini Certification for Educators",
+    ],
+  },
+  {
+    category: "設計、CAD 與網頁工具",
+    items: [
+      "AutoCAD 2014 Certified Professional",
+      "Adobe Certified Associate - Photoshop CS6",
+      "Adobe Certified Associate - Illustrator",
+      "Adobe Certified Associate - InDesign",
+      "Adobe Certified Associate - Dreamweaver CS6",
+      "TQC+專業設計人才認證－電腦輔助平面製圖",
+    ],
+  },
+  {
+    category: "企業電子化與數位商務",
+    items: [
+      "企業電子化助理規劃師",
+      "企業電子化軟體應用師",
+      "企業人才技能認證－電子商務概論",
+      "企業電子化人才能力鑑定－網路行銷",
+    ],
+  },
+  {
+    category: "資料治理與個資保護",
+    items: ["PIMS 個人資料管理制度專業訓練證書"],
+  },
+];
 
 export default function Resume() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
@@ -158,7 +218,9 @@ export default function Resume() {
               </div>
             </header>
 
-            <Section title="個人摘要">
+            <PageAnchorNav anchors={resumeAnchors} />
+
+            <Section id="summary" title="個人摘要">
               <div className="space-y-4 text-slate-300 leading-relaxed">
                 <p>
                   畢業於建國科技大學自動化工程系，目前就讀國立彰化師範大學
@@ -176,7 +238,7 @@ export default function Resume() {
               </div>
             </Section>
 
-            <Section title="核心能力">
+            <Section id="skills" title="核心能力">
               <div className="flex flex-wrap gap-2">
                 {skills.map(skill => (
                   <span
@@ -189,7 +251,7 @@ export default function Resume() {
               </div>
             </Section>
 
-            <Section title="工作經驗">
+            <Section id="experience" title="工作經驗">
               <div className="space-y-0">
                 <div className="mb-6 flex items-center gap-4 text-sm">
                   <span className="text-slate-400">總年資</span>
@@ -335,7 +397,7 @@ export default function Resume() {
               </div>
             </Section>
 
-            <Section title="代表性技術成果">
+            <Section id="achievements" title="代表性技術成果">
               <div className="grid gap-5">
                 <div className="rounded-xl bg-cyan-500/10 border border-cyan-500/25 p-5">
                   <p className="text-sm text-cyan-300 font-mono mb-2">
@@ -406,7 +468,7 @@ export default function Resume() {
               </div>
             </Section>
 
-            <Section title="系統 Web 化經驗">
+            <Section id="web-modernization" title="系統 Web 化經驗">
               <p className="text-slate-300 leading-relaxed">
                 曾參與並推動多套核心 ERP 系統從 Delphi / Legacy 架構轉移到 Web
                 架構。
@@ -428,7 +490,7 @@ export default function Resume() {
               </div>
             </Section>
 
-            <Section title="教育背景">
+            <Section id="education" title="教育背景">
               <div className="space-y-4 text-slate-300">
                 <div>
                   <h4 className="font-semibold text-slate-100">
@@ -448,7 +510,36 @@ export default function Resume() {
               </div>
             </Section>
 
-            <Section title="AI 進修與研究方向">
+            <Section id="certifications" title="證照與專業認證">
+              <p className="text-slate-300 leading-relaxed">
+                證照橫跨軟體應用、AI、設計工具、企業電子化、數位商務與個資管理，
+                也對應我從設計、網頁到企業系統開發的跨領域職涯路徑。
+              </p>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                {certificationGroups.map(group => (
+                  <div
+                    key={group.category}
+                    className="rounded-xl border border-slate-700/35 bg-slate-900/35 p-5"
+                  >
+                    <h4 className="mb-4 text-lg font-semibold text-slate-100">
+                      {group.category}
+                    </h4>
+
+                    <ul className="space-y-3 text-sm leading-relaxed text-slate-300">
+                      {group.items.map(item => (
+                        <li key={item} className="flex gap-3">
+                          <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.55)]" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </Section>
+
+            <Section id="ai-learning" title="AI 進修與研究方向">
               <BulletList
                 items={[
                   "目前進修 AI 物件偵測與影像辨識相關技術。",
@@ -459,7 +550,7 @@ export default function Resume() {
               />
             </Section>
 
-            <Section title="專案作品">
+            <Section id="portfolio" title="專案作品">
               <p className="text-slate-300 leading-relaxed">
                 我把可公開的作品與案例整理在專案頁；公司內部 ERP
                 系統會以非公開案例方式呈現，

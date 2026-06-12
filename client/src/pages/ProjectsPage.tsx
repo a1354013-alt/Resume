@@ -5,6 +5,7 @@ import { projects, type Project } from "@/data/projects";
 import ProjectDialog from "@/components/ProjectDialog";
 import ProjectCard from "@/components/ProjectCard";
 import SEOHead from "@/components/SEOHead";
+import PageAnchorNav, { type PageAnchor } from "@/components/PageAnchorNav";
 import { profile } from "@/data/profile";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
 
@@ -16,6 +17,12 @@ const tierOrder: Record<Project["tier"], number> = {
   gold: 1,
   silver: 2,
 };
+
+const projectAnchors: PageAnchor[] = [
+  { id: "projects-overview", label: "總覽" },
+  { id: "projects-filter", label: "篩選" },
+  { id: "projects-list", label: "全部作品" },
+];
 
 const tierOptions: Array<{ value: TierFilter; label: string }> = [
   { value: "all", label: "全部作品" },
@@ -220,7 +227,7 @@ export default function ProjectsPage() {
           </nav>
 
           <main className="mx-auto max-w-6xl px-4 py-12">
-            <section className="mb-10">
+            <section id="projects-overview" className="mb-10 scroll-mt-24">
               <p className="mb-3 font-mono text-sm text-cyan-300">精選作品</p>
 
               <h2 className="mb-4 text-3xl font-bold md:text-4xl">
@@ -240,7 +247,9 @@ export default function ProjectsPage() {
               </div>
             </section>
 
-            <section className="mb-10">
+            <PageAnchorNav anchors={projectAnchors} />
+
+            <section id="projects-filter" className="mb-10 scroll-mt-24">
               <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                 <div className="relative">
                   <Search className="absolute left-3 top-3.5 h-4 w-4 text-slate-400" />
@@ -341,7 +350,11 @@ export default function ProjectsPage() {
               </div>
             </section>
 
-            <section aria-label="All projects">
+            <section
+              id="projects-list"
+              aria-label="All projects"
+              className="scroll-mt-24"
+            >
               <h3 className="mb-4 text-xl font-semibold">全部作品</h3>
 
               {filteredProjects.length === 0 ? (

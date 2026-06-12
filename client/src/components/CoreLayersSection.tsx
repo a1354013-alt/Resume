@@ -76,7 +76,7 @@ export default function CoreLayersSection() {
     <section
       id="core"
       ref={sectionRef}
-      className="relative w-full min-h-screen bg-black py-24 px-4 overflow-hidden"
+      className="scroll-mt-24 relative w-full min-h-screen bg-black py-24 px-4 overflow-hidden"
     >
       {/* Background */}
       <div className="absolute inset-0">

@@ -13,7 +13,7 @@ export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative w-full min-h-[100svh] overflow-hidden bg-black"
+      className="scroll-mt-24 relative w-full min-h-[100svh] overflow-hidden bg-black"
     >
       {/* Background */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(0,217,255,0.08),transparent_55%),radial-gradient(circle_at_70%_70%,rgba(179,0,255,0.08),transparent_55%)]" />

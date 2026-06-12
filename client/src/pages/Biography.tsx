@@ -4,14 +4,26 @@ import { Link } from "wouter";
 import { profile } from "@/data/profile";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import StarFieldBackground from "@/components/StarFieldBackground";
+import PageAnchorNav, { type PageAnchor } from "@/components/PageAnchorNav";
 
 type BiographySection = {
+  id: string;
   title: string;
   subtitle?: string;
   paragraphs: string[];
   bullets?: { label: string; items: string[] }[];
   callout?: { title: string; body: string };
 };
+
+const biographyAnchors: PageAnchor[] = [
+  { id: "biography-intro", label: "自我定位" },
+  { id: "background", label: "背景定位" },
+  { id: "legacy-debugging", label: "除錯重構" },
+  { id: "web-performance", label: "Web 化" },
+  { id: "implementation", label: "導入溝通" },
+  { id: "ai-direction", label: "AI 方向" },
+  { id: "biography-contact", label: "聯絡方式" },
+];
 
 export default function Biography() {
   const [displayedText, setDisplayedText] = useState("");
@@ -49,6 +61,7 @@ export default function Biography() {
   const sections = useMemo<BiographySection[]>(
     () => [
       {
+        id: "background",
         title: "背景與定位",
         subtitle: "從第一線經驗走向系統開發",
         paragraphs: [
@@ -62,6 +75,7 @@ export default function Biography() {
         },
       },
       {
+        id: "legacy-debugging",
         title: "舊系統除錯與重構",
         subtitle: "從理解系統開始解決問題",
         paragraphs: [
@@ -80,6 +94,7 @@ export default function Biography() {
         ],
       },
       {
+        id: "web-performance",
         title: "系統 Web 化與效能優化",
         subtitle: "讓系統不只是能用，而是好用",
         paragraphs: [
@@ -98,6 +113,7 @@ export default function Biography() {
         ],
       },
       {
+        id: "implementation",
         title: "系統導入與跨部門溝通",
         subtitle: "讓系統真正落地",
         paragraphs: [
@@ -115,6 +131,7 @@ export default function Biography() {
         ],
       },
       {
+        id: "ai-direction",
         title: "AI 技術進修與未來方向",
         paragraphs: [
           "為了將系統開發與前瞻技術結合，目前就讀於彰化師範大學資訊工程研究所碩士班，專注於 AI 物件偵測與影像辨識領域。",
@@ -176,7 +193,7 @@ export default function Biography() {
           </nav>
 
           <div className="max-w-4xl mx-auto px-6 py-12 sm:py-16 space-y-12 sm:space-y-16">
-            <header className="space-y-6">
+            <header id="biography-intro" className="scroll-mt-24 space-y-6">
               <h2
                 className="text-4xl md:text-5xl font-bold text-cyan-400"
                 style={{ fontFamily: "'Orbitron', monospace" }}
@@ -189,11 +206,14 @@ export default function Biography() {
               </p>
             </header>
 
+            <PageAnchorNav anchors={biographyAnchors} />
+
             <div className="space-y-10 sm:space-y-12">
               {sections.map(section => (
                 <section
+                  id={section.id}
                   key={section.title}
-                  className="bg-slate-900/20 border border-slate-700/40 rounded-2xl p-6 sm:p-8 space-y-6"
+                  className="scroll-mt-24 bg-slate-900/20 border border-slate-700/40 rounded-2xl p-6 sm:p-8 space-y-6"
                 >
                   <div className="space-y-2">
                     <h3 className="text-2xl font-bold text-cyan-300">
@@ -242,7 +262,7 @@ export default function Biography() {
               ))}
             </div>
 
-            <section className="space-y-4">
+            <section id="biography-contact" className="scroll-mt-24 space-y-4">
               <h3 className="text-2xl font-bold text-cyan-300">Contact</h3>
 
               <div className="flex flex-wrap gap-3">

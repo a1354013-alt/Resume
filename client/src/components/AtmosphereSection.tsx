@@ -72,7 +72,7 @@ export default function AtmosphereSection() {
     <section
       id="atmosphere"
       ref={sectionRef}
-      className="relative w-full min-h-screen overflow-hidden bg-gradient-to-b from-black via-slate-950 to-black py-24 px-4"
+      className="scroll-mt-24 relative w-full min-h-screen overflow-hidden bg-gradient-to-b from-black via-slate-950 to-black py-24 px-4"
     >
       {/* Background */}
       <div className="absolute inset-0 z-0">
