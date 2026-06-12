@@ -141,7 +141,7 @@ export default function PageAnchorNav({
     <>
       <nav
         aria-label="頁面段落"
-        className={`sticky top-24 hidden max-h-[calc(100vh-7rem)] overflow-y-auto xl:block ${className}`}
+        className={`sticky top-24 hidden h-fit max-h-[calc(100vh-7rem)] self-start overflow-y-auto xl:block ${className}`}
       >
         <div className="w-44 rounded-2xl border border-cyan-500/10 bg-slate-950/55 p-2 shadow-xl shadow-black/20 backdrop-blur-xl">
           <div className="space-y-1">

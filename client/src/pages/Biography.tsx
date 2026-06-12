@@ -207,7 +207,7 @@ export default function Biography() {
             </header>
           </div>
 
-          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 pb-16 xl:grid-cols-[180px_minmax(0,1fr)]">
+          <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-8 px-6 pb-16 xl:grid-cols-[180px_minmax(0,1fr)]">
             <PageAnchorNav anchors={biographyAnchors} />
 
             <main className="min-w-0 space-y-10 sm:space-y-12 xl:max-w-4xl">

@@ -226,7 +226,7 @@ export default function ProjectsPage() {
             </div>
           </nav>
 
-          <main className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 py-12 xl:grid-cols-[180px_minmax(0,1fr)]">
+          <main className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-8 px-4 py-12 xl:grid-cols-[180px_minmax(0,1fr)]">
             <PageAnchorNav anchors={projectAnchors} />
 
             <div className="min-w-0">
