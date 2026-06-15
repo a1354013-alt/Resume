@@ -114,6 +114,13 @@ export default function CoreLayersSection() {
               "linear-gradient(to bottom, transparent 0%, black 24%, black 62%, transparent 100%)",
           }}
         />
+
+        <div className="skills-cloud skills-cloud-a" />
+        <div className="skills-cloud skills-cloud-b" />
+        <div className="skills-twinkle skills-twinkle-a" />
+        <div className="skills-twinkle skills-twinkle-b" />
+        <div className="skills-twinkle skills-twinkle-c" />
+        <div className="skills-twinkle skills-twinkle-d" />
         <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-black via-black/75 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-black via-black/80 to-transparent" />
       </div>
@@ -205,9 +212,111 @@ export default function CoreLayersSection() {
       </div>
 
       <style>{`
+        .skills-cloud {
+          position: absolute;
+          border-radius: 9999px;
+          filter: blur(34px);
+          opacity: 0.24;
+          transform: translate3d(0, 0, 0);
+          mix-blend-mode: screen;
+          will-change: transform, opacity;
+          mask-image: linear-gradient(to bottom, transparent 0%, black 24%, black 76%, transparent 100%);
+          -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 24%, black 76%, transparent 100%);
+        }
+
+        .skills-cloud-a {
+          width: 36rem;
+          height: 9rem;
+          left: -10rem;
+          top: 24%;
+          background:
+            radial-gradient(circle at 18% 52%, rgba(34, 211, 238, 0.2), transparent 34%),
+            radial-gradient(circle at 52% 44%, rgba(148, 163, 184, 0.12), transparent 42%),
+            radial-gradient(circle at 78% 58%, rgba(168, 85, 247, 0.14), transparent 34%);
+          animation: skills-cloud-drift-a 34s ease-in-out infinite alternate;
+        }
+
+        .skills-cloud-b {
+          width: 46rem;
+          height: 12rem;
+          right: -16rem;
+          top: 58%;
+          opacity: 0.18;
+          background:
+            radial-gradient(circle at 22% 44%, rgba(168, 85, 247, 0.15), transparent 36%),
+            radial-gradient(circle at 50% 56%, rgba(34, 211, 238, 0.13), transparent 42%),
+            radial-gradient(circle at 82% 42%, rgba(14, 165, 233, 0.12), transparent 34%);
+          animation: skills-cloud-drift-b 42s ease-in-out infinite alternate;
+        }
+
+        .skills-twinkle {
+          position: absolute;
+          width: 4px;
+          height: 4px;
+          border-radius: 9999px;
+          background: rgba(165, 243, 252, 0.9);
+          box-shadow: 0 0 12px rgba(34, 211, 238, 0.75), 0 0 28px rgba(168, 85, 247, 0.26);
+          opacity: 0;
+          animation: skills-twinkle 4.8s ease-in-out infinite;
+        }
+
+        .skills-twinkle-a {
+          left: 16%;
+          top: 30%;
+          animation-delay: 0.1s;
+        }
+
+        .skills-twinkle-b {
+          left: 72%;
+          top: 24%;
+          width: 3px;
+          height: 3px;
+          animation-delay: 1.35s;
+        }
+
+        .skills-twinkle-c {
+          left: 88%;
+          top: 52%;
+          animation-delay: 2.4s;
+        }
+
+        .skills-twinkle-d {
+          left: 44%;
+          top: 70%;
+          width: 3px;
+          height: 3px;
+          animation-delay: 3.15s;
+        }
+
         @keyframes pulse-subtle {
           0%, 100% { opacity: 0.55; }
           50% { opacity: 1; }
+        }
+
+        @keyframes skills-cloud-drift-a {
+          0% { transform: translate3d(-2%, 0, 0) scale(1); opacity: 0.18; }
+          50% { transform: translate3d(20%, -6%, 0) scale(1.05); opacity: 0.28; }
+          100% { transform: translate3d(42%, 4%, 0) scale(0.98); opacity: 0.2; }
+        }
+
+        @keyframes skills-cloud-drift-b {
+          0% { transform: translate3d(8%, 4%, 0) scale(1); opacity: 0.13; }
+          50% { transform: translate3d(-18%, -5%, 0) scale(1.06); opacity: 0.22; }
+          100% { transform: translate3d(-38%, 2%, 0) scale(1); opacity: 0.16; }
+        }
+
+        @keyframes skills-twinkle {
+          0%, 100% { opacity: 0.12; transform: scale(0.72); }
+          42% { opacity: 0.18; transform: scale(0.82); }
+          50% { opacity: 0.95; transform: scale(1.4); }
+          58% { opacity: 0.22; transform: scale(0.9); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .skills-cloud,
+          .skills-twinkle {
+            animation: none;
+          }
         }
       `}</style>
     </section>
