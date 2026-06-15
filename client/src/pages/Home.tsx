@@ -5,11 +5,13 @@ import AtmosphereSection from "@/components/AtmosphereSection";
 import CoreLayersSection from "@/components/CoreLayersSection";
 import ContactSection from "@/components/ContactSection";
 import FloatingNavbar from "@/components/FloatingNavbar";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 import { profile } from "@/data/profile";
 
 export default function Home() {
   const title = `${profile.name}${profile.nameEn ? ` ${profile.nameEn}` : ""} | Portfolio`;
   const description = `${profile.title} — ${profile.tagline}`;
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
     <>
@@ -21,6 +23,7 @@ export default function Home() {
         <AtmosphereSection />
         <CoreLayersSection />
         <ContactSection />
+        <ScrollToTopButton onClick={scrollToTop} />
       </div>
     </>
   );

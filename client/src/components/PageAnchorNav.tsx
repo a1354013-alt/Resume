@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export interface PageAnchor {
   id: string;
@@ -13,7 +13,11 @@ interface PageAnchorNavProps {
 function getHashId() {
   if (typeof window === "undefined") return "";
 
-  return decodeURIComponent(window.location.hash.replace(/^#/, ""));
+  try {
+    return decodeURIComponent(window.location.hash.replace(/^#/, ""));
+  } catch {
+    return "";
+  }
 }
 
 function getInitialActiveId(anchors: PageAnchor[]) {
@@ -28,6 +32,26 @@ export default function PageAnchorNav({
   className = "",
 }: PageAnchorNavProps) {
   const [activeId, setActiveId] = useState(() => getInitialActiveId(anchors));
+  const sideNavSlotRef = useRef<HTMLElement>(null);
+  const [sideNavLeft, setSideNavLeft] = useState(24);
+
+  useEffect(() => {
+    const updateSideNavLeft = () => {
+      const rect = sideNavSlotRef.current?.getBoundingClientRect();
+      if (!rect) return;
+
+      setSideNavLeft(Math.max(24, Math.round(rect.left)));
+    };
+
+    updateSideNavLeft();
+    window.addEventListener("resize", updateSideNavLeft);
+    window.addEventListener("orientationchange", updateSideNavLeft);
+
+    return () => {
+      window.removeEventListener("resize", updateSideNavLeft);
+      window.removeEventListener("orientationchange", updateSideNavLeft);
+    };
+  }, []);
 
   useEffect(() => {
     setActiveId(getInitialActiveId(anchors));
@@ -140,14 +164,13 @@ export default function PageAnchorNav({
   return (
     <>
       <nav
+        ref={sideNavSlotRef}
         aria-label="頁面段落"
         className={`hidden w-44 shrink-0 self-start xl:block ${className}`}
       >
         <div
           className="fixed top-24 z-30 max-h-[calc(100vh-7rem)] w-44 overflow-y-auto rounded-2xl border border-cyan-500/10 bg-slate-950/55 p-2 shadow-xl shadow-black/20 backdrop-blur-xl"
-          style={{
-            left: "max(1.5rem, calc((100vw - 80rem) / 2 + 1.5rem))",
-          }}
+          style={{ left: sideNavLeft }}
         >
           <div className="space-y-1">
             {anchors.map(anchor => renderButton(anchor, "side"))}
