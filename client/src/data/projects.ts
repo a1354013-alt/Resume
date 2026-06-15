@@ -365,19 +365,19 @@ export const projects: Project[] = [
     images: [
       {
         src: "/images/projects/knowledge-workspace/overview.png",
-        alt: "Knowledge Workspace 工作區總覽",
+        alt: "工作區總覽",
       },
       {
         src: "/images/projects/knowledge-workspace/search.png",
-        alt: "Knowledge Workspace 向量搜尋結果頁",
+        alt: "個人知識庫",
       },
       {
         src: "/images/projects/knowledge-workspace/prompt.png",
-        alt: "Knowledge Workspace AI Prompt 工作流設定",
+        alt: "EXCEL匯入匯出",
       },
       {
         src: "/images/projects/knowledge-workspace/notes.png",
-        alt: "Knowledge Workspace 文件筆記與標註",
+        alt: "個人問題庫",
       },
     ],
     details: {
