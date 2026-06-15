@@ -5,6 +5,7 @@ import { projects, type Project } from "@/data/projects";
 import ProjectDialog from "@/components/ProjectDialog";
 import ProjectCard from "@/components/ProjectCard";
 import SEOHead from "@/components/SEOHead";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 import PageAnchorNav, { type PageAnchor } from "@/components/PageAnchorNav";
 import { profile } from "@/data/profile";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
@@ -181,6 +182,8 @@ export default function ProjectsPage() {
   };
 
   const clearTechFilters = () => setSelectedTechs(new Set());
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
     <>
@@ -387,6 +390,8 @@ export default function ProjectsPage() {
             onClose={handleCloseDialog}
             onProjectChange={setSelectedProject}
           />
+
+          {!isDialogOpen && <ScrollToTopButton onClick={scrollToTop} />}
         </div>
       </div>
     </>

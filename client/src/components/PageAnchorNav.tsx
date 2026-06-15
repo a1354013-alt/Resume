@@ -141,9 +141,14 @@ export default function PageAnchorNav({
     <>
       <nav
         aria-label="頁面段落"
-        className={`sticky top-24 hidden h-fit max-h-[calc(100vh-7rem)] self-start overflow-y-auto xl:block ${className}`}
+        className={`hidden w-44 shrink-0 self-start xl:block ${className}`}
       >
-        <div className="w-44 rounded-2xl border border-cyan-500/10 bg-slate-950/55 p-2 shadow-xl shadow-black/20 backdrop-blur-xl">
+        <div
+          className="fixed top-24 z-30 max-h-[calc(100vh-7rem)] w-44 overflow-y-auto rounded-2xl border border-cyan-500/10 bg-slate-950/55 p-2 shadow-xl shadow-black/20 backdrop-blur-xl"
+          style={{
+            left: "max(1.5rem, calc((100vw - 80rem) / 2 + 1.5rem))",
+          }}
+        >
           <div className="space-y-1">
             {anchors.map(anchor => renderButton(anchor, "side"))}
           </div>
