@@ -25,9 +25,7 @@ function getLinkClass(isActive: boolean, size: "sm" | "base") {
   const textSize = size === "sm" ? "text-xs" : "text-base";
 
   return `font-mono ${textSize} transition-colors ${
-    isActive
-      ? "text-cyan-300"
-      : "text-slate-400 hover:text-cyan-400"
+    isActive ? "text-cyan-300" : "text-slate-400 hover:text-cyan-400"
   }`;
 }
 
