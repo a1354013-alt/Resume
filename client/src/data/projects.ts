@@ -264,10 +264,7 @@ export const projects: Project[] = [
         src: "/images/projects/pdf-engine/annotation.png",
         alt: "PDF 標註工具列與註記畫面",
       },
-      {
-        src: "/images/projects/pdf-engine/export.png",
-        alt: "PDF 匯出與下載畫面",
-      },
+    
     ],
     details: {
       problem:
