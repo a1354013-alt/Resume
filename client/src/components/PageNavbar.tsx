@@ -1,32 +1,11 @@
-import { useState } from "react";
-import { Link } from "wouter";
-
-type PageKey =
-  | "home"
-  | "resume"
-  | "experience"
-  | "projects"
-  | "biography";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "wouter";
+import { pageLinks, pageTitles, type PageKey } from "@/data/navigation";
+import { useEscapeKey } from "@/hooks/useEscapeKey";
 
 interface PageNavbarProps {
   currentPage: PageKey;
 }
-
-const pageLinks: Array<{ key: PageKey; href: string; label: string }> = [
-  { key: "home", href: "/", label: "首頁" },
-  { key: "resume", href: "/resume", label: "履歷" },
-  { key: "experience", href: "/experience", label: "工作經驗" },
-  { key: "projects", href: "/projects", label: "專案" },
-  { key: "biography", href: "/biography", label: "自傳" },
-];
-
-const pageTitles: Record<PageKey, string> = {
-  home: "Portfolio",
-  resume: "履歷",
-  experience: "工作經驗",
-  projects: "Projects",
-  biography: "自傳",
-};
 
 function getLinkClass(isActive: boolean, size: "sm" | "base") {
   const textSize = size === "sm" ? "text-xs" : "text-base";
@@ -38,12 +17,16 @@ function getLinkClass(isActive: boolean, size: "sm" | "base") {
 
 export default function PageNavbar({ currentPage }: PageNavbarProps) {
   const [open, setOpen] = useState(false);
+  const [location] = useLocation();
   const currentTitle = pageTitles[currentPage];
-  const desktopLinks = pageLinks.filter(
-    page => page.key !== "home" && page.key !== currentPage
-  );
 
   const closeMenu = () => setOpen(false);
+
+  useEscapeKey(closeMenu, open);
+
+  useEffect(() => {
+    closeMenu();
+  }, [location]);
 
   return (
     <nav className="sticky top-0 z-50 border-b border-cyan-500/10 bg-slate-950/65 backdrop-blur-md">
@@ -58,16 +41,16 @@ export default function PageNavbar({ currentPage }: PageNavbarProps) {
                 : "text-cyan-400 hover:text-cyan-300"
             }`}
           >
-            首頁
+            {pageTitles.home}
           </Link>
         </div>
 
-        <h1 className="text-center font-mono text-sm text-slate-400">
+        <p className="text-center font-mono text-sm text-slate-400">
           {currentTitle}
-        </h1>
+        </p>
 
         <div className="hidden items-center justify-end gap-4 md:flex">
-          {desktopLinks.map((page, index) => (
+          {pageLinks.map((page, index) => (
             <div key={page.key} className="flex items-center gap-4">
               {index > 0 && <span className="text-slate-600">|</span>}
               <Link

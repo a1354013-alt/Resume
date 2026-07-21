@@ -11,6 +11,7 @@ interface SEOHeadProps {
   ogImage?: string;
   canonicalPath?: string;
   jsonLd?: JsonLd;
+  noIndex?: boolean;
 }
 
 function getSiteOrigin(): string {
@@ -31,8 +32,6 @@ function buildUrl(pathname: string): string {
 }
 
 function withBasePath(pathname: string): string {
-  // For GitHub Pages project sites, the app is served under BASE_URL (e.g. "/Resume/").
-  // Canonical/meta URLs should include that base, otherwise they point to the wrong path.
   const baseUrl = import.meta.env.BASE_URL || "/";
   const base = baseUrl.replace(/\/+$/, "");
   if (!pathname.startsWith("/")) return pathname;
@@ -48,6 +47,7 @@ export default function SEOHead({
   ogImage,
   canonicalPath,
   jsonLd,
+  noIndex = false,
 }: SEOHeadProps) {
   useEffect(() => {
     document.title = title;
@@ -79,7 +79,6 @@ export default function SEOHead({
       (typeof window !== "undefined" ? window.location.pathname : "/");
     const canonicalUrl = buildUrl(resolvedPath);
 
-    // Open Graph
     setMetaTag("og:title", ogTitle || title, true);
     setMetaTag("og:description", ogDescription || description, true);
     setMetaTag("og:type", "website", true);
@@ -87,14 +86,15 @@ export default function SEOHead({
     if (ogImage) setMetaTag("og:image", ogImage, true);
     else removeMetaTag("og:image", true);
 
-    // Twitter Card
-    setMetaTag("twitter:card", "summary_large_image");
+    setMetaTag("twitter:card", ogImage ? "summary_large_image" : "summary");
     setMetaTag("twitter:title", ogTitle || title);
     setMetaTag("twitter:description", ogDescription || description);
     if (ogImage) setMetaTag("twitter:image", ogImage);
     else removeMetaTag("twitter:image");
 
-    // Canonical
+    if (noIndex) setMetaTag("robots", "noindex, nofollow");
+    else removeMetaTag("robots");
+
     let canonicalElement = document.querySelector('link[rel="canonical"]');
     if (!canonicalElement) {
       canonicalElement = document.createElement("link");
@@ -103,7 +103,6 @@ export default function SEOHead({
     }
     canonicalElement.setAttribute("href", canonicalUrl);
 
-    // JSON-LD (structured data)
     const ld =
       jsonLd ??
       ({
@@ -111,7 +110,7 @@ export default function SEOHead({
         "@type": "Person",
         name: profile.name,
         email: profile.contact.email,
-        url: getSiteOrigin() || undefined,
+        url: canonicalUrl,
         sameAs: [profile.contact.github, profile.contact.linkedin],
       } satisfies Record<string, unknown>);
 
@@ -131,6 +130,7 @@ export default function SEOHead({
     ogImage,
     canonicalPath,
     jsonLd,
+    noIndex,
   ]);
 
   return null;

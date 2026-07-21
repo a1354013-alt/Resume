@@ -1,50 +1,32 @@
-import { Link } from "wouter";
 import { useState } from "react";
+import { Link } from "wouter";
+import { pageLinks } from "@/data/navigation";
+import { scrollPageToTop } from "@/lib/scroll";
 
 export default function FloatingNavbar() {
   const [open, setOpen] = useState(false);
+
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollPageToTop();
     setOpen(false);
   };
 
   const NavLinks = ({ onClick }: { onClick?: () => void }) => (
     <div className="flex flex-col gap-3 p-4">
-      <Link
-        href="/"
-        onClick={() => onClick?.()}
-        className="font-mono text-base text-cyan-400 transition-colors hover:text-cyan-300"
-      >
-        首頁
-      </Link>
-      <Link
-        href="/resume"
-        onClick={() => onClick?.()}
-        className="font-mono text-base text-slate-200 transition-colors hover:text-cyan-400"
-      >
-        履歷
-      </Link>
-      <Link
-        href="/experience"
-        onClick={() => onClick?.()}
-        className="font-mono text-base text-slate-200 transition-colors hover:text-cyan-400"
-      >
-        工作經驗
-      </Link>
-      <Link
-        href="/projects"
-        onClick={() => onClick?.()}
-        className="font-mono text-base text-slate-200 transition-colors hover:text-cyan-400"
-      >
-        專案
-      </Link>
-      <Link
-        href="/biography"
-        onClick={() => onClick?.()}
-        className="font-mono text-base text-slate-200 transition-colors hover:text-cyan-400"
-      >
-        自傳
-      </Link>
+      {pageLinks.map((page, index) => (
+        <Link
+          key={page.key}
+          href={page.href}
+          onClick={() => onClick?.()}
+          className={`font-mono text-base transition-colors ${
+            index === 0
+              ? "text-cyan-400 hover:text-cyan-300"
+              : "text-slate-200 hover:text-cyan-400"
+          }`}
+        >
+          {page.label}
+        </Link>
+      ))}
       <button
         type="button"
         onClick={() => {
@@ -53,7 +35,7 @@ export default function FloatingNavbar() {
         }}
         className="font-mono text-base text-cyan-200 text-left"
       >
-        回到頂部
+        回到頂端
       </button>
     </div>
   );
@@ -68,41 +50,20 @@ export default function FloatingNavbar() {
           首頁
         </Link>
 
-        {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-4">
-          <Link
-            href="/resume"
-            className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
-          >
-            履歷
-          </Link>
-
-          <span className="text-slate-600">|</span>
-
-          <Link
-            href="/experience"
-            className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
-          >
-            工作經驗
-          </Link>
-
-          <span className="text-slate-600">|</span>
-
-          <Link
-            href="/projects"
-            className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
-          >
-            專案
-          </Link>
-
-          <span className="text-slate-600">|</span>
-
-          <Link
-            href="/biography"
-            className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
-          >
-            自傳
-          </Link>
+        <div className="hidden items-center gap-4 md:flex">
+          {pageLinks.slice(1).map(page => (
+            <div key={page.key} className="contents">
+              <Link
+                href={page.href}
+                className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
+              >
+                {page.label}
+              </Link>
+              {page.key !== "biography" && (
+                <span className="text-slate-600">|</span>
+              )}
+            </div>
+          ))}
 
           <span className="text-slate-600">|</span>
 
@@ -111,16 +72,15 @@ export default function FloatingNavbar() {
             onClick={scrollToTop}
             className="font-mono text-xs text-cyan-400 transition-colors hover:text-cyan-300"
           >
-            回到頂部
+            回到頂端
           </button>
         </div>
 
-        {/* Mobile hamburger */}
         <div className="md:hidden">
           <button
             aria-label={open ? "關閉選單" : "開啟選單"}
             aria-expanded={open}
-            onClick={() => setOpen(v => !v)}
+            onClick={() => setOpen(value => !value)}
             className="rounded-md p-2 text-slate-200 hover:bg-slate-800/40"
           >
             <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none">
@@ -136,9 +96,8 @@ export default function FloatingNavbar() {
         </div>
       </div>
 
-      {/* Mobile panel */}
       {open && (
-        <div className="md:hidden border-t border-slate-800/40 bg-slate-950/95">
+        <div className="border-t border-slate-800/40 bg-slate-950/95 md:hidden">
           <NavLinks onClick={() => setOpen(false)} />
         </div>
       )}

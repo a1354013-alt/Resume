@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "wouter";
+import { scrollElementIntoView } from "@/lib/scroll";
 
 function scrollToCurrentHash() {
   const hash = decodeURIComponent(window.location.hash.replace(/^#/, ""));
@@ -8,7 +9,7 @@ function scrollToCurrentHash() {
   const target = document.getElementById(hash);
   if (!target) return false;
 
-  target.scrollIntoView({ behavior: "smooth", block: "start" });
+  scrollElementIntoView(target);
   return true;
 }
 

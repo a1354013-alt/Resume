@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { scrollElementIntoView } from "@/lib/scroll";
 
 export interface PageAnchor {
   id: string;
@@ -112,7 +113,7 @@ export default function PageAnchorNav({
 
     window.history.replaceState(null, "", nextUrl);
     setActiveId(id);
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    scrollElementIntoView(target);
   };
 
   const renderButton = (anchor: PageAnchor, variant: "side" | "top") => {
