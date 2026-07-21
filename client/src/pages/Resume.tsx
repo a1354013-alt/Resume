@@ -1,11 +1,23 @@
 import { type ReactNode } from "react";
 import { Link } from "wouter";
-import { ExternalLink, Github, Linkedin, Mail } from "lucide-react";
+import {
+  ChevronRight,
+  ExternalLink,
+  Github,
+  Linkedin,
+  Mail,
+} from "lucide-react";
 import SEOHead from "@/components/SEOHead";
-import { profile } from "@/data/profile";
-import StarFieldBackground from "@/components/StarFieldBackground";
-import ScrollToTopButton from "@/components/ScrollToTopButton";
 import PageAnchorNav, { type PageAnchor } from "@/components/PageAnchorNav";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
+import StarFieldBackground from "@/components/StarFieldBackground";
+import { certificationGroups } from "@/data/certifications";
+import {
+  earlierExperienceSummary,
+  experienceTimeline,
+  featuredResumeExperience,
+} from "@/data/experience";
+import { profile } from "@/data/profile";
 
 function ResumeLink({
   href,
@@ -21,12 +33,12 @@ function ResumeLink({
       href={href}
       target={href.startsWith("mailto:") ? undefined : "_blank"}
       rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
-      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-900/40 border border-slate-700/40 text-slate-200 hover:bg-slate-900/60 hover:border-slate-600/50 transition-colors"
+      className="inline-flex items-center gap-2 rounded-lg border border-slate-700/40 bg-slate-900/40 px-4 py-2 text-slate-200 transition-colors hover:border-slate-600/50 hover:bg-slate-900/60"
     >
       {icon}
       <span className="text-sm font-medium">{label}</span>
       {!href.startsWith("mailto:") && (
-        <ExternalLink className="w-4 h-4 text-slate-400" />
+        <ExternalLink className="h-4 w-4 text-slate-400" />
       )}
     </a>
   );
@@ -44,9 +56,9 @@ function Section({
   return (
     <section
       id={id}
-      className="scroll-mt-24 space-y-5 rounded-2xl bg-slate-950/45 border border-cyan-500/10 p-6 shadow-lg shadow-cyan-950/10"
+      className="scroll-mt-24 space-y-5 rounded-2xl border border-cyan-500/10 bg-slate-950/45 p-6 shadow-lg shadow-cyan-950/10"
     >
-      <h3 className="text-2xl font-bold text-cyan-300">{title}</h3>
+      <h2 className="text-2xl font-bold text-cyan-300">{title}</h2>
       {children}
     </section>
   );
@@ -57,7 +69,10 @@ function BulletList({ items }: { items: string[] }) {
     <ul className="space-y-3 text-slate-300 leading-relaxed">
       {items.map(item => (
         <li key={item} className="flex gap-3">
-          <span className="text-cyan-400 mt-0.5">•</span>
+          <span
+            aria-hidden="true"
+            className="mt-2 h-2 w-2 shrink-0 rounded-full bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.55)]"
+          />
           <span>{item}</span>
         </li>
       ))}
@@ -66,78 +81,79 @@ function BulletList({ items }: { items: string[] }) {
 }
 
 const resumeAnchors: PageAnchor[] = [
-  { id: "summary", label: "個人摘要" },
-  { id: "skills", label: "核心能力" },
-  { id: "experience", label: "工作經驗" },
-  { id: "achievements", label: "技術成果" },
-  { id: "web-modernization", label: "Web 化" },
-  { id: "education", label: "教育背景" },
-  { id: "certifications", label: "證照" },
-  { id: "ai-learning", label: "AI 進修" },
-  { id: "portfolio", label: "專案作品" },
+  { id: "summary", label: "Summary" },
+  { id: "skills", label: "Skills" },
+  { id: "experience", label: "Experience" },
+  { id: "achievements", label: "Impact" },
+  { id: "education", label: "Education" },
+  { id: "certifications", label: "Certifications" },
+  { id: "portfolio", label: "Portfolio" },
 ];
 
-const certificationGroups = [
+const skills = [
+  "Delphi",
+  "Legacy System Refactor",
+  "Vue 3",
+  "React",
+  "TypeScript",
+  "Go",
+  "Node.js",
+  "RESTful API",
+  "SQL Server",
+  "ERP Workflow Support",
+  "Performance Optimization",
+  "Root Cause Analysis",
+  "Python",
+  "Computer Vision",
+];
+
+const summaryParagraphs = [
+  "Focused on ERP software development, legacy system refactoring, and practical full-stack delivery across Delphi, Vue 3, Go, and RESTful API integration.",
+  "Experienced in translating business workflows into maintainable systems, investigating production issues, identifying root causes, and improving the stability and performance of legacy applications.",
+];
+
+const conciseAchievements = [
   {
-    category: "資訊工程與 AI",
-    items: [
-      "電腦軟體應用乙級技術士",
-      "網頁設計丙級技術士",
-      "iPAS 經濟部AI應用規劃師 初級",
-      "Gemini Certification for Educators",
-    ],
+    label: "Performance Optimization",
+    title: "Important query speedup",
+    body: "Reduced an important page query from approximately 26 seconds to under 1 second.",
   },
   {
-    category: "設計、CAD 與網頁工具",
-    items: [
-      "AutoCAD 2014 Certified Professional",
-      "Adobe Certified Associate - Photoshop CS6",
-      "Adobe Certified Associate - Illustrator",
-      "Adobe Certified Associate - InDesign",
-      "Adobe Certified Associate - Dreamweaver CS6",
-      "TQC+專業設計人才認證－電腦輔助平面製圖",
-    ],
+    label: "Stability",
+    title: "Memory leak investigation",
+    body: "Investigated and resolved stability issues by tracing memory leak behavior and narrowing the problem to the relevant execution path.",
   },
   {
-    category: "企業電子化與數位商務",
-    items: [
-      "企業電子化助理規劃師",
-      "企業電子化軟體應用師",
-      "企業人才技能認證－電子商務概論",
-      "企業電子化人才能力鑑定－網路行銷",
-    ],
+    label: "Defensive Design",
+    title: "Legacy workflow safeguards",
+    body: "Added defensive handling to prevent duplicate Delphi workflow execution and reduce fragile legacy behavior.",
   },
   {
-    category: "資料治理與個資保護",
-    items: ["PIMS 個人資料管理制度專業訓練證書"],
+    label: "Root Cause Analysis",
+    title: "Hidden data issue diagnosis",
+    body: "Identified CR/LF-related data problems during production troubleshooting and isolated the data-cleaning fix required for stable processing.",
   },
 ];
+
+const primaryCertificationGroups = certificationGroups.filter(
+  group => group.priority === "primary"
+);
+const secondaryCertificationGroups = certificationGroups.filter(
+  group => group.priority === "secondary"
+);
 
 export default function Resume() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
-
-  const skills = [
-    "Delphi",
-    "Legacy System Refactor",
-    "Vue 3",
-    "React",
-    "TypeScript",
-    "Go",
-    "Node.js",
-    "RESTful API",
-    "SQL Server",
-    "ERP 系統導入",
-    "效能優化",
-    "Root Cause Analysis",
-    "Python",
-    "Computer Vision",
-  ];
+  const earlierRoles = experienceTimeline
+    .slice(1)
+    .map(job => job.title)
+    .join(" / ");
 
   return (
     <>
       <SEOHead
-        title={`履歷｜${profile.name}`}
-        description="羅揚文，ERP 軟體工程師，專注 Delphi 遺留系統現代化、Vue3 + Go Web 架構轉換、RESTful API 整合與企業內部系統重構。"
+        title={`Resume | ${profile.name}`}
+        description="Concise recruiter-friendly overview covering ERP modernization, legacy refactoring, measurable technical impact, selected certifications, and portfolio entry points."
         canonicalPath="/resume"
       />
 
@@ -145,30 +161,37 @@ export default function Resume() {
         <StarFieldBackground />
 
         <div className="relative z-10">
-          <nav className="sticky top-0 z-50 bg-slate-950/60 backdrop-blur-md border-b border-cyan-500/10">
-            <div className="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
+          <nav className="sticky top-0 z-50 border-b border-cyan-500/10 bg-slate-950/60 backdrop-blur-md">
+            <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
               <Link
                 href="/"
-                className="font-mono text-cyan-400 hover:text-cyan-300 transition-colors"
+                className="font-mono text-cyan-400 transition-colors hover:text-cyan-300"
               >
-                首頁
+                擐?
               </Link>
 
-              <h1 className="font-mono text-sm text-slate-400">履歷</h1>
+              <p className="font-mono text-sm text-slate-400">Resume</p>
 
-              <div className="flex gap-4 items-center">
+              <div className="flex items-center gap-4">
+                <Link
+                  href="/experience"
+                  className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
+                >
+                  Experience
+                </Link>
+                <span className="text-slate-600">|</span>
                 <Link
                   href="/projects"
-                  className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
+                  className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
                 >
-                  專案
+                  撠?
                 </Link>
                 <span className="text-slate-600">|</span>
                 <Link
                   href="/biography"
-                  className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
+                  className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
                 >
-                  自傳
+                  ?芸
                 </Link>
               </div>
             </div>
@@ -184,21 +207,21 @@ export default function Resume() {
                     ERP Modernization / Legacy Refactor / Full-Stack Development
                   </p>
 
-                  <h2
-                    className="text-3xl sm:text-4xl md:text-5xl font-bold text-cyan-400"
+                  <h1
+                    className="text-3xl font-bold text-cyan-400 sm:text-4xl md:text-5xl"
                     style={{ fontFamily: "'Orbitron', monospace" }}
                   >
                     {profile.name}
-                  </h2>
+                  </h1>
 
                   <p className="text-xl text-slate-200">
-                    全端工程師｜ERP 現代化｜Legacy System Refactor
+                    ERP Software Engineer / Legacy System Refactor
                   </p>
 
-                  <p className="text-slate-300 leading-relaxed">
-                    具備 9~10 年跨領域工作經驗，目前擔任 ERP 軟體工程師， 專注於
-                    Delphi 遺留系統現代化、Vue3 + Go Web 架構轉換、 RESTful API
-                    整合與企業內部系統重構。
+                  <p className="max-w-3xl text-slate-300 leading-relaxed">
+                    Recruiter-friendly overview of software engineering impact,
+                    practical modernization work, and technical evidence across
+                    ERP systems, API integration, and production support.
                   </p>
                 </div>
 
@@ -206,46 +229,36 @@ export default function Resume() {
                   <ResumeLink
                     href={`mailto:${profile.contact.email}`}
                     label={profile.contact.email}
-                    icon={<Mail className="w-4 h-4 text-cyan-300" />}
+                    icon={<Mail className="h-4 w-4 text-cyan-300" />}
                   />
                   <ResumeLink
                     href={profile.contact.linkedin}
                     label="LinkedIn"
-                    icon={<Linkedin className="w-4 h-4 text-cyan-300" />}
+                    icon={<Linkedin className="h-4 w-4 text-cyan-300" />}
                   />
                   <ResumeLink
                     href={profile.contact.github}
                     label="GitHub"
-                    icon={<Github className="w-4 h-4 text-cyan-300" />}
+                    icon={<Github className="h-4 w-4 text-cyan-300" />}
                   />
                 </div>
               </header>
 
               <main className="space-y-10">
-                <Section id="summary" title="個人摘要">
+                <Section id="summary" title="Summary">
                   <div className="space-y-4 text-slate-300 leading-relaxed">
-                    <p>
-                      畢業於建國科技大學自動化工程系，目前就讀國立彰化師範大學
-                      人工智慧科技應用碩士學位學程。過去曾歷經產品設計、
-                      平面設計、網頁設計與教學助理等跨領域工作，後續投入企業系統開發，
-                      因此在系統設計時能同時理解工程邏輯、使用情境與第一線操作痛點。
-                    </p>
-
-                    <p>
-                      目前工作重心為 ERP 系統功能開發、維護、重構與 Web 化。
-                      面對缺乏完整文件的舊系統，能從 Delphi
-                      原始碼與資料庫結構反向推敲流程，
-                      釐清商業邏輯、資料流與異常根因，再以穩定、可維護、可落地的方式完成改善。
-                    </p>
+                    {summaryParagraphs.map(paragraph => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
                   </div>
                 </Section>
 
-                <Section id="skills" title="核心能力">
+                <Section id="skills" title="Core Skills">
                   <div className="flex flex-wrap gap-2">
                     {skills.map(skill => (
                       <span
                         key={skill}
-                        className="px-3 py-1 rounded-full bg-slate-900/50 border border-slate-700/40 text-slate-200 text-sm"
+                        className="rounded-full border border-slate-700/40 bg-slate-900/50 px-3 py-1 text-sm text-slate-200"
                       >
                         {skill}
                       </span>
@@ -253,320 +266,176 @@ export default function Resume() {
                   </div>
                 </Section>
 
-                <Section id="experience" title="工作經驗">
-                  <div className="space-y-0">
-                    <div className="mb-6 flex items-center gap-4 text-sm">
-                      <span className="text-slate-400">總年資</span>
-                      <span className="font-semibold text-slate-100">
-                        9~10年工作經驗
-                      </span>
-                    </div>
-
-                    {[
-                      {
-                        logoClass: "bg-slate-100 text-blue-900",
-                        title: "軟體工程師",
-                        company: "中程資訊顧問有限公司（電腦軟體服務業）",
-                        role: "軟體工程師",
-                        period: "2022/8~仍在職",
-                        duration: "",
-                        bullets: [
-                          "主導 Delphi ERP 系統現代化，轉換為 Vue3 + Go Web 架構。",
-                          "建立 RESTful API 並整合前後端系統。",
-                          "重構複雜商業邏輯，提升系統可維護性。",
-                          "支援客戶需求訪談與問題排查。",
-                          "協助系統導入與使用者教育訓練。",
-                          "重新設計查詢流程，將關鍵頁面由 26 秒優化至 1 秒內。",
-                        ],
-                      },
-                      {
-                        logoClass: "bg-green-500 text-white",
-                        title: "網站設計師",
-                        company: "台灣久林股份有限公司（鞋類製造業 30~100人）",
-                        role: "平面設計 / 美編｜台中市大雅區",
-                        period: "2018/7~2022/2",
-                        duration: "3年8個月",
-                        bullets: [
-                          "設計製作平面文宣、海報、DM、廣告、型錄等視覺素材。",
-                          "規劃商品包裝設計製作及發印。",
-                          "進行圖稿、文案的排版設計。",
-                          "與印刷廠聯絡，處理估價、打樣與輸出流程。",
-                          "協助維護與修改公司網站內容。",
-                        ],
-                      },
-                      {
-                        logoClass: "bg-green-500 text-white",
-                        title: "網頁美工",
-                        company: "鵬薦數位股份有限公司（其他出版業 1~30人）",
-                        role: "網頁設計師｜台中市北屯區",
-                        period: "2017/2~2018/7",
-                        duration: "1年6個月",
-                        bullets: [
-                          "負責印前美工稿件製作。",
-                          "設計製作平面文宣、海報、DM、廣告、型錄等素材。",
-                          "協助網站工程師製作與維護網站。",
-                        ],
-                      },
-                      {
-                        logoClass: "bg-blue-600 text-white",
-                        title: "美編行銷",
-                        company: "富勝印刷股份有限公司",
-                        role: "平面設計 / 美編｜台中市神岡區",
-                        period: "2016/1~2017/2",
-                        duration: "1年2個月",
-                        bullets: [
-                          "負責印前美工稿件製作。",
-                          "修改與編繪美工圖稿。",
-                          "操作數位印刷機台，處理印前製稿、校稿與改稿。",
-                          "熟悉 Adobe Illustrator、Adobe Photoshop 等設計工具。",
-                          "協助處理主管交辦事項。",
-                        ],
-                      },
-                      {
-                        logoClass: "bg-cyan-600 text-white",
-                        title: "教學助理",
-                        company: "國立中興大學（大專校院教育事業）",
-                        role: "助教｜台中市南區",
-                        period: "2015/1~2015/8",
-                        duration: "8個月",
-                        bullets: [
-                          "協助課程教學與現場支援。",
-                          "協助學生理解課程操作流程。",
-                          "培養技術說明、問題引導與現場支援能力。",
-                        ],
-                      },
-                      {
-                        logo: "製",
-                        logoClass: "bg-orange-500 text-white",
-                        title: "產品設計工程師",
-                        company: "晨州塑膠工業股份有限公司",
-                        role: "機械設計工程師｜台中市大雅區",
-                        period: "2012/3~2014/3",
-                        duration: "2年1個月",
-                        bullets: [
-                          "參與產品設計與製造流程規劃。",
-                          "理解傳統製造業現場流程與作業限制。",
-                          "培養從實務操作角度思考系統設計的能力。",
-                        ],
-                      },
-                    ].map((job, index, list) => (
-                      <div
-                        key={`${job.company}-${job.period}`}
-                        className={`grid grid-cols-[52px_1fr] gap-4 pb-8 ${
-                          index === list.length - 1
-                            ? ""
-                            : "border-b border-slate-700/40 mb-8"
-                        }`}
-                      >
-                        <div className="pt-1">
-                          <div
-                            className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-bold shadow-lg ${job.logoClass}`}
-                          >
-                            {job.logo}
-                          </div>
+                <Section id="experience" title="Concise Work Experience">
+                  <div className="space-y-6">
+                    <article className="rounded-2xl border border-cyan-500/20 bg-cyan-500/8 p-5">
+                      <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                        <div className="space-y-2">
+                          <p className="font-mono text-sm text-cyan-300">
+                            Current Role
+                          </p>
+                          <h3 className="text-xl font-semibold text-slate-100">
+                            {featuredResumeExperience.role.title}
+                          </h3>
+                          <p className="text-slate-200">
+                            {featuredResumeExperience.role.company}
+                          </p>
+                          <p className="text-sm text-slate-400">
+                            {featuredResumeExperience.role.role}
+                          </p>
                         </div>
 
-                        <div>
-                          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2">
-                            <div>
-                              <h4 className="text-lg font-semibold text-slate-100">
-                                {job.title}
-                              </h4>
-
-                              <p className="text-slate-200 font-medium">
-                                {job.company}
-                              </p>
-
-                              <p className="text-sm text-slate-400">
-                                {job.role}
-                              </p>
-                            </div>
-
-                            <div className="text-left md:text-right text-sm text-slate-400 md:shrink-0">
-                              <p>{job.period}</p>
-                              {job.duration && <p>{job.duration}</p>}
-                            </div>
-                          </div>
-
-                          <ol className="mt-4 space-y-1.5 text-slate-300 leading-relaxed">
-                            {job.bullets.map((item, bulletIndex) => (
-                              <li key={item}>
-                                {bulletIndex + 1}. {item}
-                              </li>
-                            ))}
-                          </ol>
-                        </div>
+                        <p className="text-sm text-slate-400 md:text-right">
+                          {featuredResumeExperience.role.period}
+                        </p>
                       </div>
+
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {featuredResumeExperience.role.technologies?.map(
+                          tech => (
+                            <span
+                              key={tech}
+                              className="rounded-full border border-cyan-500/20 bg-slate-950/50 px-3 py-1 text-xs text-cyan-100"
+                            >
+                              {tech}
+                            </span>
+                          )
+                        )}
+                      </div>
+
+                      <div className="mt-5">
+                        <BulletList items={featuredResumeExperience.bullets} />
+                      </div>
+                    </article>
+
+                    <article className="rounded-2xl border border-slate-700/35 bg-slate-900/35 p-5">
+                      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                        <div className="space-y-2">
+                          <h3 className="text-lg font-semibold text-slate-100">
+                            Earlier Cross-Disciplinary Experience
+                          </h3>
+                          <p className="text-slate-300 leading-relaxed">
+                            {earlierExperienceSummary}
+                          </p>
+                        </div>
+
+                        <p className="text-sm text-slate-400 md:max-w-xs md:text-right">
+                          {earlierRoles}
+                        </p>
+                      </div>
+                    </article>
+
+                    <Link
+                      href="/experience"
+                      className="inline-flex items-center gap-2 rounded-lg border border-cyan-500/40 bg-cyan-500/20 px-4 py-2 font-medium text-cyan-100 transition-colors hover:bg-cyan-500/30"
+                    >
+                      View Full Work Experience
+                      <ChevronRight className="h-4 w-4" />
+                    </Link>
+                  </div>
+                </Section>
+
+                <Section id="achievements" title="Key Technical Achievements">
+                  <div className="grid gap-4 md:grid-cols-2">
+                    {conciseAchievements.map(item => (
+                      <article
+                        key={item.title}
+                        className="rounded-xl border border-slate-700/30 bg-slate-900/35 p-5"
+                      >
+                        <p className="mb-2 text-sm font-mono text-cyan-300">
+                          {item.label}
+                        </p>
+                        <h3 className="mb-3 text-lg font-semibold text-slate-100">
+                          {item.title}
+                        </h3>
+                        <p className="text-slate-300 leading-relaxed">
+                          {item.body}
+                        </p>
+                      </article>
                     ))}
                   </div>
                 </Section>
 
-                <Section id="achievements" title="代表性技術成果">
-                  <div className="grid gap-5">
-                    <div className="rounded-xl bg-cyan-500/10 border border-cyan-500/25 p-5">
-                      <p className="text-sm text-cyan-300 font-mono mb-2">
-                        Performance Optimization
-                      </p>
-                      <h4 className="text-xl font-bold text-slate-100 mb-3">
-                        N+1 Query 效能優化
-                      </h4>
-                      <p className="text-3xl font-bold text-cyan-300 mb-4">
-                        26 秒 → 1 秒內
-                      </p>
-                      <BulletList
-                        items={[
-                          "分析簽核網站效能瓶頸，發現查詢流程存在典型 N+1 Query 問題。",
-                          "重新設計資料存取方式，將逐筆查詢改為集中式批次查詢。",
-                          "大幅改善頁面回應速度，同時降低資料庫負載。",
-                        ]}
-                      />
-                    </div>
-
-                    <div className="rounded-xl bg-slate-900/35 border border-slate-700/30 p-5">
-                      <p className="text-sm text-cyan-300 font-mono mb-2">
-                        Stability
-                      </p>
-                      <h4 className="text-xl font-bold text-slate-100 mb-3">
-                        Memory Leak 排查與修復
-                      </h4>
-                      <BulletList
-                        items={[
-                          "處理簽核模組長時間運作後發生當機的問題。",
-                          "追蹤物件生命週期與動態建立元件，定位未正確釋放的程式段落。",
-                          "修正後系統穩定度提升，降低當機頻率與相關客訴。",
-                        ]}
-                      />
-                    </div>
-
-                    <div className="rounded-xl bg-slate-900/35 border border-slate-700/30 p-5">
-                      <p className="text-sm text-cyan-300 font-mono mb-2">
-                        Defensive Design
-                      </p>
-                      <h4 className="text-xl font-bold text-slate-100 mb-3">
-                        Delphi 防重複觸發與流程防錯
-                      </h4>
-                      <BulletList
-                        items={[
-                          "處理使用者快速重複點擊造成的隱蔽資料異常。",
-                          "逐行梳理缺乏文件的 Delphi 程式碼，重新設計事件流程。",
-                          "導入執行狀態鎖定與例外回復機制，降低誤操作造成的資料錯誤風險。",
-                        ]}
-                      />
-                    </div>
-
-                    <div className="rounded-xl bg-slate-900/35 border border-slate-700/30 p-5">
-                      <p className="text-sm text-cyan-300 font-mono mb-2">
-                        Root Cause Analysis
-                      </p>
-                      <h4 className="text-xl font-bold text-slate-100 mb-3">
-                        跨系統資料異常根因分析
-                      </h4>
-                      <BulletList
-                        items={[
-                          "處理工程變更轉入採發系統時，部分數量未正確轉入的問題。",
-                          "透過字串長度與 ASCII 逐字分析，發現 EB_SPECI 欄位尾端含隱藏 CR/LF 字元。",
-                          "完成歷史資料清洗，並實作 Trim + Replace CR/LF 字串淨化機制，避免資料污染再次發生。",
-                        ]}
-                      />
-                    </div>
-                  </div>
-                </Section>
-
-                <Section id="web-modernization" title="系統 Web 化經驗">
-                  <p className="text-slate-300 leading-relaxed">
-                    曾參與並推動多套核心 ERP 系統從 Delphi / Legacy 架構轉移到
-                    Web 架構。
-                    過程中不只是照搬舊功能，而是重新整理流程、切割商業邏輯與畫面事件，
-                    讓系統更容易維護、擴充與導入。
-                  </p>
-
-                  <div className="grid md:grid-cols-2 gap-3">
-                    {["預算採發估驗", "變更追加減", "高階簽核", "人事出勤"].map(
-                      system => (
-                        <div
-                          key={system}
-                          className="rounded-xl bg-slate-900/40 border border-slate-700/30 px-4 py-3 text-slate-200"
-                        >
-                          {system}
-                        </div>
-                      )
-                    )}
-                  </div>
-                </Section>
-
-                <Section id="education" title="教育背景">
+                <Section id="education" title="Education">
                   <div className="space-y-4 text-slate-300">
                     <div>
-                      <h4 className="font-semibold text-slate-100">
-                        國立彰化師範大學｜人工智慧科技應用碩士學位學程
-                      </h4>
-                      <p className="text-slate-400">
-                        2024/9 — 2026/6｜碩士夜間就讀中
-                      </p>
+                      <h3 className="font-semibold text-slate-100">
+                        Graduate Study
+                      </h3>
+                      <p className="text-slate-400">2024/9 ?? 2026/6</p>
                     </div>
 
                     <div>
-                      <h4 className="font-semibold text-slate-100">
-                        建國科技大學｜自動化工程系
-                      </h4>
-                      <p className="text-slate-400">2009/9 — 2013/6｜學士</p>
+                      <h3 className="font-semibold text-slate-100">
+                        Undergraduate Study
+                      </h3>
+                      <p className="text-slate-400">2009/9 ?? 2013/6</p>
                     </div>
                   </div>
                 </Section>
 
-                <Section id="certifications" title="證照與專業認證">
-                  <p className="text-slate-300 leading-relaxed">
-                    證照橫跨軟體應用、AI、設計工具、企業電子化、數位商務與個資管理，
-                    也對應我從設計、網頁到企業系統開發的跨領域職涯路徑。
-                  </p>
+                <Section id="certifications" title="Selected Certifications">
+                  <div className="space-y-4">
+                    <div className="grid gap-4 md:grid-cols-2">
+                      {primaryCertificationGroups.map(group => (
+                        <article
+                          key={group.category}
+                          className="rounded-xl border border-slate-700/35 bg-slate-900/35 p-5"
+                        >
+                          <h3 className="mb-4 text-lg font-semibold text-slate-100">
+                            {group.category}
+                          </h3>
+                          <BulletList items={group.items} />
+                        </article>
+                      ))}
+                    </div>
 
-                  <div className="grid gap-4 md:grid-cols-2">
-                    {certificationGroups.map(group => (
-                      <div
-                        key={group.category}
-                        className="rounded-xl border border-slate-700/35 bg-slate-900/35 p-5"
-                      >
-                        <h4 className="mb-4 text-lg font-semibold text-slate-100">
-                          {group.category}
-                        </h4>
+                    <details className="rounded-xl border border-slate-700/35 bg-slate-900/25 p-5">
+                      <summary className="cursor-pointer list-none text-lg font-semibold text-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300">
+                        Other Certifications
+                      </summary>
 
-                        <ul className="space-y-3 text-sm leading-relaxed text-slate-300">
-                          {group.items.map(item => (
-                            <li key={item} className="flex gap-3">
-                              <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.55)]" />
-                              <span>{item}</span>
-                            </li>
-                          ))}
-                        </ul>
+                      <div className="mt-4 grid gap-4 md:grid-cols-2">
+                        {secondaryCertificationGroups.map(group => (
+                          <article
+                            key={group.category}
+                            className="rounded-xl border border-slate-700/30 bg-slate-950/35 p-5"
+                          >
+                            <h3 className="mb-4 text-base font-semibold text-slate-100">
+                              {group.category}
+                            </h3>
+                            <BulletList items={group.items} />
+                          </article>
+                        ))}
                       </div>
-                    ))}
+                    </details>
                   </div>
                 </Section>
 
-                <Section id="ai-learning" title="AI 進修與研究方向">
-                  <BulletList
-                    items={[
-                      "目前進修 AI 物件偵測與影像辨識相關技術。",
-                      "熟悉 Python 與深度學習框架，具備模型訓練、評估與系統整合經驗。",
-                      "實作過暴力行為偵測與醫療影像分析等專案。",
-                      "未來希望將 AI 技術整合進企業系統，讓內部系統不只穩定，也具備智慧化能力。",
-                    ]}
-                  />
-                </Section>
-
-                <Section id="portfolio" title="專案作品">
+                <Section id="portfolio" title="Projects and Portfolio">
                   <p className="text-slate-300 leading-relaxed">
-                    我把可公開的作品與案例整理在專案頁；公司內部 ERP
-                    系統會以非公開案例方式呈現，
-                    主要展示我在系統重構、資料流整理、效能優化與產品落地上的能力。
+                    Use the project page for hands-on implementation evidence
+                    across ERP systems, internal tools, and technical
+                    experiments, and use the biography page for longer-form
+                    background and problem-solving context.
                   </p>
 
-                  <Link
-                    href="/projects"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-200 hover:bg-cyan-500/30 transition-colors"
-                  >
-                    前往專案頁 <ExternalLink className="w-4 h-4" />
-                  </Link>
+                  <div className="flex flex-wrap gap-3">
+                    <Link
+                      href="/projects"
+                      className="inline-flex items-center gap-2 rounded-lg border border-cyan-500/40 bg-cyan-500/20 px-4 py-2 text-cyan-200 transition-colors hover:bg-cyan-500/30"
+                    >
+                      ??撠?
+                      <ExternalLink className="h-4 w-4" />
+                    </Link>
+                    <Link
+                      href="/biography"
+                      className="inline-flex items-center gap-2 rounded-lg border border-slate-700/40 bg-slate-900/40 px-4 py-2 text-slate-200 transition-colors hover:bg-slate-900/60"
+                    >
+                      ?芸
+                      <ChevronRight className="h-4 w-4" />
+                    </Link>
+                  </div>
                 </Section>
 
                 <div className="h-12" />

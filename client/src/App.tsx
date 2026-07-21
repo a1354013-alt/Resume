@@ -6,13 +6,13 @@ import ScrollToTop from "./components/ScrollToTop";
 
 const Home = lazy(() => import("./pages/Home"));
 const Resume = lazy(() => import("./pages/Resume"));
+const Experience = lazy(() => import("./pages/Experience"));
 const ProjectsPage = lazy(() => import("./pages/ProjectsPage"));
 const Biography = lazy(() => import("./pages/Biography"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
 
 function getRouterBase(): string {
   const baseUrl = (import.meta.env.BASE_URL || "/").replace(/\/+$/, "");
-  // wouter expects "" for root; otherwise a leading slash base (e.g. "/Resume")
   return baseUrl === "" || baseUrl === "/" ? "" : baseUrl;
 }
 
@@ -22,6 +22,10 @@ function HomeRoute() {
 
 function ResumeRoute() {
   return <Resume />;
+}
+
+function ExperienceRoute() {
+  return <Experience />;
 }
 
 function ProjectsRoute() {
@@ -42,17 +46,17 @@ function Router() {
       <Switch>
         <Route path="/" component={HomeRoute} />
         <Route path="/resume" component={ResumeRoute} />
+        <Route path="/experience" component={ExperienceRoute} />
         <Route path="/projects" component={ProjectsRoute} />
         <Route path="/biography" component={BiographyRoute} />
         <Route path="/404" component={NotFoundRoute} />
-        {/* Final fallback route */}
         <Route component={NotFoundRoute} />
       </Switch>
     </Suspense>
   );
 }
 
-function App() {
+export default function App() {
   return (
     <ErrorBoundary>
       <WouterRouter base={getRouterBase()}>
@@ -62,5 +66,3 @@ function App() {
     </ErrorBoundary>
   );
 }
-
-export default App;

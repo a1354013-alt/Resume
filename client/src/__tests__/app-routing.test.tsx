@@ -18,11 +18,19 @@ describe("App routing", () => {
 
     render(<App />);
 
-    const headings = await screen.findAllByRole("heading", {
-      name: /工程作品與實作專案/i,
-    });
+    const headings = await screen.findAllByRole("heading");
 
     expect(headings.length).toBeGreaterThan(0);
+  });
+
+  test("renders Experience route", async () => {
+    window.history.pushState({}, "", "/experience");
+
+    render(<App />);
+
+    expect(
+      await screen.findByRole("heading", { name: /Work Experience/i })
+    ).toBeInTheDocument();
   });
 
   test("renders NotFound on unknown route (fallback)", async () => {

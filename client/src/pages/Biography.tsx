@@ -16,13 +16,13 @@ type BiographySection = {
 };
 
 const biographyAnchors: PageAnchor[] = [
-  { id: "biography-intro", label: "自我定位" },
-  { id: "background", label: "背景定位" },
-  { id: "legacy-debugging", label: "除錯重構" },
-  { id: "web-performance", label: "Web 化" },
-  { id: "implementation", label: "導入溝通" },
-  { id: "ai-direction", label: "AI 方向" },
-  { id: "biography-contact", label: "聯絡方式" },
+  { id: "biography-intro", label: "?芣?摰?" },
+  { id: "background", label: "?摰?" },
+  { id: "legacy-debugging", label: "?日??" },
+  { id: "web-performance", label: "Web ??" },
+  { id: "implementation", label: "撠皞?" },
+  { id: "ai-direction", label: "AI ?孵?" },
+  { id: "biography-contact", label: "?舐窗?孵?" },
 ];
 
 export default function Biography() {
@@ -40,12 +40,10 @@ export default function Biography() {
       if (cancelled) return;
       if (lastTime === 0) lastTime = currentTime;
 
-      if (currentTime - lastTime >= speed) {
-        if (index < fullText.length) {
-          setDisplayedText(fullText.substring(0, index + 1));
-          index++;
-          lastTime = currentTime;
-        }
+      if (currentTime - lastTime >= speed && index < fullText.length) {
+        setDisplayedText(fullText.substring(0, index + 1));
+        index += 1;
+        lastTime = currentTime;
       }
 
       if (index < fullText.length) rafId = requestAnimationFrame(animate);
@@ -62,86 +60,86 @@ export default function Biography() {
     () => [
       {
         id: "background",
-        title: "背景與定位",
-        subtitle: "從第一線經驗走向系統開發",
+        title: "???雿?",
+        subtitle: "敺洵銝蝺?撽粥?頂蝯梢???",
         paragraphs: [
-          "畢業於建國科技大學自動化工程系，具備紮實的邏輯訓練基礎。隨後曾於傳統工廠體系歷練，這段基層經驗帶來了深刻體會，使我更能理解實際作業人員在操作系統時所面臨的困難與需求，也培養出從使用情境出發思考問題的習慣。",
-          "工作過程中明確發現對軟體開發的熱忱，因此投入職訓局接受為期半年的網頁設計與網路應用訓練，並以第一名成績結業。這段跨領域學習不僅建立起程式開發的基礎，也養成了同時兼顧工程邏輯與使用者體驗的系統設計觀。",
-          "目前擔任 ERP 系統開發工程師，負責系統功能開發、維護與重構。在長時間接觸企業系統的過程中，淬鍊出一套以「穩定、可維護、可落地」為優先的開發思維，並持續在實務中驗證解決問題的能力。",
+          "?Ｘ平?澆遣???憭批飛?芸??極蝔頂嚗?揹撖衣??摩閮毀?箇??敺?澆蝯勗極撱?蝟餅風蝺湛??挾?箏惜蝬?撣嗡?鈭楛?駁???雿踵??渲?圾撖阡?雿平鈭箏?冽?雿頂蝯望???Ｚ?????瘙?銋擗敺蝙?冽?憓?潭?憿?蝧??",
+          "撌乩???銝剜?蝣箇?曉?頠???敹梧??迨??瑁?撅?亙??箸??僑?雯?身閮?蝬脰楝?閮毀嚗蒂隞亦洵銝??蝮曄?璆准挾頝券??飛蝧??遣蝡絲蝔???蝷?銋??????潮“撌亦??摩?蝙?刻?撽?蝟餌絞閮剛?閫??",
+          "?桀??遙 ERP 蝟餌絞?撌亦?撣恬?鞎痊蝟餌絞???雁霅瑁?????瑟??閫訾?璆剔頂蝯梁???銝哨?瘛祇??箔?憟誑?帘摰蝬剛風??賢??芸????潭雁嚗蒂???典祕?葉撽?閫?捱?????",
         ],
         callout: {
-          title: "核心價值定位",
-          body: "「遺留系統邏輯翻譯機 × 高風險需求技術顧問」——面對複雜且具有歷史包袱的系統，我會透過理解底層架構與業務邏輯，找出務實且可落地的解決方案。",
+          title: "?詨??孵澆?雿?",
+          body: "??頂蝯梢?頛舐蕃霅舀? ? 擃◢?芷?瘙?銵“?撠????瑟?甇瑕?２?頂蝯梧??????圾摨惜?嗆??平??頛荔??曉?祕銝?賢?圾瘙箸獢?",
         },
       },
       {
         id: "legacy-debugging",
-        title: "舊系統除錯與重構",
-        subtitle: "從理解系統開始解決問題",
+        title: "?頂蝯梢?航???",
+        subtitle: "敺?閫?頂蝯梢?憪圾瘙箏?憿?",
         paragraphs: [
-          "日常工作中經常需要直接處理第一線客服回報的系統問題。面對缺乏完整文件的舊系統，必須從原始碼與資料庫結構中反向推敲，釐清實際業務邏輯與資料流程。長時間的實戰環境，培養了對系統異常與潛在風險的高度敏銳度，並累積了以下關鍵除錯經驗：",
-          "藉由這些經驗，確立了一項務實的工作原則：先確保系統穩定，再完整理解邏輯，最後才進行重構，絕不在未掌握全貌前急於改寫程式。",
+          "?亙虜撌乩?銝剔?撣賊?閬?亥??洵銝蝺恥???梁?蝟餌絞???撠撩銋??湔?隞嗥??頂蝯梧?敹?敺?憪Ⅳ???澈蝯?銝剖???莎???撖阡?璆剖??摩????蝔???祕?啁憓??寥?鈭?蝟餌絞?啣虜???券◢?芰?擃漲?摨佗?銝衣敞蝛?隞乩???日蝬?嚗?",
+          "???蝬?嚗Ⅱ蝡?銝??撖衣?撌乩???嚗?蝣箔?蝟餌絞蝛拙?嚗?摰?圾?摩嚗?敺??脰???嚗?銝?芣??∪鞎??交?孵神蝔???",
         ],
         bullets: [
           {
-            label: "關鍵除錯經驗（保留完整技術細節）",
+            label: "??日蝬?嚗????湔?銵敦蝭嚗?",
             items: [
-              "精準定位記憶體洩漏（Memory Leak）：簽核模組在長時間運作後經常發生當機；透過追蹤物件生命週期，逐一排查動態建立的元件，最終精準定位並修正未正確釋放的程式段落。修正後，伺服器運作恢復穩定，當機頻率與相關客訴量皆大幅降低。",
-              "梳理 Delphi 遺留系統與防錯設計（Delphi 防重複點擊）：曾處理因使用者快速重複點擊所導致的隱蔽資料異常；逐行梳理既有 Delphi 程式碼後，重新設計事件流程，並導入執行狀態鎖定（避免重複觸發）與完善的例外回復機制。修正後，相關流程異常完全消失，有效降低誤操作帶來的資料錯誤風險。",
-              "採發合約異常之根因分析（EB_SPECI / CRLF 問題）：工程變更轉入採發系統時，發生部分數量未正確轉入、影響後續採購與金額計算；在排除 Delphi 程式邏輯錯誤後，轉向資料層追查。透過字串長度與逐字 ASCII 解析，揪出 EB_SPECI 欄位尾端夾帶隱藏 CR/LF 字元；完成歷史資料清洗，並實作統一字串淨化機制（Trim + Replace CR/LF），從源頭根絕資料污染，確保跨系統拋轉與採購帳務的絕對準確。",
+              "蝎暹?摰?閮擃援瞍?Memory Leak嚗?蝪賣璅∠??券????敺?撣貊?璈???餈質馱?拐辣??望?嚗????撱箇???隞塚??蝯移皞?雿蒂靽格迤?芣迤蝣粹??曄?蝔?畾菔?耨甇??嚗撩????Ｗ儔蝛拙?嚗璈???賊?摰Ｚ迄??憭批?????",
+              "璇喟? Delphi ?箇?蝟餌絞??航身閮?Delphi ?脤?銴???嚗???蝙?刻翰??銴???撠??質??撣賂???璇喟??Ｘ? Delphi 蝔?蝣澆?嚗??啗身閮?隞嗆?蝔?銝血??亙銵???摰??踹???閫貊嚗?摰???憭?敺拇??嗚耨甇??嚗??蝔撣詨??冽?憭梧?????隤斗?雿葆靘?鞈??航炊憸券??",
+              "?∠???啣虜銋????EB_SPECI / CRLF ??嚗?撌亦?霈頧?∠蝟餌絞???潛??典??賊??芣迤蝣箄??乓蔣?踹?蝥鞈潸???閮?嚗? Delphi 蝔??摩?航炊敺?頧?鞈?撅方蕭?乓?摮葡?瑕漲?? ASCII 閫??嚗??EB_SPECI 甈?撠曄垢憭曉葆?梯? CR/LF 摮?嚗??風?脰???瘣?銝血祕雿絞銝摮葡瘛典?璈嚗rim + Replace CR/LF嚗?敺??剜蝯??情??蝣箔?頝函頂蝯望?頧??∟頃撣喳???撠?蝣箝?",
             ],
           },
         ],
       },
       {
         id: "web-performance",
-        title: "系統 Web 化與效能優化",
-        subtitle: "讓系統不只是能用，而是好用",
+        title: "蝟餌絞 Web ????芸?",
+        subtitle: "霈頂蝯曹??芣?賜嚗憟賜",
         paragraphs: [
-          "隨著公司推動系統 Web 化，主導並完成了「預算採發估驗」、「變更追加減」、「高階簽核」以及「人事出勤」共四套核心系統的架構轉移工作。過程中並非單純照搬既有程式碼，而是重新檢視業務流程，釐清必要步驟並進行結構簡化。",
-          "在前端，透過元件化方式將結構複雜且易誤用的預算扣抵流程重新整理，使操作更加直覺；後端則適當切割商業邏輯與畫面事件，降低程式耦合度，提升後續維護性。",
-          "在近期簽核網站的優化過程中，系統面臨明顯效能瓶頸。隨著資料量增加，部分頁面載入速度嚴重遲緩。經分析確認查詢流程中存在典型的 N+1 Query 問題後，重新設計資料存取方式，將逐筆查詢改為集中式批次查詢。",
+          "?刻??砍?典?蝟餌絞 Web ??銝餃?銝血?????蝞?潔摯撽??渲蕭?????偷?詻誑?犖鈭?扎???詨?蝟餌絞?瑽?蝘餃極雿?蝔葉銝阡??桃??扳?Ｘ?蝔?蝣潘???瑼Ｚ?璆剖?瘚?嚗?皜?閬郊撽蒂?脰?蝯?蝪∪???",
+          "?典?蝡荔????辣?撘?蝯?銴?銝?隤斤??蝞?菜?蝔??唳??雿踵?雿?閬綽?敺垢??嗅??脣?璆剝?頛航??恍鈭辣嚗?雿?撘血?摨佗???敺?蝬剛風?扼?",
+          "?刻??偷?貊雯蝡??芸???銝哨?蝟餌絞?Ｚ?＊??園?????憓?嚗???Ｚ??仿漲?湧??脩楨????蝣箄??亥岷瘚?銝剖??典?? N+1 Query ??敺??閮剛?鞈?摮??孵?嚗????亥岷?寧?葉撘甈⊥閰Ｕ?",
         ],
         bullets: [
           {
-            label: "效能優化成果",
+            label: "??芸???",
             items: [
-              "N+1 Query 26 秒 → 1 秒內：頁面回應時間由 26 秒縮短至 1 秒內，帶來更順暢的使用者體驗。",
-              "資料庫負載下降：集中式批次查詢減少 round-trip，降低 DB 壓力並提升整體穩定度。",
+              "N+1 Query 26 蝘???1 蝘嚗??Ｗ???? 26 蝘葬?剛 1 蝘嚗葆靘??蝙?刻?撽?",
+              "鞈?摨怨?頛????葉撘甈⊥閰Ｘ?撠?round-trip嚗?雿?DB 憯?銝行??擃帘摰漲??",
             ],
           },
         ],
       },
       {
         id: "implementation",
-        title: "系統導入與跨部門溝通",
-        subtitle: "讓系統真正落地",
+        title: "蝟餌絞撠?楊?券?皞?",
+        subtitle: "霈頂蝯梁?甇???",
         paragraphs: [
-          "實務專案中，曾參與皇昌營造、德昌營造等上市櫃企業的 ERP 系統導入。這類專案最具挑戰性的往往是歷史資料轉換。面對格式與品質參差不齊的舊資料，需配合實際作業流程進行清理、比對與驗證，確保新舊系統能順利銜接。",
-          "此外，亦曾前往格瑞、富旺、精銳與惠宇建設等現場，面對管理層與第一線使用者進行教育訓練與專案簡報。這些第一線溝通經驗，結合過去在傳統工廠的歷練，使在專案中能精準掌握不同角色的需求差異，並在開發階段預先佈署防錯設計，確保系統在真實環境中能穩定運作。",
+          "撖血?撠?銝哨??曉??????噸????銝?瑹?璆剔? ERP 蝟餌絞撠??撠???瑟??唳抒?敺敺?舀風?脰????撠撘??釭?榆銝???鞈?嚗???撖阡?雿平瘚??脰?皜???撠?撽?嚗Ⅱ靽?頂蝯梯????",
+          "甇文?嚗漲?曉?敺?潛????箝移?唾???撱箄身蝑?湛??Ｗ?蝞∠?撅方?蝚砌?蝺蝙?刻脰??閮毀??獢陛?晞?蝚砌?蝺???撽?蝯???典蝯勗極撱?甇瑞毀嚗蝙?典?獢葉?賜移皞??∩????脩??瘙榆?堆?銝血??挾??雿蔡?脤閮剛?嚗Ⅱ靽頂蝯勗?祕?啣?銝剛蝛拙?????",
         ],
         bullets: [
           {
-            label: "導入與協作重點",
+            label: "撠??雿?暺?",
             items: [
-              "ERP 導入與教育訓練：到場簡報、操作教學、流程對齊與回饋收斂。",
-              "資料轉換：清理、比對、驗證，確保新舊系統無縫銜接。",
+              "ERP 撠???脰?蝺湛??啣蝪∪??雿?摮詻?蝔?朣????嗆???",
+              "鞈?頧?嚗???撠?霅?蝣箔??啗?蝟餌絞?∠葦???",
             ],
           },
         ],
       },
       {
         id: "ai-direction",
-        title: "AI 技術進修與未來方向",
+        title: "AI ?銵脖耨?靘??",
         paragraphs: [
-          "為了將系統開發與前瞻技術結合，目前就讀於彰化師範大學資訊工程研究所碩士班，專注於 AI 物件偵測與影像辨識領域。",
-          "在實作方面，已能熟練運用 Python 與深度學習框架，完成「暴力行為偵測」與「醫療影像分析」等專案，並持續優化模型效能與系統整合能力。",
-          "整體而言，未來也期望將 AI 技術實質整合進企業應用中，打造不僅穩定運作，更具備智慧化能力的高效系統。",
+          "?箔?撠頂蝯梢??潸???銵????桀?撠梯??澆蔑?葦蝭之摮貉?閮極蝔?蝛嗆?蝣拙ㄚ?哨?撠釣??AI ?拐辣?菜葫?蔣?儘霅???",
+          "?典祕雿?ｇ?撌脰?毀? Python ?楛摨血飛蝧??塚?摰?????箏皜研???蔣????撠?嚗蒂???芸?璅∪???頂蝯望???",
+          "?湧???嚗靘???撠?AI ?銵祕鞈芣?脖?璆剜??其葉嚗????帘摰?雿??游??批??賢????頂蝯晞?",
         ],
         bullets: [
           {
-            label: "AI 專案（保留關鍵技術方向）",
-            items: ["AI 暴力行為偵測與醫療影像分析。"],
+            label: "AI 撠?嚗????菜?銵??",
+            items: ["AI ?游?銵?菜葫??蔣????"],
           },
         ],
       },
@@ -155,7 +153,7 @@ export default function Biography() {
     <>
       <SEOHead
         title={`Biography | ${profile.name}`}
-        description="ERP 系統開發工程師｜遺留系統除錯與重構、Web 化與效能優化、ERP 導入與教育訓練、AI 物件偵測與影像辨識"
+        description="ERP 蝟餌絞?撌亦?撣恬??箇?蝟餌絞?日??瑽eb ????芸??RP 撠???脰?蝺氬I ?拐辣?菜葫?蔣?儘霅?"
         canonicalPath="/biography"
       />
 
@@ -163,30 +161,37 @@ export default function Biography() {
         <StarFieldBackground />
 
         <div className="relative z-10">
-          <nav className="sticky top-0 z-50 bg-slate-950/60 backdrop-blur-md border-b border-cyan-500/10">
-            <div className="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
+          <nav className="sticky top-0 z-50 border-b border-cyan-500/10 bg-slate-950/60 backdrop-blur-md">
+            <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
               <Link
                 href="/"
-                className="font-mono text-cyan-400 hover:text-cyan-300 transition-colors"
+                className="font-mono text-cyan-400 transition-colors hover:text-cyan-300"
               >
-                首頁
+                擐?
               </Link>
 
-              <h1 className="font-mono text-sm text-slate-400">自傳</h1>
+              <h1 className="font-mono text-sm text-slate-400">?芸</h1>
 
-              <div className="flex gap-4 items-center">
+              <div className="flex items-center gap-4">
                 <Link
                   href="/resume"
-                  className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
+                  className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
                 >
-                  履歷
+                  撅交風
+                </Link>
+                <span className="text-slate-600">|</span>
+                <Link
+                  href="/experience"
+                  className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
+                >
+                  Experience
                 </Link>
                 <span className="text-slate-600">|</span>
                 <Link
                   href="/projects"
-                  className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
+                  className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
                 >
-                  專案
+                  撠?
                 </Link>
               </div>
             </div>
@@ -195,14 +200,14 @@ export default function Biography() {
           <div className="mx-auto max-w-4xl px-6 pb-10 pt-12 sm:pt-16">
             <header id="biography-intro" className="scroll-mt-24 space-y-6">
               <h2
-                className="text-4xl md:text-5xl font-bold text-cyan-400"
+                className="text-4xl font-bold text-cyan-400 md:text-5xl"
                 style={{ fontFamily: "'Orbitron', monospace" }}
               >
                 {displayedText}
               </h2>
               <p className="text-slate-300 leading-relaxed">
-                我是一名以「穩定、可維護、可落地」為優先的 ERP
-                系統開發工程師，擅長從第一線使用情境出發，將遺留系統的業務邏輯清楚翻譯為可維護、可擴充的解法。
+                ?銝?誑?帘摰蝬剛風??賢??芸???ERP
+                蝟餌絞?撌亦?撣恬??敺洵銝蝺蝙?冽?憓?潘?撠?頂蝯梁?璆剖??摩皜?蝧餉陌?箏蝬剛風??游??圾瘜?
               </p>
             </header>
           </div>
@@ -216,14 +221,14 @@ export default function Biography() {
                   <section
                     id={section.id}
                     key={section.title}
-                    className="scroll-mt-24 bg-slate-900/20 border border-slate-700/40 rounded-2xl p-6 sm:p-8 space-y-6"
+                    className="scroll-mt-24 space-y-6 rounded-2xl border border-slate-700/40 bg-slate-900/20 p-6 sm:p-8"
                   >
                     <div className="space-y-2">
                       <h3 className="text-2xl font-bold text-cyan-300">
                         {section.title}
                       </h3>
                       {section.subtitle ? (
-                        <p className="text-slate-400 text-sm">
+                        <p className="text-sm text-slate-400">
                           {section.subtitle}
                         </p>
                       ) : null}
@@ -238,12 +243,12 @@ export default function Biography() {
                     {section.bullets?.map(group => (
                       <div
                         key={group.label}
-                        className="bg-slate-950/40 border border-slate-700/40 rounded-xl p-5 space-y-3"
+                        className="space-y-3 rounded-xl border border-slate-700/40 bg-slate-950/40 p-5"
                       >
-                        <p className="text-slate-200 font-medium">
+                        <p className="font-medium text-slate-200">
                           {group.label}
                         </p>
-                        <ul className="list-disc pl-5 space-y-2 text-slate-300">
+                        <ul className="list-disc space-y-2 pl-5 text-slate-300">
                           {group.items.map(item => (
                             <li key={item}>{item}</li>
                           ))}
@@ -252,11 +257,11 @@ export default function Biography() {
                     ))}
 
                     {section.callout ? (
-                      <div className="bg-cyan-500/10 border border-cyan-500/25 rounded-xl p-5 space-y-2">
-                        <p className="text-cyan-200 font-medium">
+                      <div className="space-y-2 rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-5">
+                        <p className="font-medium text-cyan-200">
                           {section.callout.title}
                         </p>
-                        <p className="text-slate-200 leading-relaxed">
+                        <p className="leading-relaxed text-slate-200">
                           {section.callout.body}
                         </p>
                       </div>
@@ -273,13 +278,13 @@ export default function Biography() {
 
                 <div className="flex flex-wrap gap-3">
                   <a
-                    className="px-4 py-2 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-200 hover:bg-cyan-500/30 transition-colors"
+                    className="rounded-lg border border-cyan-500/40 bg-cyan-500/20 px-4 py-2 text-cyan-200 transition-colors hover:bg-cyan-500/30"
                     href={`mailto:${profile.contact.email}`}
                   >
                     Email
                   </a>
                   <a
-                    className="px-4 py-2 rounded-lg bg-slate-800/40 border border-slate-700/40 text-slate-200 hover:bg-slate-800/60 transition-colors"
+                    className="rounded-lg border border-slate-700/40 bg-slate-800/40 px-4 py-2 text-slate-200 transition-colors hover:bg-slate-800/60"
                     href={profile.contact.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -287,7 +292,7 @@ export default function Biography() {
                     LinkedIn
                   </a>
                   <a
-                    className="px-4 py-2 rounded-lg bg-slate-800/40 border border-slate-700/40 text-slate-200 hover:bg-slate-800/60 transition-colors"
+                    className="rounded-lg border border-slate-700/40 bg-slate-800/40 px-4 py-2 text-slate-200 transition-colors hover:bg-slate-800/60"
                     href={profile.contact.github}
                     target="_blank"
                     rel="noopener noreferrer"

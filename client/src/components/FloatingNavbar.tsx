@@ -3,6 +3,7 @@ import { useState } from "react";
 
 export default function FloatingNavbar() {
   const [open, setOpen] = useState(false);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     setOpen(false);
@@ -15,28 +16,35 @@ export default function FloatingNavbar() {
         onClick={() => onClick?.()}
         className="font-mono text-base text-cyan-400 transition-colors hover:text-cyan-300"
       >
-        首頁
-      </Link>
-      <Link
-        href="/biography"
-        onClick={() => onClick?.()}
-        className="font-mono text-base text-slate-200 transition-colors hover:text-cyan-400"
-      >
-        自傳
+        擐?
       </Link>
       <Link
         href="/resume"
         onClick={() => onClick?.()}
         className="font-mono text-base text-slate-200 transition-colors hover:text-cyan-400"
       >
-        履歷
+        撅交風
+      </Link>
+      <Link
+        href="/experience"
+        onClick={() => onClick?.()}
+        className="font-mono text-base text-slate-200 transition-colors hover:text-cyan-400"
+      >
+        Experience
       </Link>
       <Link
         href="/projects"
         onClick={() => onClick?.()}
         className="font-mono text-base text-slate-200 transition-colors hover:text-cyan-400"
       >
-        專案
+        撠?
+      </Link>
+      <Link
+        href="/biography"
+        onClick={() => onClick?.()}
+        className="font-mono text-base text-slate-200 transition-colors hover:text-cyan-400"
+      >
+        ?芸
       </Link>
       <button
         type="button"
@@ -44,9 +52,9 @@ export default function FloatingNavbar() {
           scrollToTop();
           onClick?.();
         }}
-        className="font-mono text-base text-cyan-200 text-left"
+        className="text-left font-mono text-base text-cyan-200"
       >
-        回到頂部
+        ??
       </button>
     </div>
   );
@@ -58,53 +66,52 @@ export default function FloatingNavbar() {
           href="/"
           className="font-mono text-cyan-400 transition-colors hover:text-cyan-300"
         >
-          首頁
+          擐?
         </Link>
 
-        {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-4">
-          <Link
-            href="/biography"
-            className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
-          >
-            自傳
-          </Link>
-
-          <span className="text-slate-600">|</span>
-
+        <div className="hidden items-center gap-4 md:flex">
           <Link
             href="/resume"
             className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
           >
-            履歷
+            撅交風
           </Link>
-
           <span className="text-slate-600">|</span>
-
+          <Link
+            href="/experience"
+            className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
+          >
+            Experience
+          </Link>
+          <span className="text-slate-600">|</span>
           <Link
             href="/projects"
             className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
           >
-            專案
+            撠?
           </Link>
-
           <span className="text-slate-600">|</span>
-
+          <Link
+            href="/biography"
+            className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
+          >
+            ?芸
+          </Link>
+          <span className="text-slate-600">|</span>
           <button
             type="button"
             onClick={scrollToTop}
             className="font-mono text-xs text-cyan-400 transition-colors hover:text-cyan-300"
           >
-            回到頂部
+            ??
           </button>
         </div>
 
-        {/* Mobile hamburger */}
         <div className="md:hidden">
           <button
-            aria-label={open ? "關閉選單" : "開啟選單"}
+            aria-label={open ? "???詨" : "???詨"}
             aria-expanded={open}
-            onClick={() => setOpen(v => !v)}
+            onClick={() => setOpen(value => !value)}
             className="rounded-md p-2 text-slate-200 hover:bg-slate-800/40"
           >
             <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none">
@@ -120,9 +127,8 @@ export default function FloatingNavbar() {
         </div>
       </div>
 
-      {/* Mobile panel */}
       {open && (
-        <div className="md:hidden border-t border-slate-800/40 bg-slate-950/95">
+        <div className="border-t border-slate-800/40 bg-slate-950/95 md:hidden">
           <NavLinks onClick={() => setOpen(false)} />
         </div>
       )}
