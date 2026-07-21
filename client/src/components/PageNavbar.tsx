@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { Link } from "wouter";
 
-type PageKey = "home" | "biography" | "resume" | "experience" | "projects";
+type PageKey =
+  | "home"
+  | "resume"
+  | "experience"
+  | "projects"
+  | "biography";
 
 interface PageNavbarProps {
   currentPage: PageKey;

@@ -1,22 +1,26 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "wouter";
 import SEOHead from "@/components/SEOHead";
+import { Link } from "wouter";
+import { profile } from "@/data/profile";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import StarFieldBackground from "@/components/StarFieldBackground";
 import PageAnchorNav, { type PageAnchor } from "@/components/PageAnchorNav";
-import { profile } from "@/data/profile";
 
 type BiographySection = {
   id: string;
   title: string;
   subtitle?: string;
   paragraphs: string[];
+  bullets?: { label: string; items: string[] }[];
+  callout?: { title: string; body: string };
 };
 
 const biographyAnchors: PageAnchor[] = [
   { id: "biography-intro", label: "自我定位" },
   { id: "background", label: "背景定位" },
   { id: "legacy-debugging", label: "除錯重構" },
+  { id: "web-performance", label: "Web 化" },
+  { id: "implementation", label: "導入溝通" },
   { id: "ai-direction", label: "AI 方向" },
   { id: "biography-contact", label: "聯絡方式" },
 ];
@@ -27,15 +31,31 @@ export default function Biography() {
 
   useEffect(() => {
     let index = 0;
-    const timer = window.setInterval(() => {
-      index += 1;
-      setDisplayedText(fullText.slice(0, index));
-      if (index >= fullText.length) {
-        window.clearInterval(timer);
-      }
-    }, 60);
+    let lastTime = 0;
+    const speed = 60;
+    let rafId: number | null = null;
+    let cancelled = false;
 
-    return () => window.clearInterval(timer);
+    const animate = (currentTime: number) => {
+      if (cancelled) return;
+      if (lastTime === 0) lastTime = currentTime;
+
+      if (currentTime - lastTime >= speed) {
+        if (index < fullText.length) {
+          setDisplayedText(fullText.substring(0, index + 1));
+          index++;
+          lastTime = currentTime;
+        }
+      }
+
+      if (index < fullText.length) rafId = requestAnimationFrame(animate);
+    };
+
+    rafId = requestAnimationFrame(animate);
+    return () => {
+      cancelled = true;
+      if (rafId != null) cancelAnimationFrame(rafId);
+    };
   }, [fullText]);
 
   const sections = useMemo<BiographySection[]>(
@@ -43,28 +63,86 @@ export default function Biography() {
       {
         id: "background",
         title: "背景與定位",
-        subtitle: "從現場理解走向系統開發",
+        subtitle: "從第一線經驗走向系統開發",
         paragraphs: [
-          "我從產品與視覺設計一路走到 ERP 系統開發，這段跨領域經歷讓我不只關注程式是否能跑，也會在意它是否真的能被使用者理解、維護與持續演進。",
-          "現階段的核心定位，是把複雜的舊系統邏輯翻譯成穩定、可交付的 Web 化方案，並在實作中兼顧資料流、流程風險與真實操作情境。",
+          "畢業於建國科技大學自動化工程系，具備紮實的邏輯訓練基礎。隨後曾於傳統工廠體系歷練，這段基層經驗帶來了深刻體會，使我更能理解實際作業人員在操作系統時所面臨的困難與需求，也培養出從使用情境出發思考問題的習慣。",
+          "工作過程中明確發現對軟體開發的熱忱，因此投入職訓局接受為期半年的網頁設計與網路應用訓練，並以第一名成績結業。這段跨領域學習不僅建立起程式開發的基礎，也養成了同時兼顧工程邏輯與使用者體驗的系統設計觀。",
+          "目前擔任 ERP 系統開發工程師，負責系統功能開發、維護與重構。在長時間接觸企業系統的過程中，淬鍊出一套以「穩定、可維護、可落地」為優先的開發思維，並持續在實務中驗證解決問題的能力。",
         ],
+        callout: {
+          title: "核心價值定位",
+          body: "「遺留系統邏輯翻譯機 × 高風險需求技術顧問」——面對複雜且具有歷史包袱的系統，我會透過理解底層架構與業務邏輯，找出務實且可落地的解決方案。",
+        },
       },
       {
         id: "legacy-debugging",
         title: "舊系統除錯與重構",
-        subtitle: "在不完整文件下找出根因",
+        subtitle: "從理解系統開始解決問題",
         paragraphs: [
-          "實務工作中經常需要直接面對缺乏文件的 Delphi / ERP 系統，從原始碼、資料庫與使用者回報中反推實際業務流程。",
-          "我會先確保系統穩定，再逐步理解流程與資料邊界，最後才進行重構。這樣的節奏幫助我處理過記憶體洩漏、重複觸發、資料轉入異常與查詢效能瓶頸等高風險問題。",
+          "日常工作中經常需要直接處理第一線客服回報的系統問題。面對缺乏完整文件的舊系統，必須從原始碼與資料庫結構中反向推敲，釐清實際業務邏輯與資料流程。長時間的實戰環境，培養了對系統異常與潛在風險的高度敏銳度，並累積了以下關鍵除錯經驗：",
+          "藉由這些經驗，確立了一項務實的工作原則：先確保系統穩定，再完整理解邏輯，最後才進行重構，絕不在未掌握全貌前急於改寫程式。",
+        ],
+        bullets: [
+          {
+            label: "關鍵除錯經驗（保留完整技術細節）",
+            items: [
+              "精準定位記憶體洩漏（Memory Leak）：簽核模組在長時間運作後經常發生當機；透過追蹤物件生命週期，逐一排查動態建立的元件，最終精準定位並修正未正確釋放的程式段落。修正後，伺服器運作恢復穩定，當機頻率與相關客訴量皆大幅降低。",
+              "梳理 Delphi 遺留系統與防錯設計（Delphi 防重複點擊）：曾處理因使用者快速重複點擊所導致的隱蔽資料異常；逐行梳理既有 Delphi 程式碼後，重新設計事件流程，並導入執行狀態鎖定（避免重複觸發）與完善的例外回復機制。修正後，相關流程異常完全消失，有效降低誤操作帶來的資料錯誤風險。",
+              "採發合約異常之根因分析（EB_SPECI / CRLF 問題）：工程變更轉入採發系統時，發生部分數量未正確轉入、影響後續採購與金額計算；在排除 Delphi 程式邏輯錯誤後，轉向資料層追查。透過字串長度與逐字 ASCII 解析，揪出 EB_SPECI 欄位尾端夾帶隱藏 CR/LF 字元；完成歷史資料清洗，並實作統一字串淨化機制（Trim + Replace CR/LF），從源頭根絕資料污染，確保跨系統拋轉與採購帳務的絕對準確。",
+            ],
+          },
+        ],
+      },
+      {
+        id: "web-performance",
+        title: "系統 Web 化與效能優化",
+        subtitle: "讓系統不只是能用，而是好用",
+        paragraphs: [
+          "隨著公司推動系統 Web 化，主導並完成了「預算採發估驗」、「變更追加減」、「高階簽核」以及「人事出勤」共四套核心系統的架構轉移工作。過程中並非單純照搬既有程式碼，而是重新檢視業務流程，釐清必要步驟並進行結構簡化。",
+          "在前端，透過元件化方式將結構複雜且易誤用的預算扣抵流程重新整理，使操作更加直覺；後端則適當切割商業邏輯與畫面事件，降低程式耦合度，提升後續維護性。",
+          "在近期簽核網站的優化過程中，系統面臨明顯效能瓶頸。隨著資料量增加，部分頁面載入速度嚴重遲緩。經分析確認查詢流程中存在典型的 N+1 Query 問題後，重新設計資料存取方式，將逐筆查詢改為集中式批次查詢。",
+        ],
+        bullets: [
+          {
+            label: "效能優化成果",
+            items: [
+              "N+1 Query 26 秒 → 1 秒內：頁面回應時間由 26 秒縮短至 1 秒內，帶來更順暢的使用者體驗。",
+              "資料庫負載下降：集中式批次查詢減少 round-trip，降低 DB 壓力並提升整體穩定度。",
+            ],
+          },
+        ],
+      },
+      {
+        id: "implementation",
+        title: "系統導入與跨部門溝通",
+        subtitle: "讓系統真正落地",
+        paragraphs: [
+          "實務專案中，曾參與皇昌營造、德昌營造等上市櫃企業的 ERP 系統導入。這類專案最具挑戰性的往往是歷史資料轉換。面對格式與品質參差不齊的舊資料，需配合實際作業流程進行清理、比對與驗證，確保新舊系統能順利銜接。",
+          "此外，亦曾前往格瑞、富旺、精銳與惠宇建設等現場，面對管理層與第一線使用者進行教育訓練與專案簡報。這些第一線溝通經驗，結合過去在傳統工廠的歷練，使在專案中能精準掌握不同角色的需求差異，並在開發階段預先佈署防錯設計，確保系統在真實環境中能穩定運作。",
+        ],
+        bullets: [
+          {
+            label: "導入與協作重點",
+            items: [
+              "ERP 導入與教育訓練：到場簡報、操作教學、流程對齊與回饋收斂。",
+              "資料轉換：清理、比對、驗證，確保新舊系統無縫銜接。",
+            ],
+          },
         ],
       },
       {
         id: "ai-direction",
-        title: "AI 進修方向",
-        subtitle: "把研究延伸回企業系統",
+        title: "AI 技術進修與未來方向",
         paragraphs: [
-          "目前持續進修 AI 物件偵測與影像辨識相關能力，希望把這些技術逐步帶回企業應用場景中。",
-          "我關注的不是為了展示而加上 AI，而是讓 AI 真正補足舊系統難以自動化、難以擴充或難以分析的部分。",
+          "為了將系統開發與前瞻技術結合，目前就讀於彰化師範大學資訊工程研究所碩士班，專注於 AI 物件偵測與影像辨識領域。",
+          "在實作方面，已能熟練運用 Python 與深度學習框架，完成「暴力行為偵測」與「醫療影像分析」等專案，並持續優化模型效能與系統整合能力。",
+          "整體而言，未來也期望將 AI 技術實質整合進企業應用中，打造不僅穩定運作，更具備智慧化能力的高效系統。",
+        ],
+        bullets: [
+          {
+            label: "AI 專案（保留關鍵技術方向）",
+            items: ["AI 暴力行為偵測與醫療影像分析。"],
+          },
         ],
       },
     ],
@@ -77,7 +155,7 @@ export default function Biography() {
     <>
       <SEOHead
         title={`Biography | ${profile.name}`}
-        description="背景與定位、舊系統除錯與重構、AI 進修方向。"
+        description="ERP 系統開發工程師｜遺留系統除錯與重構、Web 化與效能優化、ERP 導入與教育訓練、AI 物件偵測與影像辨識"
         canonicalPath="/biography"
       />
 
@@ -85,35 +163,28 @@ export default function Biography() {
         <StarFieldBackground />
 
         <div className="relative z-10">
-          <nav className="sticky top-0 z-50 border-b border-cyan-500/10 bg-slate-950/60 backdrop-blur-md">
-            <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
+          <nav className="sticky top-0 z-50 bg-slate-950/60 backdrop-blur-md border-b border-cyan-500/10">
+            <div className="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
               <Link
                 href="/"
-                className="font-mono text-cyan-400 transition-colors hover:text-cyan-300"
+                className="font-mono text-cyan-400 hover:text-cyan-300 transition-colors"
               >
                 首頁
               </Link>
 
-              <p className="font-mono text-sm text-slate-400">自傳</p>
+              <h1 className="font-mono text-sm text-slate-400">自傳</h1>
 
-              <div className="flex items-center gap-4">
+              <div className="flex gap-4 items-center">
                 <Link
                   href="/resume"
-                  className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
+                  className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
                 >
                   履歷
                 </Link>
                 <span className="text-slate-600">|</span>
                 <Link
-                  href="/experience"
-                  className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
-                >
-                  工作經驗
-                </Link>
-                <span className="text-slate-600">|</span>
-                <Link
                   href="/projects"
-                  className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
+                  className="font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors"
                 >
                   專案
                 </Link>
@@ -123,14 +194,15 @@ export default function Biography() {
 
           <div className="mx-auto max-w-4xl px-6 pb-10 pt-12 sm:pt-16">
             <header id="biography-intro" className="scroll-mt-24 space-y-6">
-              <h1
-                className="text-4xl font-bold text-cyan-400 md:text-5xl"
+              <h2
+                className="text-4xl md:text-5xl font-bold text-cyan-400"
                 style={{ fontFamily: "'Orbitron', monospace" }}
               >
                 {displayedText}
-              </h1>
-              <p className="leading-relaxed text-slate-300">
-                我把跨領域經歷帶進工程工作裡，將「理解現場、整理邏輯、穩定交付」作為自己的核心方法。
+              </h2>
+              <p className="text-slate-300 leading-relaxed">
+                我是一名以「穩定、可維護、可落地」為優先的 ERP
+                系統開發工程師，擅長從第一線使用情境出發，將遺留系統的業務邏輯清楚翻譯為可維護、可擴充的解法。
               </p>
             </header>
           </div>
@@ -138,43 +210,76 @@ export default function Biography() {
           <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-8 px-6 pb-16 xl:grid-cols-[180px_minmax(0,1fr)]">
             <PageAnchorNav anchors={biographyAnchors} />
 
-            <main className="min-w-0 space-y-10 xl:max-w-4xl">
-              {sections.map(section => (
-                <section
-                  id={section.id}
-                  key={section.id}
-                  className="scroll-mt-24 space-y-6 rounded-2xl border border-slate-700/40 bg-slate-900/20 p-6 sm:p-8"
-                >
-                  <div className="space-y-2">
-                    <h2 className="text-2xl font-bold text-cyan-300">
-                      {section.title}
-                    </h2>
-                    {section.subtitle ? (
-                      <p className="text-sm text-slate-400">
-                        {section.subtitle}
-                      </p>
-                    ) : null}
-                  </div>
+            <main className="min-w-0 space-y-10 sm:space-y-12 xl:max-w-4xl">
+              <div className="space-y-10 sm:space-y-12">
+                {sections.map(section => (
+                  <section
+                    id={section.id}
+                    key={section.title}
+                    className="scroll-mt-24 bg-slate-900/20 border border-slate-700/40 rounded-2xl p-6 sm:p-8 space-y-6"
+                  >
+                    <div className="space-y-2">
+                      <h3 className="text-2xl font-bold text-cyan-300">
+                        {section.title}
+                      </h3>
+                      {section.subtitle ? (
+                        <p className="text-slate-400 text-sm">
+                          {section.subtitle}
+                        </p>
+                      ) : null}
+                    </div>
 
-                  <div className="space-y-4 leading-relaxed text-slate-300">
-                    {section.paragraphs.map(paragraph => (
-                      <p key={paragraph}>{paragraph}</p>
+                    <div className="space-y-4 text-slate-300 leading-relaxed">
+                      {section.paragraphs.map(paragraph => (
+                        <p key={paragraph}>{paragraph}</p>
+                      ))}
+                    </div>
+
+                    {section.bullets?.map(group => (
+                      <div
+                        key={group.label}
+                        className="bg-slate-950/40 border border-slate-700/40 rounded-xl p-5 space-y-3"
+                      >
+                        <p className="text-slate-200 font-medium">
+                          {group.label}
+                        </p>
+                        <ul className="list-disc pl-5 space-y-2 text-slate-300">
+                          {group.items.map(item => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
                     ))}
-                  </div>
-                </section>
-              ))}
 
-              <section id="biography-contact" className="scroll-mt-24 space-y-4">
-                <h2 className="text-2xl font-bold text-cyan-300">Contact</h2>
+                    {section.callout ? (
+                      <div className="bg-cyan-500/10 border border-cyan-500/25 rounded-xl p-5 space-y-2">
+                        <p className="text-cyan-200 font-medium">
+                          {section.callout.title}
+                        </p>
+                        <p className="text-slate-200 leading-relaxed">
+                          {section.callout.body}
+                        </p>
+                      </div>
+                    ) : null}
+                  </section>
+                ))}
+              </div>
+
+              <section
+                id="biography-contact"
+                className="scroll-mt-24 space-y-4"
+              >
+                <h3 className="text-2xl font-bold text-cyan-300">Contact</h3>
+
                 <div className="flex flex-wrap gap-3">
                   <a
-                    className="rounded-lg border border-cyan-500/40 bg-cyan-500/20 px-4 py-2 text-cyan-200 transition-colors hover:bg-cyan-500/30"
+                    className="px-4 py-2 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-200 hover:bg-cyan-500/30 transition-colors"
                     href={`mailto:${profile.contact.email}`}
                   >
                     Email
                   </a>
                   <a
-                    className="rounded-lg border border-slate-700/40 bg-slate-800/40 px-4 py-2 text-slate-200 transition-colors hover:bg-slate-800/60"
+                    className="px-4 py-2 rounded-lg bg-slate-800/40 border border-slate-700/40 text-slate-200 hover:bg-slate-800/60 transition-colors"
                     href={profile.contact.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -182,7 +287,7 @@ export default function Biography() {
                     LinkedIn
                   </a>
                   <a
-                    className="rounded-lg border border-slate-700/40 bg-slate-800/40 px-4 py-2 text-slate-200 transition-colors hover:bg-slate-800/60"
+                    className="px-4 py-2 rounded-lg bg-slate-800/40 border border-slate-700/40 text-slate-200 hover:bg-slate-800/60 transition-colors"
                     href={profile.contact.github}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -191,6 +296,8 @@ export default function Biography() {
                   </a>
                 </div>
               </section>
+
+              <div className="h-8" />
             </main>
           </div>
 

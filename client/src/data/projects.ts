@@ -264,10 +264,7 @@ export const projects: Project[] = [
         src: "/images/projects/pdf-engine/annotation.png",
         alt: "PDF 標註工具列與註記畫面",
       },
-      {
-        src: "/images/projects/pdf-engine/export.png",
-        alt: "PDF 匯出與下載畫面",
-      },
+    
     ],
     details: {
       problem:
@@ -289,64 +286,64 @@ export const projects: Project[] = [
       githubUrl: "https://github.com/a1354013-alt/pdf-annotation-engine",
     },
   },
- {
-  id: "smart-organizer",
-  name: "智慧檔案整理系統",
-  tagline:
-    "以 Python 與 Streamlit 建立的本機智慧檔案整理工具，支援檔案分類、重複偵測、閒置分析、ClamAV 木馬掃描與隔離還原流程。",
-  role: "Python 應用工程師",
-  category: "enterprise",
-  tier: "gold",
-  tierLabel: "金牌作品",
-  technologies: [
-    "Python",
-    "Streamlit",
-    "SQLite",
-    "ClamAV",
-    "Pytest",
-    "MyPy",
-    "Ruff",
-    "GitHub Actions",
-  ],
-  metrics:
-    "支援安全預覽、檔案分類、重複檔案偵測、閒置檔案分析、ClamAV 掃描、隔離還原與 Release 驗證流程，並具備 300+ 自動化測試與 CI 檢查",
-  featured: true,
-  images: [
-    {
-      src: "/images/projects/smart-organizer/dashboard.png",
-      alt: "智慧檔案整理系統控制面板",
-    },
-    {
-      src: "/images/projects/smart-organizer/rules.png",
-      alt: "智慧檔案整理系統候選檔案與安全檢查畫面",
-    },
-  ],
-  details: {
-    problem:
-      "長期累積的下載檔、文件、圖片與影片缺乏有效整理機制，容易造成儲存空間浪費、重複檔案堆積與重要檔案誤刪風險。",
-    solution:
-      "建立本機檔案整理系統，自動掃描指定資料夾，產生候選檔案清單與整理建議，並在實際移動前提供安全預覽、風險標記、ClamAV 木馬掃描、隔離區與還原機制，降低誤操作風險。",
-    contribution:
-      "負責核心掃描流程、分類規則、重複偵測、閒置分析、SQLite 儲存層、ClamAV 掃描整合、Streamlit 操作介面、測試流程、Release 打包驗證與 GitHub Actions CI 設定。",
-    highlights: [
-      "以 Hash 偵測重複檔案，並提供重複原因與候選檔案判斷",
-      "支援依副檔名、檔案大小、修改時間與規則進行分類與整理建議",
-      "整合 ClamAV 進行本機木馬掃描，並針對掃描器不可用、資料庫缺失或逾時狀態採取保守風險標記",
-      "採用安全預覽與確認流程，避免直接刪除或移動重要檔案",
-      "提供隔離區與還原機制，降低整理過程中的不可逆風險",
-      "使用 SQLite 保存檔案紀錄、操作結果與搜尋資料",
-      "採用 core / processor / storage / services / UI 分層架構，提升可維護性",
-      "導入 Pytest、MyPy、Ruff、GitHub Actions 與 Release allowlist 驗證流程",
+  {
+    id: "smart-organizer",
+    name: "智慧檔案整理系統",
+    tagline:
+      "以 Python 與 Streamlit 建立的本機智慧檔案整理工具，支援檔案分類、重複偵測、閒置分析、ClamAV 木馬掃描與隔離還原流程。",
+    role: "Python 應用工程師",
+    category: "enterprise",
+    tier: "gold",
+    tierLabel: "金牌作品",
+    technologies: [
+      "Python",
+      "Streamlit",
+      "SQLite",
+      "ClamAV",
+      "Pytest",
+      "MyPy",
+      "Ruff",
+      "GitHub Actions",
     ],
-    result:
-      "讓使用者能以更安全、可追蹤的方式整理大量本機檔案，降低手動分類成本、重複檔案堆積與誤刪風險。",
-    challenges:
-      "需要在自動化整理與資料安全之間取得平衡，尤其是避免路徑穿越、誤移檔案、重複檔案誤判、掃描器不可用與 Windows 中文環境編碼問題。",
-    nextSteps:
-      "規劃強化大型資料夾掃描效能、背景排程、更多檔案風險規則、UI 模組化與更完整的操作紀錄分析。",
-    githubUrl: "https://github.com/a1354013-alt/smart_organizer",
+    metrics:
+      "支援安全預覽、檔案分類、重複檔案偵測、閒置檔案分析、ClamAV 掃描、隔離還原與 Release 驗證流程，並具備 300+ 自動化測試與 CI 檢查",
+    featured: true,
+    images: [
+      {
+        src: "/images/projects/smart-organizer/dashboard.png",
+        alt: "智慧檔案整理系統控制面板",
+      },
+      {
+        src: "/images/projects/smart-organizer/rules.png",
+        alt: "檔案掃描畫面",
+      },
+    ],
+    details: {
+      problem:
+        "長期累積的下載檔、文件、圖片與影片缺乏有效整理機制，容易造成儲存空間浪費、重複檔案堆積與重要檔案誤刪風險。",
+      solution:
+        "建立本機檔案整理系統，自動掃描指定資料夾，產生候選檔案清單與整理建議，並在實際移動前提供安全預覽、風險標記、ClamAV 木馬掃描、隔離區與還原機制，降低誤操作風險。",
+      contribution:
+        "負責核心掃描流程、分類規則、重複偵測、閒置分析、SQLite 儲存層、ClamAV 掃描整合、Streamlit 操作介面、測試流程、Release 打包驗證與 GitHub Actions CI 設定。",
+      highlights: [
+        "以 Hash 偵測重複檔案，並提供重複原因與候選檔案判斷",
+        "支援依副檔名、檔案大小、修改時間與規則進行分類與整理建議",
+        "整合 ClamAV 進行本機木馬掃描，並針對掃描器不可用、資料庫缺失或逾時狀態採取保守風險標記",
+        "採用安全預覽與確認流程，避免直接刪除或移動重要檔案",
+        "提供隔離區與還原機制，降低整理過程中的不可逆風險",
+        "使用 SQLite 保存檔案紀錄、操作結果與搜尋資料",
+        "採用 core / processor / storage / services / UI 分層架構，提升可維護性",
+        "導入 Pytest、MyPy、Ruff、GitHub Actions 與 Release allowlist 驗證流程",
+      ],
+      result:
+        "讓使用者能以更安全、可追蹤的方式整理大量本機檔案，降低手動分類成本、重複檔案堆積與誤刪風險。",
+      challenges:
+        "需要在自動化整理與資料安全之間取得平衡，尤其是避免路徑穿越、誤移檔案、重複檔案誤判、掃描器不可用與 Windows 中文環境編碼問題。",
+      nextSteps:
+        "規劃強化大型資料夾掃描效能、背景排程、更多檔案風險規則、UI 模組化與更完整的操作紀錄分析。",
+      githubUrl: "https://github.com/a1354013-alt/smart_organizer",
+    },
   },
-},
   {
     id: "knowledge-workspace",
     name: "Knowledge Workspace — 智慧文件與知識整理平台",
@@ -356,7 +353,19 @@ export const projects: Project[] = [
     category: "enterprise",
     tier: "silver",
     tierLabel: "銀牌作品",
-    technologies: [ "FastAPI", "Vue 3", "TypeScript", "SQLite", "JWT", "ChromaDB", "OpenAPI", "Pytest", "Vitest", "Playwright", "GitHub Actions", ],
+    technologies: [
+      "FastAPI",
+      "Vue 3",
+      "TypeScript",
+      "SQLite",
+      "JWT",
+      "ChromaDB",
+      "OpenAPI",
+      "Pytest",
+      "Vitest",
+      "Playwright",
+      "GitHub Actions",
+    ],
     metrics:
       "建立完整文件與知識管理流程，整合 AI Prompt、Vector Database、CI 與發佈驗證",
     featured: false,
@@ -385,7 +394,18 @@ export const projects: Project[] = [
         "設計統一 Workspace 架構，整合文件管理、知識庫整理、Logbook 操作紀錄與 AI Prompt 工作流程。",
       contribution:
         "負責系統架構設計、API 資料模型、文件與圖片管理、AI Prompt 流程、前後端整合與 CI 建置流程。",
-      highlights: [ "建立 Knowledge / Logbook / Prompt 多模組 Workspace 架構", "整合文件與圖片上傳管理流程", "導入 JWT Authentication 與角色存取控制", "整合 ChromaDB Vector Database 與 LLM Prompt 流程", "設計分頁列表 API，支援 total / limit / offset / has_more 資料回傳", "強化 Excel 匯出流程，避免只匯出第一頁資料", "建立後端 bulk import 與 transaction 機制，避免匯入半成功狀態", "維護 OpenAPI 與前端 generated types 同步", "建立 lint / typecheck / test / smoke test / release packaging 驗證流程", "修正 repo hygiene、encoding 與 i18n 細節，提升作品集交付品質", ],
+      highlights: [
+        "建立 Knowledge / Logbook / Prompt 多模組 Workspace 架構",
+        "整合文件與圖片上傳管理流程",
+        "導入 JWT Authentication 與角色存取控制",
+        "整合 ChromaDB Vector Database 與 LLM Prompt 流程",
+        "設計分頁列表 API，支援 total / limit / offset / has_more 資料回傳",
+        "強化 Excel 匯出流程，避免只匯出第一頁資料",
+        "建立後端 bulk import 與 transaction 機制，避免匯入半成功狀態",
+        "維護 OpenAPI 與前端 generated types 同步",
+        "建立 lint / typecheck / test / smoke test / release packaging 驗證流程",
+        "修正 repo hygiene、encoding 與 i18n 細節，提升作品集交付品質",
+      ],
       result:
         "完成接近實務系統的智慧文件與知識整理平台，可作為團隊知識管理工具原型。",
       challenges:

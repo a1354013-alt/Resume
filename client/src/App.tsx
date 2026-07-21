@@ -13,6 +13,7 @@ const NotFound = lazy(() => import("@/pages/NotFound"));
 
 function getRouterBase(): string {
   const baseUrl = (import.meta.env.BASE_URL || "/").replace(/\/+$/, "");
+  // wouter expects "" for root; otherwise a leading slash base (e.g. "/Resume")
   return baseUrl === "" || baseUrl === "/" ? "" : baseUrl;
 }
 
@@ -50,13 +51,14 @@ function Router() {
         <Route path="/projects" component={ProjectsRoute} />
         <Route path="/biography" component={BiographyRoute} />
         <Route path="/404" component={NotFoundRoute} />
+        {/* Final fallback route */}
         <Route component={NotFoundRoute} />
       </Switch>
     </Suspense>
   );
 }
 
-export default function App() {
+function App() {
   return (
     <ErrorBoundary>
       <WouterRouter base={getRouterBase()}>
@@ -66,3 +68,5 @@ export default function App() {
     </ErrorBoundary>
   );
 }
+
+export default App;

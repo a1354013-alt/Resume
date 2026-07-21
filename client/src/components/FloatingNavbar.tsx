@@ -51,7 +51,7 @@ export default function FloatingNavbar() {
           scrollToTop();
           onClick?.();
         }}
-        className="text-left font-mono text-base text-cyan-200"
+        className="font-mono text-base text-cyan-200 text-left"
       >
         回到頂部
       </button>
@@ -68,35 +68,44 @@ export default function FloatingNavbar() {
           首頁
         </Link>
 
-        <div className="hidden items-center gap-4 md:flex">
+        {/* Desktop links */}
+        <div className="hidden md:flex items-center gap-4">
           <Link
             href="/resume"
             className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
           >
             履歷
           </Link>
+
           <span className="text-slate-600">|</span>
+
           <Link
             href="/experience"
             className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
           >
             工作經驗
           </Link>
+
           <span className="text-slate-600">|</span>
+
           <Link
             href="/projects"
             className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
           >
             專案
           </Link>
+
           <span className="text-slate-600">|</span>
+
           <Link
             href="/biography"
             className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
           >
             自傳
           </Link>
+
           <span className="text-slate-600">|</span>
+
           <button
             type="button"
             onClick={scrollToTop}
@@ -106,6 +115,7 @@ export default function FloatingNavbar() {
           </button>
         </div>
 
+        {/* Mobile hamburger */}
         <div className="md:hidden">
           <button
             aria-label={open ? "關閉選單" : "開啟選單"}
@@ -126,8 +136,9 @@ export default function FloatingNavbar() {
         </div>
       </div>
 
+      {/* Mobile panel */}
       {open && (
-        <div className="border-t border-slate-800/40 bg-slate-950/95 md:hidden">
+        <div className="md:hidden border-t border-slate-800/40 bg-slate-950/95">
           <NavLinks onClick={() => setOpen(false)} />
         </div>
       )}

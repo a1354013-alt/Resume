@@ -182,6 +182,7 @@ export default function ProjectsPage() {
   };
 
   const clearTechFilters = () => setSelectedTechs(new Set());
+
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
@@ -208,7 +209,7 @@ export default function ProjectsPage() {
                 首頁
               </Link>
 
-              <p className="font-mono text-sm text-slate-400">Projects</p>
+              <h1 className="font-mono text-sm text-slate-400">Projects</h1>
 
               <div className="flex items-center gap-4">
                 <Link
@@ -216,13 +217,6 @@ export default function ProjectsPage() {
                   className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
                 >
                   履歷
-                </Link>
-                <span className="text-slate-600">|</span>
-                <Link
-                  href="/experience"
-                  className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
-                >
-                  工作經驗
                 </Link>
                 <span className="text-slate-600">|</span>
                 <Link
@@ -242,12 +236,13 @@ export default function ProjectsPage() {
               <section id="projects-overview" className="mb-10 scroll-mt-24">
                 <p className="mb-3 font-mono text-sm text-cyan-300">精選作品</p>
 
-                <h1 className="mb-4 text-3xl font-bold md:text-4xl">
+                <h2 className="mb-4 text-3xl font-bold md:text-4xl">
                   工程作品與實作專案
-                </h1>
+                </h2>
 
                 <p className="max-w-3xl leading-relaxed text-slate-300">
-                  這裡整理我在企業系統、AI 工具、PDF 工程、資料處理與前後端整合上的實作成果。每個專案都以問題、解法、技術選型與實際成果呈現，強調可維護、可驗證與可交付的工程能力。
+                  這裡整理我在企業系統、AI 工具、PDF
+                  工程、資料處理與前後端整合上的實作成果。每個專案都以問題、解法、技術選型與實際成果呈現，強調可維護、可驗證與可交付的工程能力。
                 </p>
 
                 <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
@@ -367,7 +362,7 @@ export default function ProjectsPage() {
                 aria-label="All projects"
                 className="scroll-mt-24"
               >
-                <h2 className="mb-4 text-xl font-semibold">全部作品</h2>
+                <h3 className="mb-4 text-xl font-semibold">全部作品</h3>
 
                 {filteredProjects.length === 0 ? (
                   <div className="rounded-lg border border-slate-700/40 bg-slate-900/20 p-8 text-center text-slate-300">

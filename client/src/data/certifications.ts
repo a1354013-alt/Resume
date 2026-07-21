@@ -11,7 +11,7 @@ export const certificationGroups: CertificationGroup[] = [
     items: [
       "電腦軟體應用乙級技術士",
       "網頁設計丙級技術士",
-      "iPAS 經濟部 AI 應用規劃師初級",
+      "iPAS 經濟部AI應用規劃師 初級",
       "Gemini Certification for Educators",
     ],
   },
@@ -24,6 +24,7 @@ export const certificationGroups: CertificationGroup[] = [
       "Adobe Certified Associate - Illustrator",
       "Adobe Certified Associate - InDesign",
       "Adobe Certified Associate - Dreamweaver CS6",
+      "TQC+專業設計人才認證－電腦輔助平面製圖",
     ],
   },
   {
