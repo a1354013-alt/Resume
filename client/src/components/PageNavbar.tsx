@@ -1,26 +1,26 @@
 import { useState } from "react";
 import { Link } from "wouter";
 
-type PageKey = "home" | "resume" | "experience" | "projects" | "biography";
+type PageKey = "home" | "biography" | "resume" | "experience" | "projects";
 
 interface PageNavbarProps {
   currentPage: PageKey;
 }
 
 const pageLinks: Array<{ key: PageKey; href: string; label: string }> = [
-  { key: "home", href: "/", label: "擐?" },
-  { key: "resume", href: "/resume", label: "撅交風" },
-  { key: "experience", href: "/experience", label: "Experience" },
-  { key: "projects", href: "/projects", label: "撠?" },
-  { key: "biography", href: "/biography", label: "?芸" },
+  { key: "home", href: "/", label: "首頁" },
+  { key: "resume", href: "/resume", label: "履歷" },
+  { key: "experience", href: "/experience", label: "工作經驗" },
+  { key: "projects", href: "/projects", label: "專案" },
+  { key: "biography", href: "/biography", label: "自傳" },
 ];
 
 const pageTitles: Record<PageKey, string> = {
   home: "Portfolio",
-  resume: "撅交風",
-  experience: "Experience",
+  resume: "履歷",
+  experience: "工作經驗",
   projects: "Projects",
-  biography: "?芸",
+  biography: "自傳",
 };
 
 function getLinkClass(isActive: boolean, size: "sm" | "base") {
@@ -38,6 +38,8 @@ export default function PageNavbar({ currentPage }: PageNavbarProps) {
     page => page.key !== "home" && page.key !== currentPage
   );
 
+  const closeMenu = () => setOpen(false);
+
   return (
     <nav className="sticky top-0 z-50 border-b border-cyan-500/10 bg-slate-950/65 backdrop-blur-md">
       <div className="mx-auto grid max-w-6xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-4 py-4 sm:px-6">
@@ -51,7 +53,7 @@ export default function PageNavbar({ currentPage }: PageNavbarProps) {
                 : "text-cyan-400 hover:text-cyan-300"
             }`}
           >
-            擐?
+            首頁
           </Link>
         </div>
 
@@ -77,7 +79,7 @@ export default function PageNavbar({ currentPage }: PageNavbarProps) {
         <div className="flex justify-end md:hidden">
           <button
             type="button"
-            aria-label={open ? "???詨" : "???詨"}
+            aria-label={open ? "關閉選單" : "開啟選單"}
             aria-expanded={open}
             onClick={() => setOpen(value => !value)}
             className="rounded-md p-2 text-slate-200 transition-colors hover:bg-slate-800/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
@@ -108,7 +110,7 @@ export default function PageNavbar({ currentPage }: PageNavbarProps) {
                 key={page.key}
                 href={page.href}
                 aria-current={page.key === currentPage ? "page" : undefined}
-                onClick={() => setOpen(false)}
+                onClick={closeMenu}
                 className={getLinkClass(page.key === currentPage, "base")}
               >
                 {page.label}

@@ -1,28 +1,24 @@
 import { useEffect, useMemo, useState } from "react";
-import SEOHead from "@/components/SEOHead";
 import { Link } from "wouter";
-import { profile } from "@/data/profile";
+import SEOHead from "@/components/SEOHead";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import StarFieldBackground from "@/components/StarFieldBackground";
 import PageAnchorNav, { type PageAnchor } from "@/components/PageAnchorNav";
+import { profile } from "@/data/profile";
 
 type BiographySection = {
   id: string;
   title: string;
   subtitle?: string;
   paragraphs: string[];
-  bullets?: { label: string; items: string[] }[];
-  callout?: { title: string; body: string };
 };
 
 const biographyAnchors: PageAnchor[] = [
-  { id: "biography-intro", label: "?芣?摰?" },
-  { id: "background", label: "?摰?" },
-  { id: "legacy-debugging", label: "?日??" },
-  { id: "web-performance", label: "Web ??" },
-  { id: "implementation", label: "撠皞?" },
-  { id: "ai-direction", label: "AI ?孵?" },
-  { id: "biography-contact", label: "?舐窗?孵?" },
+  { id: "biography-intro", label: "自我定位" },
+  { id: "background", label: "背景定位" },
+  { id: "legacy-debugging", label: "除錯重構" },
+  { id: "ai-direction", label: "AI 方向" },
+  { id: "biography-contact", label: "聯絡方式" },
 ];
 
 export default function Biography() {
@@ -31,116 +27,44 @@ export default function Biography() {
 
   useEffect(() => {
     let index = 0;
-    let lastTime = 0;
-    const speed = 60;
-    let rafId: number | null = null;
-    let cancelled = false;
-
-    const animate = (currentTime: number) => {
-      if (cancelled) return;
-      if (lastTime === 0) lastTime = currentTime;
-
-      if (currentTime - lastTime >= speed && index < fullText.length) {
-        setDisplayedText(fullText.substring(0, index + 1));
-        index += 1;
-        lastTime = currentTime;
+    const timer = window.setInterval(() => {
+      index += 1;
+      setDisplayedText(fullText.slice(0, index));
+      if (index >= fullText.length) {
+        window.clearInterval(timer);
       }
+    }, 60);
 
-      if (index < fullText.length) rafId = requestAnimationFrame(animate);
-    };
-
-    rafId = requestAnimationFrame(animate);
-    return () => {
-      cancelled = true;
-      if (rafId != null) cancelAnimationFrame(rafId);
-    };
+    return () => window.clearInterval(timer);
   }, [fullText]);
 
   const sections = useMemo<BiographySection[]>(
     () => [
       {
         id: "background",
-        title: "???雿?",
-        subtitle: "敺洵銝蝺?撽粥?頂蝯梢???",
+        title: "背景與定位",
+        subtitle: "從現場理解走向系統開發",
         paragraphs: [
-          "?Ｘ平?澆遣???憭批飛?芸??極蝔頂嚗?揹撖衣??摩閮毀?箇??敺?澆蝯勗極撱?蝟餅風蝺湛??挾?箏惜蝬?撣嗡?鈭楛?駁???雿踵??渲?圾撖阡?雿平鈭箏?冽?雿頂蝯望???Ｚ?????瘙?銋擗敺蝙?冽?憓?潭?憿?蝧??",
-          "撌乩???銝剜?蝣箇?曉?頠???敹梧??迨??瑁?撅?亙??箸??僑?雯?身閮?蝬脰楝?閮毀嚗蒂隞亦洵銝??蝮曄?璆准挾頝券??飛蝧??遣蝡絲蝔???蝷?銋??????潮“撌亦??摩?蝙?刻?撽?蝟餌絞閮剛?閫??",
-          "?桀??遙 ERP 蝟餌絞?撌亦?撣恬?鞎痊蝟餌絞???雁霅瑁?????瑟??閫訾?璆剔頂蝯梁???銝哨?瘛祇??箔?憟誑?帘摰蝬剛風??賢??芸????潭雁嚗蒂???典祕?葉撽?閫?捱?????",
+          "我從產品與視覺設計一路走到 ERP 系統開發，這段跨領域經歷讓我不只關注程式是否能跑，也會在意它是否真的能被使用者理解、維護與持續演進。",
+          "現階段的核心定位，是把複雜的舊系統邏輯翻譯成穩定、可交付的 Web 化方案，並在實作中兼顧資料流、流程風險與真實操作情境。",
         ],
-        callout: {
-          title: "?詨??孵澆?雿?",
-          body: "??頂蝯梢?頛舐蕃霅舀? ? 擃◢?芷?瘙?銵“?撠????瑟?甇瑕?２?頂蝯梧??????圾摨惜?嗆??平??頛荔??曉?祕銝?賢?圾瘙箸獢?",
-        },
       },
       {
         id: "legacy-debugging",
-        title: "?頂蝯梢?航???",
-        subtitle: "敺?閫?頂蝯梢?憪圾瘙箏?憿?",
+        title: "舊系統除錯與重構",
+        subtitle: "在不完整文件下找出根因",
         paragraphs: [
-          "?亙虜撌乩?銝剔?撣賊?閬?亥??洵銝蝺恥???梁?蝟餌絞???撠撩銋??湔?隞嗥??頂蝯梧?敹?敺?憪Ⅳ???澈蝯?銝剖???莎???撖阡?璆剖??摩????蝔???祕?啁憓??寥?鈭?蝟餌絞?啣虜???券◢?芰?擃漲?摨佗?銝衣敞蝛?隞乩???日蝬?嚗?",
-          "???蝬?嚗Ⅱ蝡?銝??撖衣?撌乩???嚗?蝣箔?蝟餌絞蝛拙?嚗?摰?圾?摩嚗?敺??脰???嚗?銝?芣??∪鞎??交?孵神蝔???",
-        ],
-        bullets: [
-          {
-            label: "??日蝬?嚗????湔?銵敦蝭嚗?",
-            items: [
-              "蝎暹?摰?閮擃援瞍?Memory Leak嚗?蝪賣璅∠??券????敺?撣貊?璈???餈質馱?拐辣??望?嚗????撱箇???隞塚??蝯移皞?雿蒂靽格迤?芣迤蝣粹??曄?蝔?畾菔?耨甇??嚗撩????Ｗ儔蝛拙?嚗璈???賊?摰Ｚ迄??憭批?????",
-              "璇喟? Delphi ?箇?蝟餌絞??航身閮?Delphi ?脤?銴???嚗???蝙?刻翰??銴???撠??質??撣賂???璇喟??Ｘ? Delphi 蝔?蝣澆?嚗??啗身閮?隞嗆?蝔?銝血??亙銵???摰??踹???閫貊嚗?摰???憭?敺拇??嗚耨甇??嚗??蝔撣詨??冽?憭梧?????隤斗?雿葆靘?鞈??航炊憸券??",
-              "?∠???啣虜銋????EB_SPECI / CRLF ??嚗?撌亦?霈頧?∠蝟餌絞???潛??典??賊??芣迤蝣箄??乓蔣?踹?蝥鞈潸???閮?嚗? Delphi 蝔??摩?航炊敺?頧?鞈?撅方蕭?乓?摮葡?瑕漲?? ASCII 閫??嚗??EB_SPECI 甈?撠曄垢憭曉葆?梯? CR/LF 摮?嚗??風?脰???瘣?銝血祕雿絞銝摮葡瘛典?璈嚗rim + Replace CR/LF嚗?敺??剜蝯??情??蝣箔?頝函頂蝯望?頧??∟頃撣喳???撠?蝣箝?",
-            ],
-          },
-        ],
-      },
-      {
-        id: "web-performance",
-        title: "蝟餌絞 Web ????芸?",
-        subtitle: "霈頂蝯曹??芣?賜嚗憟賜",
-        paragraphs: [
-          "?刻??砍?典?蝟餌絞 Web ??銝餃?銝血?????蝞?潔摯撽??渲蕭?????偷?詻誑?犖鈭?扎???詨?蝟餌絞?瑽?蝘餃極雿?蝔葉銝阡??桃??扳?Ｘ?蝔?蝣潘???瑼Ｚ?璆剖?瘚?嚗?皜?閬郊撽蒂?脰?蝯?蝪∪???",
-          "?典?蝡荔????辣?撘?蝯?銴?銝?隤斤??蝞?菜?蝔??唳??雿踵?雿?閬綽?敺垢??嗅??脣?璆剝?頛航??恍鈭辣嚗?雿?撘血?摨佗???敺?蝬剛風?扼?",
-          "?刻??偷?貊雯蝡??芸???銝哨?蝟餌絞?Ｚ?＊??園?????憓?嚗???Ｚ??仿漲?湧??脩楨????蝣箄??亥岷瘚?銝剖??典?? N+1 Query ??敺??閮剛?鞈?摮??孵?嚗????亥岷?寧?葉撘甈⊥閰Ｕ?",
-        ],
-        bullets: [
-          {
-            label: "??芸???",
-            items: [
-              "N+1 Query 26 蝘???1 蝘嚗??Ｗ???? 26 蝘葬?剛 1 蝘嚗葆靘??蝙?刻?撽?",
-              "鞈?摨怨?頛????葉撘甈⊥閰Ｘ?撠?round-trip嚗?雿?DB 憯?銝行??擃帘摰漲??",
-            ],
-          },
-        ],
-      },
-      {
-        id: "implementation",
-        title: "蝟餌絞撠?楊?券?皞?",
-        subtitle: "霈頂蝯梁?甇???",
-        paragraphs: [
-          "撖血?撠?銝哨??曉??????噸????銝?瑹?璆剔? ERP 蝟餌絞撠??撠???瑟??唳抒?敺敺?舀風?脰????撠撘??釭?榆銝???鞈?嚗???撖阡?雿平瘚??脰?皜???撠?撽?嚗Ⅱ靽?頂蝯梯????",
-          "甇文?嚗漲?曉?敺?潛????箝移?唾???撱箄身蝑?湛??Ｗ?蝞∠?撅方?蝚砌?蝺蝙?刻脰??閮毀??獢陛?晞?蝚砌?蝺???撽?蝯???典蝯勗極撱?甇瑞毀嚗蝙?典?獢葉?賜移皞??∩????脩??瘙榆?堆?銝血??挾??雿蔡?脤閮剛?嚗Ⅱ靽頂蝯勗?祕?啣?銝剛蝛拙?????",
-        ],
-        bullets: [
-          {
-            label: "撠??雿?暺?",
-            items: [
-              "ERP 撠???脰?蝺湛??啣蝪∪??雿?摮詻?蝔?朣????嗆???",
-              "鞈?頧?嚗???撠?霅?蝣箔??啗?蝟餌絞?∠葦???",
-            ],
-          },
+          "實務工作中經常需要直接面對缺乏文件的 Delphi / ERP 系統，從原始碼、資料庫與使用者回報中反推實際業務流程。",
+          "我會先確保系統穩定，再逐步理解流程與資料邊界，最後才進行重構。這樣的節奏幫助我處理過記憶體洩漏、重複觸發、資料轉入異常與查詢效能瓶頸等高風險問題。",
         ],
       },
       {
         id: "ai-direction",
-        title: "AI ?銵脖耨?靘??",
+        title: "AI 進修方向",
+        subtitle: "把研究延伸回企業系統",
         paragraphs: [
-          "?箔?撠頂蝯梢??潸???銵????桀?撠梯??澆蔑?葦蝭之摮貉?閮極蝔?蝛嗆?蝣拙ㄚ?哨?撠釣??AI ?拐辣?菜葫?蔣?儘霅???",
-          "?典祕雿?ｇ?撌脰?毀? Python ?楛摨血飛蝧??塚?摰?????箏皜研???蔣????撠?嚗蒂???芸?璅∪???頂蝯望???",
-          "?湧???嚗靘???撠?AI ?銵祕鞈芣?脖?璆剜??其葉嚗????帘摰?雿??游??批??賢????頂蝯晞?",
-        ],
-        bullets: [
-          {
-            label: "AI 撠?嚗????菜?銵??",
-            items: ["AI ?游?銵?菜葫??蔣????"],
-          },
+          "目前持續進修 AI 物件偵測與影像辨識相關能力，希望把這些技術逐步帶回企業應用場景中。",
+          "我關注的不是為了展示而加上 AI，而是讓 AI 真正補足舊系統難以自動化、難以擴充或難以分析的部分。",
         ],
       },
     ],
@@ -153,7 +77,7 @@ export default function Biography() {
     <>
       <SEOHead
         title={`Biography | ${profile.name}`}
-        description="ERP 蝟餌絞?撌亦?撣恬??箇?蝟餌絞?日??瑽eb ????芸??RP 撠???脰?蝺氬I ?拐辣?菜葫?蔣?儘霅?"
+        description="背景與定位、舊系統除錯與重構、AI 進修方向。"
         canonicalPath="/biography"
       />
 
@@ -167,31 +91,31 @@ export default function Biography() {
                 href="/"
                 className="font-mono text-cyan-400 transition-colors hover:text-cyan-300"
               >
-                擐?
+                首頁
               </Link>
 
-              <h1 className="font-mono text-sm text-slate-400">?芸</h1>
+              <p className="font-mono text-sm text-slate-400">自傳</p>
 
               <div className="flex items-center gap-4">
                 <Link
                   href="/resume"
                   className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
                 >
-                  撅交風
+                  履歷
                 </Link>
                 <span className="text-slate-600">|</span>
                 <Link
                   href="/experience"
                   className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
                 >
-                  Experience
+                  工作經驗
                 </Link>
                 <span className="text-slate-600">|</span>
                 <Link
                   href="/projects"
                   className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
                 >
-                  撠?
+                  專案
                 </Link>
               </div>
             </div>
@@ -199,15 +123,14 @@ export default function Biography() {
 
           <div className="mx-auto max-w-4xl px-6 pb-10 pt-12 sm:pt-16">
             <header id="biography-intro" className="scroll-mt-24 space-y-6">
-              <h2
+              <h1
                 className="text-4xl font-bold text-cyan-400 md:text-5xl"
                 style={{ fontFamily: "'Orbitron', monospace" }}
               >
                 {displayedText}
-              </h2>
-              <p className="text-slate-300 leading-relaxed">
-                ?銝?誑?帘摰蝬剛風??賢??芸???ERP
-                蝟餌絞?撌亦?撣恬??敺洵銝蝺蝙?冽?憓?潘?撠?頂蝯梁?璆剖??摩皜?蝧餉陌?箏蝬剛風??游??圾瘜?
+              </h1>
+              <p className="leading-relaxed text-slate-300">
+                我把跨領域經歷帶進工程工作裡，將「理解現場、整理邏輯、穩定交付」作為自己的核心方法。
               </p>
             </header>
           </div>
@@ -215,67 +138,34 @@ export default function Biography() {
           <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-8 px-6 pb-16 xl:grid-cols-[180px_minmax(0,1fr)]">
             <PageAnchorNav anchors={biographyAnchors} />
 
-            <main className="min-w-0 space-y-10 sm:space-y-12 xl:max-w-4xl">
-              <div className="space-y-10 sm:space-y-12">
-                {sections.map(section => (
-                  <section
-                    id={section.id}
-                    key={section.title}
-                    className="scroll-mt-24 space-y-6 rounded-2xl border border-slate-700/40 bg-slate-900/20 p-6 sm:p-8"
-                  >
-                    <div className="space-y-2">
-                      <h3 className="text-2xl font-bold text-cyan-300">
-                        {section.title}
-                      </h3>
-                      {section.subtitle ? (
-                        <p className="text-sm text-slate-400">
-                          {section.subtitle}
-                        </p>
-                      ) : null}
-                    </div>
-
-                    <div className="space-y-4 text-slate-300 leading-relaxed">
-                      {section.paragraphs.map(paragraph => (
-                        <p key={paragraph}>{paragraph}</p>
-                      ))}
-                    </div>
-
-                    {section.bullets?.map(group => (
-                      <div
-                        key={group.label}
-                        className="space-y-3 rounded-xl border border-slate-700/40 bg-slate-950/40 p-5"
-                      >
-                        <p className="font-medium text-slate-200">
-                          {group.label}
-                        </p>
-                        <ul className="list-disc space-y-2 pl-5 text-slate-300">
-                          {group.items.map(item => (
-                            <li key={item}>{item}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-
-                    {section.callout ? (
-                      <div className="space-y-2 rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-5">
-                        <p className="font-medium text-cyan-200">
-                          {section.callout.title}
-                        </p>
-                        <p className="leading-relaxed text-slate-200">
-                          {section.callout.body}
-                        </p>
-                      </div>
+            <main className="min-w-0 space-y-10 xl:max-w-4xl">
+              {sections.map(section => (
+                <section
+                  id={section.id}
+                  key={section.id}
+                  className="scroll-mt-24 space-y-6 rounded-2xl border border-slate-700/40 bg-slate-900/20 p-6 sm:p-8"
+                >
+                  <div className="space-y-2">
+                    <h2 className="text-2xl font-bold text-cyan-300">
+                      {section.title}
+                    </h2>
+                    {section.subtitle ? (
+                      <p className="text-sm text-slate-400">
+                        {section.subtitle}
+                      </p>
                     ) : null}
-                  </section>
-                ))}
-              </div>
+                  </div>
 
-              <section
-                id="biography-contact"
-                className="scroll-mt-24 space-y-4"
-              >
-                <h3 className="text-2xl font-bold text-cyan-300">Contact</h3>
+                  <div className="space-y-4 leading-relaxed text-slate-300">
+                    {section.paragraphs.map(paragraph => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
+                  </div>
+                </section>
+              ))}
 
+              <section id="biography-contact" className="scroll-mt-24 space-y-4">
+                <h2 className="text-2xl font-bold text-cyan-300">Contact</h2>
                 <div className="flex flex-wrap gap-3">
                   <a
                     className="rounded-lg border border-cyan-500/40 bg-cyan-500/20 px-4 py-2 text-cyan-200 transition-colors hover:bg-cyan-500/30"
@@ -301,8 +191,6 @@ export default function Biography() {
                   </a>
                 </div>
               </section>
-
-              <div className="h-8" />
             </main>
           </div>
 

@@ -63,7 +63,7 @@ export default function ProjectImageGallery({
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_70%,rgba(16,185,129,0.10),transparent_55%)]" />
         <div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-3 text-center">
           {projectName && (
-            <div className="text-sm font-semibold text-slate-100 line-clamp-1">
+            <div className="line-clamp-1 text-sm font-semibold text-slate-100">
               {projectName}
             </div>
           )}
@@ -104,7 +104,7 @@ export default function ProjectImageGallery({
                   event.stopPropagation();
                   openAt(index);
                 }}
-                className={`relative overflow-hidden rounded-lg cursor-pointer group h-full min-h-0 ${itemClass}`}
+                className={`group relative h-full min-h-0 cursor-pointer overflow-hidden rounded-lg ${itemClass}`}
                 aria-label={`Open image: ${image.alt}`}
               >
                 <img
@@ -125,7 +125,7 @@ export default function ProjectImageGallery({
                   }}
                 />
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 p-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                  <div className="rounded-md bg-slate-950/70 border border-slate-700/40 px-2 py-1 text-[11px] text-slate-200 line-clamp-1">
+                  <div className="line-clamp-1 rounded-md border border-slate-700/40 bg-slate-950/70 px-2 py-1 text-[11px] text-slate-200">
                     {image.alt}
                   </div>
                 </div>

@@ -20,16 +20,16 @@ const tierOrder: Record<Project["tier"], number> = {
 };
 
 const projectAnchors: PageAnchor[] = [
-  { id: "projects-overview", label: "蝮質汗" },
-  { id: "projects-filter", label: "蝭拚" },
-  { id: "projects-list", label: "?券雿?" },
+  { id: "projects-overview", label: "總覽" },
+  { id: "projects-filter", label: "篩選" },
+  { id: "projects-list", label: "全部作品" },
 ];
 
 const tierOptions: Array<{ value: TierFilter; label: string }> = [
-  { value: "all", label: "?券雿?" },
-  { value: "production", label: "撌脖?蝺?獢?" },
-  { value: "gold", label: "??雿?" },
-  { value: "silver", label: "?????" },
+  { value: "all", label: "全部作品" },
+  { value: "production", label: "已上線專案" },
+  { value: "gold", label: "金牌作品" },
+  { value: "silver", label: "銀牌作品" },
 ];
 
 export default function ProjectsPage() {
@@ -171,8 +171,11 @@ export default function ProjectsPage() {
     setSelectedTechs(prev => {
       const next = new Set(prev);
 
-      if (next.has(tech)) next.delete(tech);
-      else next.add(tech);
+      if (next.has(tech)) {
+        next.delete(tech);
+      } else {
+        next.add(tech);
+      }
 
       return next;
     });
@@ -190,7 +193,7 @@ export default function ProjectsPage() {
       />
 
       <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-100 page-fade-in">
-        <div className="pointer-events-none fixed inset-0">
+        <div className="fixed inset-0 pointer-events-none">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(59,130,246,0.1),transparent_50%)]" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_80%,rgba(20,184,166,0.08),transparent_50%)]" />
         </div>
@@ -202,31 +205,31 @@ export default function ProjectsPage() {
                 href="/"
                 className="font-mono text-cyan-400 transition-colors hover:text-cyan-300"
               >
-                擐?
+                首頁
               </Link>
 
-              <h1 className="font-mono text-sm text-slate-400">Projects</h1>
+              <p className="font-mono text-sm text-slate-400">Projects</p>
 
               <div className="flex items-center gap-4">
                 <Link
                   href="/resume"
                   className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
                 >
-                  撅交風
+                  履歷
                 </Link>
                 <span className="text-slate-600">|</span>
                 <Link
                   href="/experience"
                   className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
                 >
-                  Experience
+                  工作經驗
                 </Link>
                 <span className="text-slate-600">|</span>
                 <Link
                   href="/biography"
                   className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
                 >
-                  ?芸
+                  自傳
                 </Link>
               </div>
             </div>
@@ -237,27 +240,24 @@ export default function ProjectsPage() {
 
             <div className="min-w-0">
               <section id="projects-overview" className="mb-10 scroll-mt-24">
-                <p className="mb-3 font-mono text-sm text-cyan-300">
-                  蝎暸雿?
-                </p>
+                <p className="mb-3 font-mono text-sm text-cyan-300">精選作品</p>
 
-                <h2 className="mb-4 text-3xl font-bold md:text-4xl">
-                  撌亦?雿??祕雿?獢?
-                </h2>
+                <h1 className="mb-4 text-3xl font-bold md:text-4xl">
+                  工程作品與實作專案
+                </h1>
 
                 <p className="max-w-3xl leading-relaxed text-slate-300">
-                  ?ㄐ?渡??隡平蝟餌絞?I 撌亙?DF
-                  撌亦?????????蝡舀???祕雿?????獢隞亙?憿圾瘜?銵??撖阡????嚗撥隤踹蝬剛風?撽??鈭支??極蝔??
+                  這裡整理我在企業系統、AI 工具、PDF 工程、資料處理與前後端整合上的實作成果。每個專案都以問題、解法、技術選型與實際成果呈現，強調可維護、可驗證與可交付的工程能力。
                 </p>
 
                 <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
-                  <StatCard label="雿??賊?" value={projectStats.total} />
+                  <StatCard label="作品數量" value={projectStats.total} />
                   <StatCard
-                    label="撌脖?蝺?獢?"
+                    label="已上線專案"
                     value={projectStats.production}
                   />
-                  <StatCard label="??雿?" value={projectStats.gold} />
-                  <StatCard label="?????" value={projectStats.silver} />
+                  <StatCard label="金牌作品" value={projectStats.gold} />
+                  <StatCard label="銀牌作品" value={projectStats.silver} />
                 </div>
               </section>
 
@@ -269,7 +269,7 @@ export default function ProjectsPage() {
                       value={searchQuery}
                       onChange={event => setSearchQuery(event.target.value)}
                       aria-label="Search projects"
-                      placeholder="??撠??迂??銵??膩..."
+                      placeholder="搜尋專案名稱、技術或描述..."
                       className="w-full rounded-lg border border-slate-700/40 bg-slate-950/40 py-3 pl-10 pr-3 text-slate-200 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
                     />
                   </div>
@@ -295,8 +295,8 @@ export default function ProjectsPage() {
                     aria-label="Sort"
                     className="w-full rounded-lg border border-slate-700/40 bg-slate-950/40 px-3 py-3 text-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
                   >
-                    <option value="tier">??嚗???蝝?</option>
-                    <option value="name">??嚗?蝔?</option>
+                    <option value="tier">排序：作品等級</option>
+                    <option value="name">排序：名稱</option>
                   </select>
                 </div>
 
@@ -309,7 +309,7 @@ export default function ProjectsPage() {
                     aria-label="Technologies filter"
                     className="inline-flex items-center gap-2 text-sm text-cyan-300 transition-colors hover:text-cyan-200"
                   >
-                    ?銵祟??
+                    技術篩選
                     <ChevronDown
                       className={`h-4 w-4 transition-transform ${
                         showTechFilter ? "rotate-180" : ""
@@ -349,7 +349,7 @@ export default function ProjectsPage() {
                             onClick={clearTechFilters}
                             className="inline-flex items-center gap-1 rounded-full border border-red-500/30 bg-red-500/15 px-3 py-1 text-sm text-red-200 transition-colors hover:bg-red-500/25"
                           >
-                            皜 <X className="h-3 w-3" />
+                            清除 <X className="h-3 w-3" />
                           </button>
                         )}
                       </div>
@@ -358,8 +358,7 @@ export default function ProjectsPage() {
                 </div>
 
                 <div className="mt-4 text-sm text-slate-400">
-                  ?桀?憿舐內 {filteredProjects.length} / {projects.length}{" "}
-                  ??獢?
+                  目前顯示 {filteredProjects.length} / {projects.length} 個專案
                 </div>
               </section>
 
@@ -368,11 +367,11 @@ export default function ProjectsPage() {
                 aria-label="All projects"
                 className="scroll-mt-24"
               >
-                <h3 className="mb-4 text-xl font-semibold">?券雿?</h3>
+                <h2 className="mb-4 text-xl font-semibold">全部作品</h2>
 
                 {filteredProjects.length === 0 ? (
                   <div className="rounded-lg border border-slate-700/40 bg-slate-900/20 p-8 text-center text-slate-300">
-                    ?曆??啁泵??隞嗥?撠?嚗?隤踵???祟?豢?隞嗚?
+                    找不到符合條件的專案，請調整搜尋或篩選條件。
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 gap-6 md:grid-cols-2">

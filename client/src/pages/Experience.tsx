@@ -8,17 +8,16 @@ import { experienceProgression, experienceTimeline } from "@/data/experience";
 import { profile } from "@/data/profile";
 
 const experienceAnchors: PageAnchor[] = [
-  { id: "experience-overview", label: "Overview" },
-  { id: "experience-timeline", label: "Timeline" },
-  { id: "experience-next", label: "Next" },
+  { id: "experience-overview", label: "總覽" },
+  { id: "experience-timeline", label: "完整歷程" },
+  { id: "experience-next", label: "延伸閱讀" },
 ];
 
 function getStageLabel(index: number) {
-  if (index === 0) return "Current software engineering role";
-  if (index === experienceTimeline.length - 1)
-    return "Product and manufacturing";
-  if (index === experienceTimeline.length - 2) return "Teaching support";
-  return "Design and web communication";
+  if (index === 0) return "目前職位";
+  if (index === experienceTimeline.length - 1) return "職涯起點";
+  if (index === experienceTimeline.length - 2) return "教學與支援";
+  return "跨領域養成";
 }
 
 export default function Experience() {
@@ -27,8 +26,8 @@ export default function Experience() {
   return (
     <>
       <SEOHead
-        title={`Work Experience | ${profile.name}`}
-        description="Complete professional experience covering enterprise software development, ERP modernization, web development, visual design, teaching support, and product design."
+        title={`工作經驗｜${profile.name}`}
+        description="完整工作經歷，涵蓋 ERP 系統開發、Legacy 系統重構、Web 化、導入支援與跨領域設計背景。"
         canonicalPath="/experience"
       />
 
@@ -42,31 +41,31 @@ export default function Experience() {
                 href="/"
                 className="font-mono text-cyan-400 transition-colors hover:text-cyan-300"
               >
-                擐?
+                首頁
               </Link>
 
-              <p className="font-mono text-sm text-slate-400">Experience</p>
+              <p className="font-mono text-sm text-slate-400">工作經驗</p>
 
               <div className="flex items-center gap-4">
                 <Link
                   href="/resume"
                   className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
                 >
-                  Resume
+                  履歷
                 </Link>
                 <span className="text-slate-600">|</span>
                 <Link
                   href="/projects"
                   className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
                 >
-                  撠?
+                  專案
                 </Link>
                 <span className="text-slate-600">|</span>
                 <Link
                   href="/biography"
                   className="font-mono text-xs text-slate-400 transition-colors hover:text-cyan-400"
                 >
-                  ?芸
+                  自傳
                 </Link>
               </div>
             </div>
@@ -84,19 +83,15 @@ export default function Experience() {
                   <p className="font-mono text-sm text-cyan-300">
                     Full Employment Timeline
                   </p>
-
                   <h1
                     className="text-3xl font-bold text-cyan-400 sm:text-4xl md:text-5xl"
                     style={{ fontFamily: "'Orbitron', monospace" }}
                   >
-                    Work Experience
+                    工作經驗
                   </h1>
-
-                  <p className="max-w-3xl text-slate-300 leading-relaxed">
-                    Complete professional experience spanning product and
-                    manufacturing work, visual and web design, enterprise
-                    software and ERP development, and legacy modernization work
-                    connected to current software engineering responsibilities.
+                  <p className="max-w-3xl leading-relaxed text-slate-300">
+                    完整工作經歷從產品與視覺設計出發，逐步轉向 ERP 系統開發、Legacy
+                    系統理解與 Web 化重構，最後延伸到 AI 方向的技術進修。這條路徑也塑造了我從使用情境、系統邏輯與交付穩定性三個面向思考問題的方式。
                   </p>
                 </div>
 
@@ -115,11 +110,11 @@ export default function Experience() {
               <section
                 id="experience-timeline"
                 className="scroll-mt-24 space-y-5"
-                aria-label="Full work experience timeline"
+                aria-label="完整工作經歷"
               >
                 {experienceTimeline.map((job, index) => (
                   <article
-                    key={`${job.company}-${job.period}`}
+                    key={job.id}
                     className="rounded-2xl border border-slate-700/35 bg-slate-950/45 p-6 shadow-lg shadow-cyan-950/10"
                   >
                     <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
@@ -163,7 +158,7 @@ export default function Experience() {
                       </div>
                     </div>
 
-                    <ol className="mt-5 space-y-2 text-slate-300 leading-relaxed">
+                    <ol className="mt-5 space-y-2 leading-relaxed text-slate-300">
                       {job.bullets.map((item, bulletIndex) => (
                         <li key={item}>
                           {bulletIndex + 1}. {item}
@@ -178,13 +173,9 @@ export default function Experience() {
                 id="experience-next"
                 className="scroll-mt-24 rounded-2xl border border-cyan-500/10 bg-slate-950/45 p-6"
               >
-                <h2 className="text-2xl font-bold text-cyan-300">
-                  Related Pages
-                </h2>
-                <p className="mt-3 text-slate-300 leading-relaxed">
-                  Use the concise resume for fast screening, projects for
-                  technical implementation evidence, and biography for
-                  longer-form background and problem-solving context.
+                <h2 className="text-2xl font-bold text-cyan-300">延伸閱讀</h2>
+                <p className="mt-3 leading-relaxed text-slate-300">
+                  如果你想先快速掌握我的能力重點，可以回到精簡版履歷；如果想看可公開的工程作品，則可直接前往專案頁。自傳頁則更完整整理了我如何從舊系統除錯、Web 化優化一路走到 AI 進修的脈絡。
                 </p>
 
                 <div className="mt-5 flex flex-wrap gap-3">
@@ -192,14 +183,14 @@ export default function Experience() {
                     href="/resume"
                     className="inline-flex items-center gap-2 rounded-lg border border-cyan-500/40 bg-cyan-500/20 px-4 py-2 text-cyan-100 transition-colors hover:bg-cyan-500/30"
                   >
-                    Back to Resume
+                    返回履歷
                     <ChevronRight className="h-4 w-4" />
                   </Link>
                   <Link
                     href="/projects"
                     className="inline-flex items-center gap-2 rounded-lg border border-slate-700/40 bg-slate-900/40 px-4 py-2 text-slate-200 transition-colors hover:bg-slate-900/60"
                   >
-                    View Projects
+                    查看專案
                     <ExternalLink className="h-4 w-4" />
                   </Link>
                 </div>
