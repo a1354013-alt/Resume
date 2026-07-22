@@ -28,7 +28,7 @@ export const certificationGroups: CertificationGroup[] = [
   {
     category: "資料治理與個資保護",
     priority: "primary",
-    items: ["PIMS 個人資料管理制度專業訓練證書"],
+    items: ["PIMS 個人資料管理師"],
   },
   {
     category: "設計、CAD 與網頁工具",
@@ -51,10 +51,5 @@ export const certificationGroups: CertificationGroup[] = [
       "企業人才技能認證－電子商務概論",
       "企業電子化人才能力鑑定－網路行銷",
     ],
-  },
-  {
-    category: "資料治理與個資保護",
-    priority: "secondary",
-    items: ["PIMS 個人資料管理師"],
   },
 ];

@@ -30,4 +30,22 @@ describe("Resume content consistency", () => {
       within(container).getByText("Gemini Certification for Educators")
     ).toBeVisible();
   });
+
+  test("renders PIMS 個人資料管理師 exactly once in the certification section", async () => {
+    render(<Resume />);
+
+    const heading = await screen.findByRole("heading", {
+      name: "專業證照與認證",
+    });
+
+    const container = heading.closest("section");
+    if (!container) throw new Error("Certification section missing");
+
+    expect(within(container).getAllByText("PIMS 個人資料管理師")).toHaveLength(
+      1
+    );
+    expect(
+      within(container).queryByText("PIMS 個人資料管理制度專業訓練證書")
+    ).toBeNull();
+  });
 });
