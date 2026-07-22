@@ -28,7 +28,7 @@ export default function NotFound() {
             Page Not Found
           </h2>
           <p className="mb-8 leading-relaxed text-slate-300">
-            ???Ｖ?摮嚗?賢歇鋡怎宏?斗?頝臬?霈??
+            這個頁面不存在，可能已被移除或路徑變更。
           </p>
 
           <button

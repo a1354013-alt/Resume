@@ -52,9 +52,11 @@ export default function HeroSection() {
 
               <div className="mt-6 space-y-2 text-slate-300">
                 <p className="font-mono leading-relaxed">{profile.tagline}</p>
-                <p className="font-mono leading-relaxed">{profile.background}</p>
                 <p className="font-mono leading-relaxed">
-                  隞?”??嚗????亥岷??26 蝘? 1 蝘
+                  {profile.background}
+                </p>
+                <p className="font-mono leading-relaxed">
+                  代表成果：將關鍵頁面查詢由 26 秒優化至 1 秒內
                 </p>
               </div>
 
@@ -91,19 +93,19 @@ export default function HeroSection() {
                 <li className="flex gap-3">
                   <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" />
                   <span className="font-mono leading-relaxed">
-                    ERP 蝟餌絞?曆誨??/ Legacy System Refactor嚗elphi ??Web嚗?
+                    ERP 系統現代化 / Legacy System Refactor（Delphi → Web）
                   </span>
                 </li>
                 <li className="flex gap-3">
                   <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" />
                   <span className="font-mono leading-relaxed">
-                    Vue 3 / React ?垢?游???UI ??
+                    Vue 3 / React 前端整合與 UI 重構
                   </span>
                 </li>
                 <li className="flex gap-3">
                   <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" />
                   <span className="font-mono leading-relaxed">
-                    Go / Node.js 敺垢 API ????蝔??
+                    Go / Node.js 後端 API 與資料流程優化
                   </span>
                 </li>
               </ul>
