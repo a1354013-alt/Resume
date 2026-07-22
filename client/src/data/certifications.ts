@@ -55,6 +55,6 @@ export const certificationGroups: CertificationGroup[] = [
   {
     category: "資料治理與個資保護",
     priority: "secondary",
-    items: ["PIMS 個人資料管理制度專業訓練證書"],
+    items: ["PIMS 個人資料管理師"],
   },
 ];
