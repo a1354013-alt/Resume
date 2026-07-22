@@ -18,6 +18,19 @@ function getAllProjectsSection() {
 }
 
 describe("ProjectsPage filtering", () => {
+  test("shows the updated project category labels", async () => {
+    render(<ProjectsPage />);
+
+    expect(
+      await screen.findByRole("option", { name: "全部作品" })
+    ).toBeVisible();
+    expect(screen.getByRole("option", { name: "企業實戰專案" })).toBeVisible();
+    expect(screen.getByRole("option", { name: "旗艦作品" })).toBeVisible();
+    expect(screen.getByRole("option", { name: "精選專案" })).toBeVisible();
+    expect(screen.queryByRole("option", { name: "金牌作品" })).toBeNull();
+    expect(screen.queryByRole("option", { name: "銀牌作品" })).toBeNull();
+  });
+
   test("search filters the main project list", async () => {
     const user = userEvent.setup();
 
@@ -54,7 +67,7 @@ describe("ProjectsPage filtering", () => {
 
     await user.selectOptions(
       await screen.findByLabelText("Tier"),
-      "production"
+      "enterprise"
     );
 
     const list = within(getAllProjectsSection());

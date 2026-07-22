@@ -2,9 +2,9 @@ import { describe, expect, test } from "vitest";
 import { projects, type Project } from "@/data/projects";
 
 const expectedTierLabels: Record<Project["tier"], string> = {
-  production: "已上線專案",
-  gold: "金牌作品",
-  silver: "銀牌作品",
+  enterprise: "企業實戰專案",
+  flagship: "旗艦作品",
+  selected: "精選專案",
 };
 
 function expectNonEmpty(value: string, fieldName: string) {
@@ -72,6 +72,19 @@ describe("project data integrity", () => {
           parsed.protocol
         );
       }
+    }
+  });
+
+  test("distinguishes enterprise production and demo database environments", () => {
+    const enterpriseProjects = projects.filter(
+      project => project.productionEnvironment || project.demoEnvironment
+    );
+
+    expect(enterpriseProjects.length).toBeGreaterThan(0);
+
+    for (const project of enterpriseProjects) {
+      expect(project.productionEnvironment).toBe("Microsoft SQL Server");
+      expect(project.demoEnvironment).toBe("MySQL");
     }
   });
 

@@ -26,6 +26,11 @@ const text = {
   screenshots: "Screenshots",
   closeDialog: "關閉對話框",
   technologies: "使用技術",
+  environments: "資料庫環境",
+  productionEnvironment: "正式環境資料庫",
+  demoEnvironment: "展示版本資料庫",
+  environmentNote:
+    "正式環境使用 Microsoft SQL Server；公開作品頁中的 MySQL 僅用於展示與示範資料，不連接企業正式資料庫。",
   role: "角色",
   outcome: "成果",
   problem: "問題",
@@ -165,6 +170,28 @@ export default function ProjectDialog({
                 ))}
               </div>
             </div>
+
+            {(project.productionEnvironment || project.demoEnvironment) && (
+              <div>
+                <h3 className="mb-3 text-sm font-semibold text-cyan-400">
+                  {text.environments}
+                </h3>
+                <div className="space-y-2 rounded-xl border border-slate-700/40 bg-slate-900/35 p-4 text-sm text-slate-300">
+                  {project.productionEnvironment && (
+                    <p>
+                      {text.productionEnvironment}：
+                      {project.productionEnvironment}
+                    </p>
+                  )}
+                  {project.demoEnvironment && (
+                    <p>
+                      {text.demoEnvironment}：{project.demoEnvironment}
+                    </p>
+                  )}
+                  <p className="text-slate-400">{text.environmentNote}</p>
+                </div>
+              </div>
+            )}
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div>

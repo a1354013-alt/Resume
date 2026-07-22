@@ -40,13 +40,13 @@ export default function ProjectImageGallery({
   }, [failedSources, safeImages]);
 
   const fallbackGradient = (() => {
-    if (tier === "production") {
+    if (tier === "enterprise") {
       return "from-emerald-500/25 via-cyan-500/15 to-slate-950/60";
     }
-    if (tier === "gold") {
+    if (tier === "flagship") {
       return "from-amber-500/20 via-orange-500/10 to-slate-950/60";
     }
-    if (tier === "silver") {
+    if (tier === "selected") {
       return "from-slate-400/20 via-slate-500/10 to-slate-950/60";
     }
     return "from-slate-900/30 via-slate-900/10 to-slate-950/40";

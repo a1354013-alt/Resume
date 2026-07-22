@@ -19,11 +19,11 @@ export type Profile = {
 };
 
 export const profile: Profile = {
-  name: "蝢???,
+  name: "羅揚文",
   nameEn: "Yang-Wen Luo",
   title: "ERP Software Engineer / Full-Stack Developer",
   tagline:
-    "撠釣 ERP 蝟餌絞?曆誨?egacy System Refactor嚗誑??Vue / React / Go / Node.js ??蝡舀??,
+    "專注 ERP 系統現代化、Legacy System Refactor，以及 Vue / React / Go / Node.js 前後端整合。",
   background:
     "自 2022 年 8 月起投入 ERP 軟體開發，累積跨領域工作經歷；曾將關鍵頁面查詢由 26 秒優化至 1 秒內，並持續推動 Delphi Legacy 系統逐步轉換為 Vue 3 + Go 架構。",
   contact: {
@@ -34,7 +34,7 @@ export const profile: Profile = {
   },
   contactMessage: {
     line1:
-      "甇?撠?函垢撌亦??RP 蝟餌絞???璆剔頂蝯梁隞???賊??瑞撩嚗迭餈? Email?inkedIn ??GitHub ???舐鼠??,
+      "正在尋找全端工程、ERP 系統開發、企業系統現代化相關職缺，歡迎透過 Email、LinkedIn 或 GitHub 與我聯繫。",
     hashtags: [
       "#ERP",
       "#LegacyRefactor",

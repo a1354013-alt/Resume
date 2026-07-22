@@ -90,8 +90,9 @@ export default function Experience() {
                     工作經驗
                   </h1>
                   <p className="max-w-3xl leading-relaxed text-slate-300">
-                    完整工作經歷從產品與視覺設計出發，逐步轉向 ERP 系統開發、Legacy
-                    系統理解與 Web 化重構，最後延伸到 AI 方向的技術進修。這條路徑也塑造了我從使用情境、系統邏輯與交付穩定性三個面向思考問題的方式。
+                    完整工作經歷從產品與視覺設計出發，逐步轉向 ERP
+                    系統開發、Legacy 系統理解與 Web 化重構，最後延伸到 AI
+                    方向的技術進修。這條路徑也塑造了我從使用情境、系統邏輯與交付穩定性三個面向思考問題的方式。
                   </p>
                 </div>
 
@@ -175,7 +176,8 @@ export default function Experience() {
               >
                 <h2 className="text-2xl font-bold text-cyan-300">延伸閱讀</h2>
                 <p className="mt-3 leading-relaxed text-slate-300">
-                  如果你想先快速掌握我的能力重點，可以回到精簡版履歷；如果想看可公開的工程作品，則可直接前往專案頁。自傳頁則更完整整理了我如何從舊系統除錯、Web 化優化一路走到 AI 進修的脈絡。
+                  如果你想先快速掌握我的能力重點，可以回到精簡版履歷；如果想看可公開的工程作品，則可直接前往專案頁。自傳頁則更完整整理了我如何從舊系統除錯、Web
+                  化優化一路走到 AI 進修的脈絡。
                 </p>
 
                 <div className="mt-5 flex flex-wrap gap-3">

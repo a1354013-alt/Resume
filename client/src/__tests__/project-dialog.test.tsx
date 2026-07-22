@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, test } from "vitest";
 import { cleanup, render, screen } from "@testing-library/react";
 import ProjectDialog from "@/components/ProjectDialog";
-import type { Project } from "@/data/projects";
+import { projects, type Project } from "@/data/projects";
 
 afterEach(() => cleanup());
 
@@ -13,8 +13,8 @@ describe("ProjectDialog links", () => {
       tagline: "Tagline",
       role: "Role",
       category: "learning",
-      tier: "silver",
-      tierLabel: "銀牌作品",
+      tier: "selected",
+      tierLabel: "精選專案",
       technologies: ["TypeScript"],
       metrics: "Metrics",
       featured: false,
@@ -43,5 +43,24 @@ describe("ProjectDialog links", () => {
 
     expect(screen.queryByRole("link", { name: "Demo" })).toBeNull();
     expect(screen.queryByRole("link", { name: "Repo" })).toBeNull();
+  });
+
+  test("renders production and demo database environments clearly", async () => {
+    const project = projects.find(p => p.id === "erp-change-management");
+    if (!project) throw new Error("Seed project missing");
+
+    render(
+      <ProjectDialog
+        project={project}
+        isOpen={true}
+        onClose={() => undefined}
+      />
+    );
+
+    expect(await screen.findByRole("dialog")).toBeVisible();
+    expect(
+      screen.getByText("正式環境資料庫：Microsoft SQL Server")
+    ).toBeVisible();
+    expect(screen.getByText("展示版本資料庫：MySQL")).toBeVisible();
   });
 });

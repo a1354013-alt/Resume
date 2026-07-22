@@ -10,13 +10,13 @@ import PageAnchorNav, { type PageAnchor } from "@/components/PageAnchorNav";
 import { profile } from "@/data/profile";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
 
-type TierFilter = "all" | "production" | "gold" | "silver";
+type TierFilter = "all" | "enterprise" | "flagship" | "selected";
 type SortBy = "tier" | "name";
 
 const tierOrder: Record<Project["tier"], number> = {
-  production: 0,
-  gold: 1,
-  silver: 2,
+  enterprise: 0,
+  flagship: 1,
+  selected: 2,
 };
 
 const projectAnchors: PageAnchor[] = [
@@ -27,9 +27,9 @@ const projectAnchors: PageAnchor[] = [
 
 const tierOptions: Array<{ value: TierFilter; label: string }> = [
   { value: "all", label: "全部作品" },
-  { value: "production", label: "已上線專案" },
-  { value: "gold", label: "金牌作品" },
-  { value: "silver", label: "銀牌作品" },
+  { value: "enterprise", label: "企業實戰專案" },
+  { value: "flagship", label: "旗艦作品" },
+  { value: "selected", label: "精選專案" },
 ];
 
 export default function ProjectsPage() {
@@ -73,10 +73,10 @@ export default function ProjectsPage() {
   const projectStats = useMemo(
     () => ({
       total: projects.length,
-      production: projects.filter(project => project.tier === "production")
+      enterprise: projects.filter(project => project.tier === "enterprise")
         .length,
-      gold: projects.filter(project => project.tier === "gold").length,
-      silver: projects.filter(project => project.tier === "silver").length,
+      flagship: projects.filter(project => project.tier === "flagship").length,
+      selected: projects.filter(project => project.tier === "selected").length,
     }),
     []
   );
@@ -133,11 +133,11 @@ export default function ProjectsPage() {
 
   const getTierColor = (tier: Project["tier"]) => {
     switch (tier) {
-      case "production":
+      case "enterprise":
         return "from-emerald-500/18 via-cyan-500/10 to-slate-900/60 border-emerald-400/45 shadow-emerald-500/10";
-      case "gold":
+      case "flagship":
         return "from-yellow-500/18 via-amber-500/10 to-slate-900/60 border-yellow-400/40";
-      case "silver":
+      case "selected":
         return "from-slate-400/16 via-slate-500/10 to-slate-900/60 border-slate-400/30";
       default:
         return "from-slate-400/16 via-slate-500/10 to-slate-900/60 border-slate-400/30";
@@ -189,7 +189,7 @@ export default function ProjectsPage() {
     <>
       <SEOHead
         title={`Projects | ${profile.name}`}
-        description="Portfolio projects spanning production systems, gold-tier flagship work, and silver-tier experiments."
+        description="Portfolio projects spanning enterprise implementation work, flagship builds, and selected supporting projects."
         canonicalPath="/projects"
       />
 
@@ -248,11 +248,11 @@ export default function ProjectsPage() {
                 <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
                   <StatCard label="作品數量" value={projectStats.total} />
                   <StatCard
-                    label="已上線專案"
-                    value={projectStats.production}
+                    label="企業實戰專案"
+                    value={projectStats.enterprise}
                   />
-                  <StatCard label="金牌作品" value={projectStats.gold} />
-                  <StatCard label="銀牌作品" value={projectStats.silver} />
+                  <StatCard label="旗艦作品" value={projectStats.flagship} />
+                  <StatCard label="精選專案" value={projectStats.selected} />
                 </div>
               </section>
 
@@ -290,7 +290,7 @@ export default function ProjectsPage() {
                     aria-label="Sort"
                     className="w-full rounded-lg border border-slate-700/40 bg-slate-950/40 px-3 py-3 text-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
                   >
-                    <option value="tier">排序：作品等級</option>
+                    <option value="tier">排序：作品分類</option>
                     <option value="name">排序：名稱</option>
                   </select>
                 </div>

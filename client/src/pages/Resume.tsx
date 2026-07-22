@@ -64,7 +64,7 @@ const resumeAnchors: PageAnchor[] = [
   { id: "experience", label: "工作經驗" },
   { id: "achievements", label: "技術成果" },
   { id: "education", label: "教育背景" },
-  { id: "certifications", label: "證照" },
+  { id: "certifications", label: "專業證照" },
 ];
 
 const skills = [
@@ -163,7 +163,8 @@ export default function Resume() {
                     全端工程師｜ERP 現代化｜Legacy System Refactor
                   </p>
                   <p className="leading-relaxed text-slate-300">
-                    這份履歷保留最核心的工程能力與代表成果，聚焦 ERP 系統開發、舊系統重構、資料流整理與跨部門落地經驗。
+                    這份履歷保留最核心的工程能力與代表成果，聚焦 ERP
+                    系統開發、舊系統重構、資料流整理與跨部門落地經驗。
                   </p>
                 </div>
 
@@ -188,7 +189,10 @@ export default function Resume() {
 
               <Section id="summary" title="個人摘要">
                 <p className="leading-relaxed text-slate-300">
-                  目前擔任 ERP 軟體工程師，擅長從 Delphi 遺留系統、資料庫結構與實際流程中反推商業邏輯，並將其整理為可維護、可擴充的 Web 化方案。過去累積的設計與現場溝通背景，讓我能同時兼顧技術穩定性與使用者情境。
+                  目前擔任 ERP 軟體工程師，擅長從 Delphi
+                  遺留系統、資料庫結構與實際流程中反推商業邏輯，並將其整理為可維護、可擴充的
+                  Web
+                  化方案。過去累積的設計與現場溝通背景，讓我能同時兼顧技術穩定性與使用者情境。
                 </p>
               </Section>
 
@@ -256,7 +260,9 @@ export default function Resume() {
                     <p className="mt-3 leading-relaxed text-slate-300">
                       {earlierExperienceSummary}
                     </p>
-                    <p className="mt-3 text-sm text-slate-400">{earlierRoles}</p>
+                    <p className="mt-3 text-sm text-slate-400">
+                      {earlierRoles}
+                    </p>
                   </article>
 
                   <Link
@@ -279,7 +285,8 @@ export default function Resume() {
                       N+1 Query 效能優化
                     </h3>
                     <p className="leading-relaxed text-slate-300">
-                      重新設計查詢流程後，將關鍵頁面回應時間由 26 秒壓縮至 1 秒內，同時降低資料庫 round-trip 與系統負載。
+                      重新設計查詢流程後，將關鍵頁面回應時間由 26 秒壓縮至 1
+                      秒內，同時降低資料庫 round-trip 與系統負載。
                     </p>
                   </article>
 
@@ -291,7 +298,8 @@ export default function Resume() {
                       跨系統資料異常排查
                     </h3>
                     <p className="leading-relaxed text-slate-300">
-                      透過 ASCII 與資料欄位逐字分析，找出隱藏 CR/LF 字元造成的跨系統轉入異常，並完成資料清洗與防呆機制。
+                      透過 ASCII 與資料欄位逐字分析，找出隱藏 CR/LF
+                      字元造成的跨系統轉入異常，並完成資料清洗與防呆機制。
                     </p>
                   </article>
                 </div>
@@ -304,6 +312,9 @@ export default function Resume() {
                       國立彰化師範大學｜人工智慧科技應用碩士學位學程
                     </h3>
                     <p className="text-slate-400">2024/9 至 2026/6</p>
+                    <p className="mt-2 text-sm leading-relaxed text-slate-300">
+                      碩士論文口試已通過，目前持續進行論文修訂與學位審核程序，學位尚未完成核定。
+                    </p>
                   </div>
                   <div>
                     <h3 className="font-semibold text-slate-100">
@@ -314,7 +325,7 @@ export default function Resume() {
                 </div>
               </Section>
 
-              <Section id="certifications" title="證照">
+              <Section id="certifications" title="專業證照與認證">
                 <div className="grid gap-4 md:grid-cols-2">
                   {primaryCertificationGroups.map(group => (
                     <article
@@ -335,7 +346,7 @@ export default function Resume() {
 
                 <details className="rounded-xl border border-slate-700/35 bg-slate-900/25 p-5">
                   <summary className="cursor-pointer text-lg font-semibold text-slate-100">
-                    其他證照
+                    其他證照與認證
                   </summary>
                   <div className="mt-4 grid gap-4 md:grid-cols-2">
                     {secondaryCertificationGroups.map(group => (

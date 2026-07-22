@@ -4,11 +4,13 @@ export interface Project {
   tagline: string;
   role: string;
   category: "enterprise" | "ai" | "learning";
-  tier: "production" | "gold" | "silver";
+  tier: "enterprise" | "flagship" | "selected";
   tierLabel: string;
   technologies: string[];
   metrics: string;
   featured: boolean;
+  productionEnvironment?: string;
+  demoEnvironment?: string;
   images?: ProjectImage[];
   details: {
     problem: string;
@@ -37,11 +39,13 @@ export const projects: Project[] = [
       "工程變更與預算追加減管理系統，支援變更資料管理、預算調整、流程控管與狀態追蹤。",
     role: "全端工程師",
     category: "enterprise",
-    tier: "production",
-    tierLabel: "已上線專案",
-    technologies: ["Go", "Vue", "MySQL", "JWT", "RESTful API"],
+    tier: "enterprise",
+    tierLabel: "企業實戰專案",
+    technologies: ["Go", "Vue", "SQL Server", "MySQL", "JWT", "RESTful API"],
     metrics: "完成工程變更流程 Web 化，使工程資料流程可視化並提升維護效率。",
     featured: true,
+    productionEnvironment: "Microsoft SQL Server",
+    demoEnvironment: "MySQL",
     images: [
       {
         src: "/images/projects/erp-change-management/overview.png",
@@ -90,11 +94,21 @@ export const projects: Project[] = [
       "企業採購流程管理系統，預算管理、採購申請、請款作業、權限角色與狀態管理。",
     role: "前端工程師",
     category: "enterprise",
-    tier: "production",
-    tierLabel: "已上線專案",
-    technologies: ["Go", "Vue", "MySQL", "JWT", "Swagger", "RESTful API"],
+    tier: "enterprise",
+    tierLabel: "企業實戰專案",
+    technologies: [
+      "Go",
+      "Vue",
+      "SQL Server",
+      "MySQL",
+      "JWT",
+      "Swagger",
+      "RESTful API",
+    ],
     metrics: "提升採購流程透明度與系統維護效率，使資料與流程更容易追蹤。",
     featured: true,
+    productionEnvironment: "Microsoft SQL Server",
+    demoEnvironment: "MySQL",
     images: [
       {
         src: "/images/projects/erp-procurement-system/overview.png",
@@ -141,11 +155,13 @@ export const projects: Project[] = [
     tagline: "多層簽核流程系統，支援角色權限、流程狀態與簽核追蹤管理。",
     role: "全端工程師",
     category: "enterprise",
-    tier: "production",
-    tierLabel: "已上線專案",
-    technologies: ["Go", "Vue", "MySQL", "JWT", "RESTful API"],
+    tier: "enterprise",
+    tierLabel: "企業實戰專案",
+    technologies: ["Go", "Vue", "SQL Server", "MySQL", "JWT", "RESTful API"],
     metrics: "提升企業簽核流程透明度，使簽核進度與操作權限更容易控管。",
     featured: true,
+    productionEnvironment: "Microsoft SQL Server",
+    demoEnvironment: "MySQL",
     images: [
       {
         src: "/images/projects/erp-approval-system/overview.png",
@@ -191,11 +207,13 @@ export const projects: Project[] = [
     tagline: "企業請假管理系統，支援請假申請、簽核流程與假別管理。",
     role: "全端工程師",
     category: "enterprise",
-    tier: "production",
-    tierLabel: "已上線專案",
-    technologies: ["Go", "Vue", "MySQL", "JWT", "RESTful API"],
+    tier: "enterprise",
+    tierLabel: "企業實戰專案",
+    technologies: ["Go", "Vue", "SQL Server", "MySQL", "JWT", "RESTful API"],
     metrics: "成功建立完整請假流程管理系統，使請假流程透明化並提升管理效率。",
     featured: true,
+    productionEnvironment: "Microsoft SQL Server",
+    demoEnvironment: "MySQL",
     images: [
       {
         src: "/images/projects/erp-leave-system/overview.png",
@@ -242,8 +260,8 @@ export const projects: Project[] = [
       "可重用的高解析 PDF 渲染與註記系統，支援多工具標註並封裝為 npm 套件。",
     role: "全端工程師",
     category: "enterprise",
-    tier: "gold",
-    tierLabel: "金牌作品",
+    tier: "flagship",
+    tierLabel: "旗艦作品",
     technologies: [
       "TypeScript",
       "PDF.js",
@@ -264,7 +282,6 @@ export const projects: Project[] = [
         src: "/images/projects/pdf-engine/annotation.png",
         alt: "PDF 標註工具列與註記畫面",
       },
-    
     ],
     details: {
       problem:
@@ -293,8 +310,8 @@ export const projects: Project[] = [
       "以 Python 與 Streamlit 建立的本機智慧檔案整理工具，支援檔案分類、重複偵測、閒置分析、ClamAV 木馬掃描與隔離還原流程。",
     role: "Python 應用工程師",
     category: "enterprise",
-    tier: "gold",
-    tierLabel: "金牌作品",
+    tier: "flagship",
+    tierLabel: "旗艦作品",
     technologies: [
       "Python",
       "Streamlit",
@@ -351,8 +368,8 @@ export const projects: Project[] = [
       "整合文件管理、知識庫、操作紀錄與 AI 協助功能的全端 Workspace 系統。",
     role: "全端工程師",
     category: "enterprise",
-    tier: "silver",
-    tierLabel: "銀牌作品",
+    tier: "selected",
+    tierLabel: "精選專案",
     technologies: [
       "FastAPI",
       "Vue 3",
@@ -421,8 +438,8 @@ export const projects: Project[] = [
     tagline: "整合 AI 分析與股票資料的全端財務管理平台。",
     role: "全端工程師",
     category: "enterprise",
-    tier: "silver",
-    tierLabel: "銀牌作品",
+    tier: "selected",
+    tierLabel: "精選專案",
     technologies: [
       "FastAPI",
       "Vue 3",
@@ -462,8 +479,8 @@ export const projects: Project[] = [
       "AI 個人化英日文學習平台，支援 SRS、錯題追蹤、教材匯入與 RAG 問答。",
     role: "全端工程師",
     category: "learning",
-    tier: "silver",
-    tierLabel: "銀牌作品",
+    tier: "selected",
+    tierLabel: "精選專案",
     technologies: [
       "FastAPI",
       "Vue 3",
@@ -506,8 +523,8 @@ export const projects: Project[] = [
       "針對 Delphi / ERP 遺留系統設計的程式碼分析平台，協助工程師快速理解專案結構、資料流、依賴關係與潛在維護風險。",
     role: "全端工程師 / 系統設計",
     category: "enterprise",
-    tier: "gold",
-    tierLabel: "金牌作品",
+    tier: "flagship",
+    tierLabel: "旗艦作品",
     technologies: [
       "TypeScript",
       "React",
@@ -575,8 +592,8 @@ export const projects: Project[] = [
   //     "以 Python 建立的智慧字幕生成工具，支援語音辨識、字幕時間軸生成、多語翻譯與 AI 模型切換。",
   //   role: "AI 系統開發 / 後端工程師",
   //   category: "ai",
-  //   tier: "silver",
-  //   tierLabel: "銀牌作品",
+  //   tier: "selected",
+  //   tierLabel: "精選專案",
   //   technologies: [
   //     "Python",
   //     "FastAPI",
