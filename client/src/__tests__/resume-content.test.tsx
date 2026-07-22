@@ -47,5 +47,12 @@ describe("Resume content consistency", () => {
     expect(
       within(container).queryByText("PIMS 個人資料管理制度專業訓練證書")
     ).toBeNull();
+    expect(
+      within(container).getByRole("heading", { name: "資料治理與個資保護" })
+    ).toBeVisible();
+    expect(within(container).queryByText("其他證照與認證")).toBeNull();
+    expect(within(container).getAllByTestId("certification-group")).toHaveLength(
+      4
+    );
   });
 });

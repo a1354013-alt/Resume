@@ -82,13 +82,6 @@ const skills = [
   "Root Cause Analysis",
 ];
 
-const primaryCertificationGroups = certificationGroups.filter(
-  group => group.priority === "primary"
-);
-const secondaryCertificationGroups = certificationGroups.filter(
-  group => group.priority === "secondary"
-);
-
 export default function Resume() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
   const earlierRoles = experienceTimeline
@@ -327,9 +320,10 @@ export default function Resume() {
 
               <Section id="certifications" title="專業證照與認證">
                 <div className="grid gap-4 md:grid-cols-2">
-                  {primaryCertificationGroups.map(group => (
+                  {certificationGroups.map(group => (
                     <article
                       key={group.category}
+                      data-testid="certification-group"
                       className="rounded-xl border border-slate-700/35 bg-slate-900/35 p-5"
                     >
                       <h3 className="mb-4 text-lg font-semibold text-slate-100">
@@ -343,29 +337,6 @@ export default function Resume() {
                     </article>
                   ))}
                 </div>
-
-                <details className="rounded-xl border border-slate-700/35 bg-slate-900/25 p-5">
-                  <summary className="cursor-pointer text-lg font-semibold text-slate-100">
-                    其他證照與認證
-                  </summary>
-                  <div className="mt-4 grid gap-4 md:grid-cols-2">
-                    {secondaryCertificationGroups.map(group => (
-                      <article
-                        key={group.category}
-                        className="rounded-xl border border-slate-700/30 bg-slate-950/35 p-5"
-                      >
-                        <h3 className="mb-4 text-base font-semibold text-slate-100">
-                          {group.category}
-                        </h3>
-                        <ul className="space-y-2 text-sm leading-relaxed text-slate-300">
-                          {group.items.map(item => (
-                            <li key={item}>{item}</li>
-                          ))}
-                        </ul>
-                      </article>
-                    ))}
-                  </div>
-                </details>
               </Section>
             </div>
           </div>
