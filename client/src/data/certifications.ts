@@ -16,6 +16,21 @@ export const certificationGroups: CertificationGroup[] = [
     ],
   },
   {
+    category: "企業電子化與數位商務",
+    priority: "primary",
+    items: [
+      "企業電子化助理規劃師",
+      "企業電子化軟體應用師",
+      "企業人才技能認證－電子商務概論",
+      "企業電子化人才能力鑑定－網路行銷",
+    ],
+  },
+  {
+    category: "資料治理與個資保護",
+    priority: "primary",
+    items: ["PIMS 個人資料管理制度專業訓練證書"],
+  },
+  {
     category: "設計、CAD 與網頁工具",
     priority: "primary",
     items: [

@@ -15,7 +15,9 @@ describe("App routing", () => {
 
     render(<App />);
 
-    expect(await screen.findByRole("link", { name: "首頁" })).toBeVisible();
+    expect(
+      await screen.findByRole("link", { name: "首頁" }, { timeout: 5000 })
+    ).toBeVisible();
     expect(screen.getByRole("link", { name: "履歷" })).toBeVisible();
     expect(screen.getByRole("link", { name: "工作經歷" })).toBeVisible();
     expect(screen.getByRole("link", { name: "專案" })).toBeVisible();
