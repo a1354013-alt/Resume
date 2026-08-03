@@ -6,7 +6,10 @@ import ScrollToTopButton from "@/components/ScrollToTopButton";
 import StarFieldBackground from "@/components/StarFieldBackground";
 import PageAnchorNav, { type PageAnchor } from "@/components/PageAnchorNav";
 import { profile } from "@/data/profile";
-import { certificationGroups } from "@/data/certifications";
+import {
+  certificationGroups,
+  type CertificationItem,
+} from "@/data/certifications";
 import {
   earlierExperienceSummary,
   experienceTimeline,
@@ -55,6 +58,23 @@ function Section({
       <h2 className="text-2xl font-bold text-cyan-300">{title}</h2>
       {children}
     </section>
+  );
+}
+
+function CertificationItemView({ item }: { item: CertificationItem }) {
+  return (
+    <li>
+      {item.nameEn && item.nameZh ? (
+        <div className="space-y-0.5">
+          <p>{item.nameEn}</p>
+          <p className="text-xs leading-relaxed text-slate-400">
+            {item.nameZh}
+          </p>
+        </div>
+      ) : (
+        item.name
+      )}
+    </li>
   );
 }
 
@@ -322,18 +342,44 @@ export default function Resume() {
                 <div className="grid gap-4 md:grid-cols-2">
                   {certificationGroups.map(group => (
                     <article
-                      key={group.category}
+                      key={group.id}
                       data-testid="certification-group"
                       className="rounded-xl border border-slate-700/35 bg-slate-900/35 p-5"
                     >
                       <h3 className="mb-4 text-lg font-semibold text-slate-100">
-                        {group.category}
+                        {group.title}
                       </h3>
-                      <ul className="space-y-2 text-sm leading-relaxed text-slate-300">
-                        {group.items.map(item => (
-                          <li key={item}>{item}</li>
+                      <div className="space-y-4">
+                        {group.items && (
+                          <ul className="space-y-2 text-sm leading-relaxed text-slate-300">
+                            {group.items.map(item => (
+                              <CertificationItemView
+                                key={item.id}
+                                item={item}
+                              />
+                            ))}
+                          </ul>
+                        )}
+
+                        {group.subgroups?.map(subgroup => (
+                          <section
+                            key={subgroup.id}
+                            className="space-y-2 border-t border-slate-700/30 pt-3 first:border-t-0 first:pt-0"
+                          >
+                            <h4 className="text-sm font-semibold text-cyan-200">
+                              {subgroup.title}
+                            </h4>
+                            <ul className="space-y-2 text-sm leading-relaxed text-slate-300">
+                              {subgroup.items.map(item => (
+                                <CertificationItemView
+                                  key={item.id}
+                                  item={item}
+                                />
+                              ))}
+                            </ul>
+                          </section>
                         ))}
-                      </ul>
+                      </div>
                     </article>
                   ))}
                 </div>

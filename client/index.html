@@ -51,7 +51,7 @@
           if (!p) return;
           var q = params.get("q") || "";
           var newUrl =
-            window.location.pathname.replace(/\\/+$/, "") +
+            window.location.pathname.replace(/\/+$/, "") +
             p +
             (q ? "?" + q : "") +
             window.location.hash;

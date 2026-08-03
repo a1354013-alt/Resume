@@ -21,6 +21,21 @@ Use the following filenames to keep future documentation easy to maintain:
 - Resume (`docs/screenshots/resume.png`)
 - 404 (`docs/screenshots/404.png`)
 
+## Resume Certification Data
+
+The resume certification section uses `client/src/data/certifications.ts` as the single source of truth and renders exactly four visible categories:
+
+- 資訊工程與 AI
+- Google 數位行銷與分析
+- 企業電子化與資料治理
+- 設計、CAD 與網頁工具
+
+The Google category separates four bilingual core certifications from four professional digital badges and one additional Google certification:
+
+- Core certifications: Google Analytics Certification / Google Analytics（分析）認證; Google Ads Measurement Certification / Google Ads 評估認證; Google Ads Search Certification / Google Ads 搜尋廣告認證; Google Ads Display Certification / Google Ads 多媒體廣告認證
+- Professional digital badges: AI 技術輔助高效廣告認證; 運用需求開發創造需求並促成轉換; 從業人員適用的 AI 技術輔助搜尋廣告基礎課程徽章; 策略專家適用的 AI 技術輔助搜尋廣告基礎課程徽章
+- Other Google certification: Google 數位人才自學認證
+
 ## Tech Stack
 
 - React 19 + TypeScript

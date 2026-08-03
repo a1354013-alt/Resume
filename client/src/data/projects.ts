@@ -452,6 +452,24 @@ export const projects: Project[] = [
     metrics:
       "建立完整財務管理與 AI 分析流程，整合 Provider abstraction 與 CI 測試",
     featured: false,
+    images: [
+      {
+        src: "/images/projects/personal-finance-dashboard/dashboard.png",
+        alt: "財務分析儀表板",
+      },
+      {
+        src: "/images/projects/personal-finance-dashboard/recurring-transactions.png",
+        alt: "週期性交易管理",
+      },
+      {
+        src: "/images/projects/personal-finance-dashboard/expenses.png",
+        alt: "支出管理",
+      },
+      {
+        src: "/images/projects/personal-finance-dashboard/transaction-import.png",
+        alt: "交易資料匯入匯入",
+      },
+    ],
     details: {
       problem:
         "使用者需要整合式平台管理收支、預算與投資資訊，並取得智慧化分析建議。",
