@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import { type ReactNode, useId, useState } from "react";
 import { Link } from "wouter";
 import { ExternalLink, Github, Linkedin, Mail } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
@@ -75,6 +75,121 @@ function CertificationItemView({ item }: { item: CertificationItem }) {
         item.name
       )}
     </li>
+  );
+}
+
+const googleCoreCompactNames: Record<string, string> = {
+  "google-analytics-certification": "分析認證",
+  "google-ads-measurement-certification": "評估認證",
+  "google-ads-search-certification": "搜尋廣告認證",
+  "google-ads-display-certification": "多媒體廣告認證",
+};
+
+function CompactGoogleCertificationItem({ item }: { item: CertificationItem }) {
+  return (
+    <li>
+      {item.nameEn && item.nameZh ? (
+        <div className="space-y-0.5">
+          <p>{item.nameEn}</p>
+          <p className="text-xs leading-relaxed text-slate-400">
+            {googleCoreCompactNames[item.id] ?? item.nameZh}
+          </p>
+        </div>
+      ) : (
+        item.name
+      )}
+    </li>
+  );
+}
+
+function GoogleCertificationCard({
+  group,
+}: {
+  group: (typeof certificationGroups)[number];
+}) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const disclosureId = useId();
+  const coreGroup = group.subgroups?.find(
+    subgroup => subgroup.id === "google-core-certifications"
+  );
+  const badgeGroup = group.subgroups?.find(
+    subgroup => subgroup.id === "google-professional-digital-badges"
+  );
+  const otherGroup = group.subgroups?.find(
+    subgroup => subgroup.id === "other-google-certifications"
+  );
+  const additionalCount =
+    (badgeGroup?.items.length ?? 0) + (otherGroup?.items.length ?? 0);
+
+  return (
+    <article
+      data-testid="certification-group"
+      className="rounded-xl border border-slate-700/35 bg-slate-900/35 p-5"
+    >
+      <h3 className="mb-4 text-lg font-semibold text-slate-100">
+        {group.title}
+      </h3>
+      <div className="space-y-4">
+        {coreGroup && (
+          <section className="space-y-2">
+            <h4 className="text-sm font-semibold text-cyan-200">
+              {coreGroup.title}
+            </h4>
+            <ul className="space-y-2 text-sm leading-relaxed text-slate-300">
+              {coreGroup.items.map(item => (
+                <CompactGoogleCertificationItem key={item.id} item={item} />
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <p className="text-sm leading-relaxed text-slate-400">
+          另持有 4 項專業數位徽章與 1 項其他 Google 認證
+        </p>
+
+        <button
+          type="button"
+          aria-expanded={isExpanded}
+          aria-controls={disclosureId}
+          onClick={() => setIsExpanded(current => !current)}
+          className="inline-flex rounded-lg border border-cyan-500/40 bg-cyan-500/15 px-3 py-2 text-sm font-medium text-cyan-100 transition-colors motion-reduce:transition-none hover:bg-cyan-500/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+        >
+          {isExpanded
+            ? "收合認證與徽章"
+            : `展開查看 ${additionalCount} 項認證與徽章`}
+        </button>
+
+        {isExpanded && (
+          <div id={disclosureId} className="space-y-4">
+            {badgeGroup && (
+              <section className="space-y-2 border-t border-slate-700/30 pt-3">
+                <h4 className="text-sm font-semibold text-cyan-200">
+                  專業數位徽章
+                </h4>
+                <ul className="space-y-2 text-sm leading-relaxed text-slate-300">
+                  {badgeGroup.items.map(item => (
+                    <CertificationItemView key={item.id} item={item} />
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {otherGroup && (
+              <section className="space-y-2 border-t border-slate-700/30 pt-3">
+                <h4 className="text-sm font-semibold text-cyan-200">
+                  其他 Google 認證
+                </h4>
+                <ul className="space-y-2 text-sm leading-relaxed text-slate-300">
+                  {otherGroup.items.map(item => (
+                    <CertificationItemView key={item.id} item={item} />
+                  ))}
+                </ul>
+              </section>
+            )}
+          </div>
+        )}
+      </div>
+    </article>
   );
 }
 
@@ -340,48 +455,52 @@ export default function Resume() {
 
               <Section id="certifications" title="專業證照與認證">
                 <div className="grid gap-4 md:grid-cols-2">
-                  {certificationGroups.map(group => (
-                    <article
-                      key={group.id}
-                      data-testid="certification-group"
-                      className="rounded-xl border border-slate-700/35 bg-slate-900/35 p-5"
-                    >
-                      <h3 className="mb-4 text-lg font-semibold text-slate-100">
-                        {group.title}
-                      </h3>
-                      <div className="space-y-4">
-                        {group.items && (
-                          <ul className="space-y-2 text-sm leading-relaxed text-slate-300">
-                            {group.items.map(item => (
-                              <CertificationItemView
-                                key={item.id}
-                                item={item}
-                              />
-                            ))}
-                          </ul>
-                        )}
-
-                        {group.subgroups?.map(subgroup => (
-                          <section
-                            key={subgroup.id}
-                            className="space-y-2 border-t border-slate-700/30 pt-3 first:border-t-0 first:pt-0"
-                          >
-                            <h4 className="text-sm font-semibold text-cyan-200">
-                              {subgroup.title}
-                            </h4>
+                  {certificationGroups.map(group =>
+                    group.id === "google-digital-marketing-analytics" ? (
+                      <GoogleCertificationCard key={group.id} group={group} />
+                    ) : (
+                      <article
+                        key={group.id}
+                        data-testid="certification-group"
+                        className="rounded-xl border border-slate-700/35 bg-slate-900/35 p-5"
+                      >
+                        <h3 className="mb-4 text-lg font-semibold text-slate-100">
+                          {group.title}
+                        </h3>
+                        <div className="space-y-4">
+                          {group.items && (
                             <ul className="space-y-2 text-sm leading-relaxed text-slate-300">
-                              {subgroup.items.map(item => (
+                              {group.items.map(item => (
                                 <CertificationItemView
                                   key={item.id}
                                   item={item}
                                 />
                               ))}
                             </ul>
-                          </section>
-                        ))}
-                      </div>
-                    </article>
-                  ))}
+                          )}
+
+                          {group.subgroups?.map(subgroup => (
+                            <section
+                              key={subgroup.id}
+                              className="space-y-2 border-t border-slate-700/30 pt-3 first:border-t-0 first:pt-0"
+                            >
+                              <h4 className="text-sm font-semibold text-cyan-200">
+                                {subgroup.title}
+                              </h4>
+                              <ul className="space-y-2 text-sm leading-relaxed text-slate-300">
+                                {subgroup.items.map(item => (
+                                  <CertificationItemView
+                                    key={item.id}
+                                    item={item}
+                                  />
+                                ))}
+                              </ul>
+                            </section>
+                          ))}
+                        </div>
+                      </article>
+                    )
+                  )}
                 </div>
               </Section>
             </div>
