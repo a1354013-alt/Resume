@@ -515,6 +515,25 @@ export const projects: Project[] = [
     ],
     metrics: "建立從課程、作答、錯題、複習到學習分析的完整學習閉環",
     featured: false,
+     images: [
+      {
+        src: "/images/projects/learning_coach/materials-rag.png",
+        alt: "個人學習資料管理",
+      },
+      {
+        src: "/images/projects/learning_coach/today-lesson.png",
+        alt: "今日課程",
+      },
+      {
+        src: "/images/projects/learning_coach/writing-center.png",
+        alt: "寫作練習區",
+      },
+        {
+        src: "/images/projects/learning_coach/wrong-answers.png",
+        alt: "錯題本紀錄區",
+      },
+    
+    ],
     details: {
       problem:
         "語言學習流程常分散在不同工具中，錯題、複習與學習進度難以持續追蹤。",

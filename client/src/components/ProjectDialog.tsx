@@ -5,7 +5,7 @@ import {
   Github,
   X,
 } from "lucide-react";
-import { useEffect, useId, useRef } from "react";
+import { type MouseEvent, useEffect, useId, useRef } from "react";
 import ProjectImageGallery from "@/components/ProjectImageGallery";
 import { Project, projects } from "@/data/projects";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
@@ -98,243 +98,245 @@ export default function ProjectDialog({
 
   const handleNextProject = () => onProjectChange?.(nextProject);
   const handlePrevProject = () => onProjectChange?.(prevProject);
+  const handleBackdropClick = (event: MouseEvent<HTMLDivElement>) => {
+    if (event.target !== event.currentTarget) return;
+    onClose();
+  };
 
   return (
-    <>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm transition-opacity duration-300"
+      data-testid="project-dialog-backdrop"
+      onClick={handleBackdropClick}
+    >
       <div
-        className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm transition-opacity duration-300"
-        onClick={onClose}
-        aria-hidden="true"
-      />
-
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div
-          ref={dialogRef}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby={titleId}
-          tabIndex={-1}
-          className="w-full max-w-2xl sm:mx-auto sm:max-w-2xl overflow-y-auto rounded-none sm:rounded-lg border border-slate-700/50 bg-gradient-to-br from-slate-900 to-slate-950 shadow-2xl animate-in fade-in zoom-in-95 duration-300 max-h-[90svh] h-[90svh] sm:max-h-[90vh]"
-        >
-          <div className="sticky top-0 flex items-start justify-between gap-4 border-b border-slate-700/30 bg-gradient-to-b from-slate-900 to-slate-900/80 px-6 py-4 backdrop-blur-sm">
-            <div className="flex-1">
-              <div className="mb-2 flex items-center gap-3">
-                <span className="rounded bg-slate-800/50 px-2 py-1 text-sm font-semibold text-slate-300">
-                  {project.tierLabel}
-                </span>
-                <span className="text-xs text-slate-500">
-                  {getCategoryLabel(project.category)}
-                </span>
-              </div>
-              <h2 id={titleId} className="text-2xl font-bold text-slate-100">
-                {project.name}
-              </h2>
-              <p className="mt-1 text-sm text-slate-400">{project.tagline}</p>
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        tabIndex={-1}
+        className="w-full max-w-2xl sm:mx-auto sm:max-w-2xl overflow-y-auto rounded-none sm:rounded-lg border border-slate-700/50 bg-gradient-to-br from-slate-900 to-slate-950 shadow-2xl animate-in fade-in zoom-in-95 duration-300 max-h-[90svh] h-[90svh] sm:max-h-[90vh]"
+      >
+        <div className="sticky top-0 flex items-start justify-between gap-4 border-b border-slate-700/30 bg-gradient-to-b from-slate-900 to-slate-900/80 px-6 py-4 backdrop-blur-sm">
+          <div className="flex-1">
+            <div className="mb-2 flex items-center gap-3">
+              <span className="rounded bg-slate-800/50 px-2 py-1 text-sm font-semibold text-slate-300">
+                {project.tierLabel}
+              </span>
+              <span className="text-xs text-slate-500">
+                {getCategoryLabel(project.category)}
+              </span>
             </div>
-            <button
-              ref={closeButtonRef}
-              onClick={onClose}
-              className="flex-shrink-0 rounded-lg p-2 text-slate-400 transition-colors hover:bg-slate-800/50 hover:text-slate-200"
-              aria-label={text.closeDialog}
-            >
-              <X className="h-5 w-5" />
-            </button>
+            <h2 id={titleId} className="text-2xl font-bold text-slate-100">
+              {project.name}
+            </h2>
+            <p className="mt-1 text-sm text-slate-400">{project.tagline}</p>
+          </div>
+          <button
+            ref={closeButtonRef}
+            onClick={onClose}
+            className="flex-shrink-0 rounded-lg p-2 text-slate-400 transition-colors hover:bg-slate-800/50 hover:text-slate-200"
+            aria-label={text.closeDialog}
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+
+        <div className="space-y-8 px-4 py-6 sm:px-6">
+          {project.images && project.images.length >= 2 && (
+            <div>
+              <h3 className="mb-3 text-sm font-semibold text-cyan-400">
+                {text.screenshots}
+              </h3>
+              <ProjectImageGallery
+                images={project.images}
+                projectName={project.name}
+                tier={project.tier}
+              />
+            </div>
+          )}
+
+          <div>
+            <h3 className="mb-3 text-sm font-semibold text-cyan-400">
+              {text.technologies}
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {project.technologies.map(tech => (
+                <span
+                  key={tech}
+                  className="rounded-full border border-slate-700/50 bg-slate-800/50 px-3 py-1 text-xs text-slate-300 break-words"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
           </div>
 
-          <div className="space-y-8 px-4 py-6 sm:px-6">
-            {project.images && project.images.length >= 2 && (
-              <div>
-                <h3 className="mb-3 text-sm font-semibold text-cyan-400">
-                  {text.screenshots}
-                </h3>
-                <ProjectImageGallery
-                  images={project.images}
-                  projectName={project.name}
-                  tier={project.tier}
-                />
-              </div>
-            )}
-
+          {(project.productionEnvironment || project.demoEnvironment) && (
             <div>
               <h3 className="mb-3 text-sm font-semibold text-cyan-400">
-                {text.technologies}
+                {text.environments}
               </h3>
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.map(tech => (
+              <div className="space-y-2 rounded-xl border border-slate-700/40 bg-slate-900/35 p-4 text-sm text-slate-300">
+                {project.productionEnvironment && (
+                  <p>
+                    {text.productionEnvironment}：
+                    {project.productionEnvironment}
+                  </p>
+                )}
+                {project.demoEnvironment && (
+                  <p>
+                    {text.demoEnvironment}：{project.demoEnvironment}
+                  </p>
+                )}
+                <p className="text-slate-400">{text.environmentNote}</p>
+              </div>
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div>
+              <h3 className="mb-2 text-sm font-semibold text-cyan-400">
+                {text.role}
+              </h3>
+              <p className="text-sm text-slate-300">{project.role}</p>
+            </div>
+            <div>
+              <h3 className="mb-2 text-sm font-semibold text-cyan-400">
+                {text.outcome}
+              </h3>
+              <p className="text-sm font-medium text-slate-200">
+                {project.metrics}
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="mb-3 text-sm font-semibold text-cyan-400">
+              {text.problem}
+            </h3>
+            <p className="text-sm leading-relaxed text-slate-300">
+              {project.details.problem}
+            </p>
+          </div>
+
+          <div>
+            <h3 className="mb-3 text-sm font-semibold text-cyan-400">
+              {text.solution}
+            </h3>
+            <p className="text-sm leading-relaxed text-slate-300">
+              {project.details.solution}
+            </p>
+          </div>
+
+          <div>
+            <h3 className="mb-3 text-sm font-semibold text-cyan-400">
+              {text.contribution}
+            </h3>
+            <p className="text-sm leading-relaxed text-slate-300">
+              {project.details.contribution}
+            </p>
+          </div>
+
+          <div>
+            <h3 className="mb-3 text-sm font-semibold text-cyan-400">
+              {text.highlights}
+            </h3>
+            <ul className="space-y-2">
+              {project.details.highlights.map((highlight, idx) => (
+                <li key={idx} className="flex gap-3 text-sm text-slate-300">
                   <span
-                    key={tech}
-                    className="rounded-full border border-slate-700/50 bg-slate-800/50 px-3 py-1 text-xs text-slate-300 break-words"
+                    className="flex-shrink-0 text-cyan-400"
+                    aria-hidden="true"
                   >
-                    {tech}
+                    {text.bullet}
                   </span>
-                ))}
-              </div>
-            </div>
+                  <span>{highlight}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-            {(project.productionEnvironment || project.demoEnvironment) && (
-              <div>
-                <h3 className="mb-3 text-sm font-semibold text-cyan-400">
-                  {text.environments}
-                </h3>
-                <div className="space-y-2 rounded-xl border border-slate-700/40 bg-slate-900/35 p-4 text-sm text-slate-300">
-                  {project.productionEnvironment && (
-                    <p>
-                      {text.productionEnvironment}：
-                      {project.productionEnvironment}
-                    </p>
-                  )}
-                  {project.demoEnvironment && (
-                    <p>
-                      {text.demoEnvironment}：{project.demoEnvironment}
-                    </p>
-                  )}
-                  <p className="text-slate-400">{text.environmentNote}</p>
-                </div>
+          <div>
+            <h3 className="mb-3 text-sm font-semibold text-cyan-400">
+              {text.result}
+            </h3>
+            <p className="text-sm leading-relaxed text-slate-300">
+              {project.details.result}
+            </p>
+          </div>
+
+          <div>
+            <h3 className="mb-3 text-sm font-semibold text-cyan-400">
+              {text.challenges}
+            </h3>
+            <p className="text-sm leading-relaxed text-slate-300">
+              {project.details.challenges}
+            </p>
+          </div>
+
+          <div>
+            <h3 className="mb-3 text-sm font-semibold text-cyan-400">
+              {text.nextSteps}
+            </h3>
+            <p className="text-sm leading-relaxed text-slate-300">
+              {project.details.nextSteps}
+            </p>
+          </div>
+
+          <div className="space-y-4 border-t border-slate-700/30 pt-4">
+            {(project.details.demoUrl || project.details.githubUrl) && (
+              <div className="flex flex-wrap gap-3">
+                {project.details.demoUrl && (
+                  <a
+                    href={project.details.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    referrerPolicy="no-referrer"
+                    className="flex items-center gap-2 rounded-lg border border-cyan-500/50 bg-cyan-500/20 px-4 py-2 text-sm text-cyan-200 transition-colors hover:bg-cyan-500/30"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    {text.demo}
+                  </a>
+                )}
+                {project.details.githubUrl && (
+                  <a
+                    href={project.details.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    referrerPolicy="no-referrer"
+                    className="flex items-center gap-2 rounded-lg border border-slate-700/50 bg-slate-800/50 px-4 py-2 text-sm text-slate-200 transition-colors hover:bg-slate-800"
+                  >
+                    <Github className="h-4 w-4" />
+                    {text.repo}
+                  </a>
+                )}
               </div>
             )}
 
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <div>
-                <h3 className="mb-2 text-sm font-semibold text-cyan-400">
-                  {text.role}
-                </h3>
-                <p className="text-sm text-slate-300">{project.role}</p>
-              </div>
-              <div>
-                <h3 className="mb-2 text-sm font-semibold text-cyan-400">
-                  {text.outcome}
-                </h3>
-                <p className="text-sm font-medium text-slate-200">
-                  {project.metrics}
-                </p>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="mb-3 text-sm font-semibold text-cyan-400">
-                {text.problem}
-              </h3>
-              <p className="text-sm leading-relaxed text-slate-300">
-                {project.details.problem}
-              </p>
-            </div>
-
-            <div>
-              <h3 className="mb-3 text-sm font-semibold text-cyan-400">
-                {text.solution}
-              </h3>
-              <p className="text-sm leading-relaxed text-slate-300">
-                {project.details.solution}
-              </p>
-            </div>
-
-            <div>
-              <h3 className="mb-3 text-sm font-semibold text-cyan-400">
-                {text.contribution}
-              </h3>
-              <p className="text-sm leading-relaxed text-slate-300">
-                {project.details.contribution}
-              </p>
-            </div>
-
-            <div>
-              <h3 className="mb-3 text-sm font-semibold text-cyan-400">
-                {text.highlights}
-              </h3>
-              <ul className="space-y-2">
-                {project.details.highlights.map((highlight, idx) => (
-                  <li key={idx} className="flex gap-3 text-sm text-slate-300">
-                    <span
-                      className="flex-shrink-0 text-cyan-400"
-                      aria-hidden="true"
-                    >
-                      {text.bullet}
-                    </span>
-                    <span>{highlight}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="mb-3 text-sm font-semibold text-cyan-400">
-                {text.result}
-              </h3>
-              <p className="text-sm leading-relaxed text-slate-300">
-                {project.details.result}
-              </p>
-            </div>
-
-            <div>
-              <h3 className="mb-3 text-sm font-semibold text-cyan-400">
-                {text.challenges}
-              </h3>
-              <p className="text-sm leading-relaxed text-slate-300">
-                {project.details.challenges}
-              </p>
-            </div>
-
-            <div>
-              <h3 className="mb-3 text-sm font-semibold text-cyan-400">
-                {text.nextSteps}
-              </h3>
-              <p className="text-sm leading-relaxed text-slate-300">
-                {project.details.nextSteps}
-              </p>
-            </div>
-
-            <div className="space-y-4 border-t border-slate-700/30 pt-4">
-              {(project.details.demoUrl || project.details.githubUrl) && (
-                <div className="flex flex-wrap gap-3">
-                  {project.details.demoUrl && (
-                    <a
-                      href={project.details.demoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      referrerPolicy="no-referrer"
-                      className="flex items-center gap-2 rounded-lg border border-cyan-500/50 bg-cyan-500/20 px-4 py-2 text-sm text-cyan-200 transition-colors hover:bg-cyan-500/30"
-                    >
-                      <ExternalLink className="h-4 w-4" />
-                      {text.demo}
-                    </a>
-                  )}
-                  {project.details.githubUrl && (
-                    <a
-                      href={project.details.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      referrerPolicy="no-referrer"
-                      className="flex items-center gap-2 rounded-lg border border-slate-700/50 bg-slate-800/50 px-4 py-2 text-sm text-slate-200 transition-colors hover:bg-slate-800"
-                    >
-                      <Github className="h-4 w-4" />
-                      {text.repo}
-                    </a>
-                  )}
-                </div>
-              )}
-
-              <div className="flex flex-col sm:flex-row justify-between gap-3">
-                <button
-                  onClick={handlePrevProject}
-                  className="flex items-center gap-2 rounded-lg border border-slate-700/50 bg-slate-800/50 px-4 py-2 text-sm text-slate-200 transition-colors hover:border-slate-600/50 hover:bg-slate-800"
-                  title={`${text.previousTitle}${prevProject.name}`}
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                  {text.previous}
-                </button>
-                <button
-                  onClick={handleNextProject}
-                  className="flex items-center gap-2 rounded-lg border border-cyan-500/50 bg-cyan-500/20 px-4 py-2 text-sm text-cyan-200 transition-colors hover:bg-cyan-500/30"
-                  title={`${text.nextTitle}${nextProject.name}`}
-                >
-                  {text.next}
-                  <ChevronRight className="h-4 w-4" />
-                </button>
-              </div>
+            <div className="flex flex-col sm:flex-row justify-between gap-3">
+              <button
+                onClick={handlePrevProject}
+                data-testid="project-dialog-prev"
+                className="flex items-center gap-2 rounded-lg border border-slate-700/50 bg-slate-800/50 px-4 py-2 text-sm text-slate-200 transition-colors hover:border-slate-600/50 hover:bg-slate-800"
+                title={`${text.previousTitle}${prevProject.name}`}
+              >
+                <ChevronLeft className="h-4 w-4" />
+                {text.previous}
+              </button>
+              <button
+                onClick={handleNextProject}
+                data-testid="project-dialog-next"
+                className="flex items-center gap-2 rounded-lg border border-cyan-500/50 bg-cyan-500/20 px-4 py-2 text-sm text-cyan-200 transition-colors hover:bg-cyan-500/30"
+                title={`${text.nextTitle}${nextProject.name}`}
+              >
+                {text.next}
+                <ChevronRight className="h-4 w-4" />
+              </button>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

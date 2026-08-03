@@ -1,5 +1,12 @@
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import {
+  type MouseEvent,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import type { ProjectImage } from "@/data/projects";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
@@ -80,6 +87,11 @@ export default function Lightbox({
     );
   };
 
+  const handleBackdropClick = (event: MouseEvent<HTMLDivElement>) => {
+    if (event.target !== event.currentTarget) return;
+    onClose();
+  };
+
   useEffect(() => {
     if (!isVisible) return;
     if (typeof document === "undefined") return;
@@ -105,80 +117,75 @@ export default function Lightbox({
   const caption = current.caption ?? current.alt;
 
   return (
-    <>
+    <div
+      className="fixed inset-0 z-[70] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
+      data-testid="lightbox-backdrop"
+      onClick={handleBackdropClick}
+    >
       <div
-        className="fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm"
-        onClick={onClose}
-        aria-hidden="true"
-      />
-
-      <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
-        <div
-          ref={dialogRef}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Lightbox"
-          aria-describedby={captionId}
-          tabIndex={-1}
-          className="relative w-full max-w-5xl max-h-[90vh] outline-none"
-          onClick={event => event.stopPropagation()}
-        >
-          <div className="relative bg-slate-950/70 border border-slate-700/60 rounded-lg overflow-hidden shadow-2xl">
-            <div className="absolute top-3 right-3 z-10 flex items-center gap-2">
-              {canNavigate && (
-                <div className="text-xs text-slate-200/80 bg-black/40 px-2 py-1 rounded">
-                  {index + 1} / {safeImages.length}
-                </div>
-              )}
-              <button
-                ref={closeButtonRef}
-                type="button"
-                onClick={onClose}
-                className="p-2 rounded-lg bg-black/40 hover:bg-black/60 text-slate-200 transition-colors"
-                aria-label="Close lightbox"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Lightbox"
+        aria-describedby={captionId}
+        tabIndex={-1}
+        className="relative w-full max-w-5xl max-h-[90vh] outline-none"
+      >
+        <div className="relative bg-slate-950/70 border border-slate-700/60 rounded-lg overflow-hidden shadow-2xl">
+          <div className="absolute top-3 right-3 z-10 flex items-center gap-2">
             {canNavigate && (
-              <>
-                <button
-                  type="button"
-                  onClick={goPrev}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 z-10 p-2 rounded-lg bg-black/40 hover:bg-black/60 text-slate-200 transition-colors"
-                  aria-label="Previous image"
-                >
-                  <ChevronLeft className="w-6 h-6" />
-                </button>
-                <button
-                  type="button"
-                  onClick={goNext}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 z-10 p-2 rounded-lg bg-black/40 hover:bg-black/60 text-slate-200 transition-colors"
-                  aria-label="Next image"
-                >
-                  <ChevronRight className="w-6 h-6" />
-                </button>
-              </>
+              <div className="text-xs text-slate-200/80 bg-black/40 px-2 py-1 rounded">
+                {index + 1} / {safeImages.length}
+              </div>
             )}
+            <button
+              ref={closeButtonRef}
+              type="button"
+              onClick={onClose}
+              className="p-2 rounded-lg bg-black/40 hover:bg-black/60 text-slate-200 transition-colors"
+              aria-label="Close lightbox"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
 
-            <div className="flex items-center justify-center bg-black/30">
-              <img
-                src={resolveAssetUrl(current.src)}
-                alt={current.alt}
-                className="max-h-[80vh] w-auto max-w-full object-contain select-none"
-                draggable={false}
-              />
-            </div>
+          {canNavigate && (
+            <>
+              <button
+                type="button"
+                onClick={goPrev}
+                className="absolute left-3 top-1/2 -translate-y-1/2 z-10 p-2 rounded-lg bg-black/40 hover:bg-black/60 text-slate-200 transition-colors"
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                type="button"
+                onClick={goNext}
+                className="absolute right-3 top-1/2 -translate-y-1/2 z-10 p-2 rounded-lg bg-black/40 hover:bg-black/60 text-slate-200 transition-colors"
+                aria-label="Next image"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </>
+          )}
 
-            <div className="border-t border-slate-700/50 bg-slate-950/60 px-4 py-3">
-              <p id={captionId} className="text-sm text-slate-200 text-center">
-                {caption}
-              </p>
-            </div>
+          <div className="flex items-center justify-center bg-black/30">
+            <img
+              src={resolveAssetUrl(current.src)}
+              alt={current.alt}
+              className="max-h-[80vh] w-auto max-w-full object-contain select-none"
+              draggable={false}
+            />
+          </div>
+
+          <div className="border-t border-slate-700/50 bg-slate-950/60 px-4 py-3">
+            <p id={captionId} className="text-sm text-slate-200 text-center">
+              {caption}
+            </p>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
