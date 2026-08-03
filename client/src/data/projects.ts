@@ -465,6 +465,10 @@ export const projects: Project[] = [
         src: "/images/projects/personal-finance-dashboard/expenses.png",
         alt: "支出管理",
       },
+        {
+        src: "/images/projects/personal-finance-dashboard/stocks.png",
+        alt: "股票資料管理",
+      },
       {
         src: "/images/projects/personal-finance-dashboard/transaction-import.png",
         alt: "交易資料匯入匯入",
